@@ -11,7 +11,8 @@ ul{list-style:none}
 .index-body.sidebar-closed{padding-left:0!important}
 .topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar-height);background:var(--topbar-bg);color:var(--topbar-text);display:flex;align-items:center;justify-content:space-between;overflow-y:hidden;padding:0 24px;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.3)}
 .topbar-left{display:flex;align-items:center}
-.brand-name{font-size:1.6rem;font-weight:800;letter-spacing:1px;color:#ffffff}
+.brand-name{font-size:1.6rem;font-weight:800;letter-spacing:1px;color:#ffffff;align-items: center}
+.brand-icon {display: block;width: 28px;height: 28px;border-radius: 50%;flex-shrink: 0;}
 .topbar-sidebar-toggle{background:none;border:none;color:var(--topbar-text);font-size:1.6rem;cursor:pointer;padding:0 10px;margin-right:12px;line-height:1;display:flex;align-items:center;justify-content:center}
 .topbar-sidebar-toggle:hover{color:#ffffff}
 .topbar-right{display:flex;align-items:center;gap:20px}
