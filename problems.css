@@ -19,27 +19,6 @@
     /* ===== 行动画 ===== */
     .problem-row{cursor:pointer;transition:background .15s;opacity:0;transform:translateY(8px);animation:fadeInRow .4s ease forwards}
     @keyframes fadeInRow{to{opacity:1;transform:translateY(0)}}
-    .problem-row:nth-child(1){animation-delay:.02s}
-    .problem-row:nth-child(2){animation-delay:.04s}
-    .problem-row:nth-child(3){animation-delay:.06s}
-    .problem-row:nth-child(4){animation-delay:.08s}
-    .problem-row:nth-child(5){animation-delay:.10s}
-    .problem-row:nth-child(6){animation-delay:.12s}
-    .problem-row:nth-child(7){animation-delay:.14s}
-    .problem-row:nth-child(8){animation-delay:.16s}
-    .problem-row:nth-child(9){animation-delay:.18s}
-    .problem-row:nth-child(10){animation-delay:.20s}
-    .problem-row:nth-child(11){animation-delay:.22s}
-    .problem-row:nth-child(12){animation-delay:.24s}
-    .problem-row:nth-child(13){animation-delay:.26s}
-    .problem-row:nth-child(14){animation-delay:.28s}
-    .problem-row:nth-child(15){animation-delay:.30s}
-    .problem-row:nth-child(16){animation-delay:.32s}
-    .problem-row:nth-child(17){animation-delay:.34s}
-    .problem-row:nth-child(18){animation-delay:.36s}
-    .problem-row:nth-child(19){animation-delay:.38s}
-    .problem-row:nth-child(20){animation-delay:.40s}
-    .problem-row:nth-child(n+21){animation-delay:.42s}
 
     /* ===== 状态颜色 ===== */
     .problem-row.state-not_started{border-left:2px solid #b3d4ff}
