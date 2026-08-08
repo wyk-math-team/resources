@@ -9,7 +9,14 @@
     .col-tags{width:auto}
     .col-level{width:70px;text-align:right}
     .col-solves{width:70px;text-align:right}
-
+    /* 翻页刷新闪烁特效 */
+    .updates-panel.refreshing .problems-table {
+      animation: refreshFlash 0.4s ease;
+    }
+    @keyframes refreshFlash {
+      0% { border-color: var(--accent); box-shadow: 0 0 8px var(--accent); }
+      100% { border-color: var(--border-color); box-shadow: none; }
+    }
     /* ===== 显示 / 隐藏标签列 ===== */
     .show-tags .col-name{width:45%}
     .show-tags .col-tags{width:45%}
