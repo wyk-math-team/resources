@@ -219,3 +219,41 @@ table tbody tr:hover td{background-color:rgba(0,0,0,.06)!important;transition:ba
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
 }
+/* 桌面端侧边栏固定 */
+@media (min-width: 769px) {
+  .sidebar {
+    transform: translateX(0) !important;
+    position: fixed;
+    left: 0;
+    top: var(--topbar-height);
+    bottom: 0;
+    width: var(--sidebar-width);
+    z-index: 900;
+    transition: none;
+  }
+  .index-body {
+    padding-left: var(--sidebar-width);
+  }
+}
+
+/* 移动端侧边栏从顶部滑出 */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: var(--topbar-height);
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    z-index: 900;
+    background: var(--sidebar-bg);
+    overflow-y: auto;
+  }
+  .sidebar.open {
+    transform: translateY(0);
+  }
+  .index-body {
+    padding-left: 0;
+  }
+}
