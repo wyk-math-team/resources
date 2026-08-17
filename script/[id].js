@@ -298,7 +298,7 @@
             <div id="imageAnswerGroup" style="display:none">
               <label>Upload Image (max 1):</label>
               <input type="file" id="imageFileInput" accept="image/*" style="display:none">
-              <button id="pickImageBtn" class="check-btn">📷 Choose / Take Photo</button>
+              <button id="pickImageBtn" class="check-btn">Choose / Take Photo</button>
               <img id="imagePreview" style="max-width:150px;display:none;margin-left:10px">
               <button id="removeImageBtn" style="display:none">✕</button>
             </div>
@@ -436,38 +436,50 @@
       const exprGroup = document.getElementById('expressionAnswerGroup');
       const answerInput = document.getElementById('answerInput');
       modeButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const mode = btn.dataset.mode;
-          currentMode = mode;
-          modeButtons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          textGroup.style.display = mode === 'numeric' ? 'block' : 'none';
-          imageGroup.style.display = mode === 'photo' ? 'block' : 'none';
-          exprGroup.style.display = mode === 'expression' ? 'block' : 'none';
-          if (mode === 'numeric') {
-            answerInput.setAttribute('inputmode', 'decimal');
-            answerInput.setAttribute('type', 'text');
-            answerInput.placeholder = 'Enter a number';
-          } else if (mode === 'expression') {
-            answerInput.setAttribute('inputmode', 'text');
-            answerInput.setAttribute('type', 'text');
-            answerInput.placeholder = 'Enter answer';
-          } else {
-            answerInput.setAttribute('inputmode', 'text');
-            answerInput.setAttribute('type', 'text');
-          }
-          if (mode !== 'photo') {
-            imageData = '';
-            document.getElementById('imagePreview').style.display = 'none';
-            document.getElementById('removeImageBtn').style.display = 'none';
-            document.getElementById('imageFileInput').value = '';
-          }
-          if (mode === 'expression') {
-            document.getElementById('exprInput').focus();
-            updateExprPreview();
-          }
-        });
-      });
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    currentMode = mode;
+    modeButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 显示/隐藏各组
+    const textGroup = document.getElementById('textAnswerGroup');
+    const imageGroup = document.getElementById('imageAnswerGroup');
+    const exprGroup = document.getElementById('expressionAnswerGroup');
+    const answerInput = document.getElementById('answerInput');
+    const exprInput = document.getElementById('exprInput');
+
+    textGroup.style.display = mode === 'numeric' ? 'block' : 'none';
+    imageGroup.style.display = mode === 'photo' ? 'block' : 'none';
+    exprGroup.style.display = mode === 'expression' ? 'block' : 'none';
+
+    if (mode === 'numeric') {
+      answerInput.setAttribute('inputmode', 'decimal');
+      answerInput.setAttribute('type', 'text');
+      answerInput.placeholder = 'Enter a number';
+      // 聚焦到 answerInput
+      setTimeout(() => answerInput.focus(), 100);
+    } else if (mode === 'expression') {
+      // 聚焦到 exprInput，并确保它使用文本键盘
+      exprInput.setAttribute('inputmode', 'text');
+      setTimeout(() => exprInput.focus(), 100);
+    } else {
+      // photo 模式不需要聚焦输入框
+    }
+
+    // 清理 imageData（如果离开 photo 模式）
+    if (mode !== 'photo') {
+      imageData = '';
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('removeImageBtn').style.display = 'none';
+      document.getElementById('imageFileInput').value = '';
+    }
+
+    if (mode === 'expression') {
+      updateExprPreview();
+    }
+  });
+});
 
       const pickBtn = document.getElementById('pickImageBtn');
       const imageInput = document.getElementById('imageFileInput');
