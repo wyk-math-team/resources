@@ -755,7 +755,7 @@
             <div class="discussion-post" data-id="${d._id}">
               <div class="post-header">
                 <span class="post-user">${escapeHtml(d.username)}</span>
-                <span class="post-time">${new Date(d.createdAt).toLocaleString()}</span>
+                <span class="post-time">${new Date(d.createdAt).toLocaleString('zh-HK', { timeZone: 'Asia/Hong_Kong' })}</span>
               </div>
               <div class="post-content">${DOMPurify.sanitize(d.content, domPurifyConfig)}</div>
               <div class="post-actions">
