@@ -75,11 +75,19 @@
     }
 
     async function loadProblem() {
-      try {
-        const data = await apiCall(`/api/problem?id=${encodeURIComponent(problemId)}`);
-        return data.success ? data.problem : null;
-      } catch (err) { return null; }
+  try {
+    const cdnUrl = `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/problems/${problemId}.json`;
+    const res = await fetch(cdnUrl);
+    if (res.ok) {
+      const data = await res.json();
+      return { success: true, problem: { id: problemId, ...data } };
     }
+  } catch (e) { /* 忽略 */ }
+
+  // 回退到原有 API
+  const data = await apiCall(`/api/problem?id=${encodeURIComponent(problemId)}`);
+  return data;
+}
 
     async function loadFavorites() {
       try {
