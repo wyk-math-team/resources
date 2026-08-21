@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $x$ and $y$ are positive integers and $\\dfrac{1}{x} +\\dfrac{1}{y} = \\dfrac{1}{2010}$, find the greatest value of $x$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

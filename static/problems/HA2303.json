@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the number of ways to write 2024 as the difference of square of the two positive integers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

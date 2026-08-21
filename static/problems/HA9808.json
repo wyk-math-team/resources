@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If 1998 is written as a product of two positive integers such that the difference of these two integers is as small as possible, find this difference.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

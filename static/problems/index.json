@@ -1,0 +1,4056 @@
+[
+  {
+    "id": "IP2304",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2306",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.64,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2101",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.6297237215880145,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2105",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.3962352805052447,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1801",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.57,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1702",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.97,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1704",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.1,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1705",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.82,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1706",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.29,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1710",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.35,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1605",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.06,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1606",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.57,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1501",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.87,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1507",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.31,
+    "tags": [
+      "trigonometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1401",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.9,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1301",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.12,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1302",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.05,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1303",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.48,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1205",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.54,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2309",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.63,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2313",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.55,
+    "tags": [
+      "geometry",
+      "IMO Prelim",
+      "bug"
+    ]
+  },
+  {
+    "id": "IP2314",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.3,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2201",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.81,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2102",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.852267934098592,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2104",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.678197577879573,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2001",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 2.97,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1902",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.450006686962579,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1802",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.68,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1805",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.05,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1701",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.25,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1707",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.11,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1604",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.44,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1607",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.48,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1508",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.45,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1512",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.22,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1514",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.97,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1516",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.54,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1402",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.9,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1210",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.06,
+    "tags": [
+      "trigonometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1102",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.08,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1004",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.55,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0905",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.858427349420668,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0701",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.32,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0702",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.27,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0602",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.632972520492443,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0507",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.08,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0202",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.96,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0203",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.3,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0204",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.5,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0205",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.5,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0207",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.12,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0209",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.52,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0210",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.3,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1201",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.08,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1202",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.75,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1208",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.11,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1209",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.72,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1001",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.58,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0903",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.3463687900540595,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0603",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.9826576284352075,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0503",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.27,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0206",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.8,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2401",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2301",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.2,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2303",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.97,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2305",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.2,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2310",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.66,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2311",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.35,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2312",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.02,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2103",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.7245163144783815,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1907",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.956153955785044,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1803",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.11,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1806",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1601",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.4,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1608",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.15,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1609",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.16,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1505",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.36,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1509",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.75,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1510",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.81,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1511",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.62,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1515",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.05,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1307",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.7,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2302",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.93,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2307",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.53,
+    "tags": [
+      "geometry",
+      "IMO Prelim",
+      "bug"
+    ]
+  },
+  {
+    "id": "IP2308",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.68,
+    "tags": [
+      "algebra",
+      "IMO Prelim",
+      "bug"
+    ]
+  },
+  {
+    "id": "IP2107",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.1913580753514745,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1901",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.423873655820881,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1906",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.834948975850638,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1804",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.34,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1703",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.87,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1708",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.07,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1709",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.97,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1602",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.19,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1603",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.79,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1502",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.13,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1503",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.17,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1504",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.28,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1506",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.62,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1513",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.25,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1403",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.79,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1404",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.04,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1203",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.68,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1207",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.79,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1211",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.13,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1101",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0802",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.11,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0601",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.900351703841195,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0501",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0506",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.28,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0208",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.9,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0212",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.13,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0213",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.52,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1204",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.12,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1106",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.073269585261578,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1002",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.11,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1003",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.86,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0901",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.811399950992873,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0801",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.02,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0505",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.89,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0301",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.8,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0302",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.3,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0307",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.16,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0201",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.24,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0211",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.7,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2501",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.13,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2502",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.89,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2503",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.84,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2504",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.36,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2505",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.19,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0401",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.4,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0404",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.2,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0405",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.9,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "676767",
+    "name": "6+7",
+    "difficulty": 67,
+    "tags": [
+      "67"
+    ]
+  },
+  {
+    "id": "HA2301",
+    "name": "Past Paper",
+    "difficulty": 3.27,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2302",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2303",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2304",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2305",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2306",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2307",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2308",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2309",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2310",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2311",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2312",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2313",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2317",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2318",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2320",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2401",
+    "name": "Past Paper",
+    "difficulty": 1.93,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2402",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2403",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2404",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2405",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2406",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2409",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2411",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2412",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2413",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2414",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2415",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2417",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2418",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2501",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2502",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2503",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2505",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2506",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2509",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2511",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2512",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2513",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2514",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2518",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2519",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2520",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1601",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1602",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1603",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1605",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1606",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1608",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1609",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1611",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1614",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1616",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1617",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1619",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1701",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1702",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1703",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1704",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1705",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1706",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1707",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1708",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1709",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1711",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1712",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1714",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1715",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1716",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1718",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1801",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1802",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1803",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1804",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1805",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1806",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1807",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1808",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1809",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1810",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1811",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1812",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1813",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1814",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1815",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1816",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1817",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1818",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2201",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2202",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2203",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2204",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2205",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2207",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2210",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2214",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2217",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2218",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1001",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1002",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1003",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1004",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1005",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1006",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1008",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1009",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1010",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1013",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1014",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1016",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1017",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1101",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1102",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1103",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1104",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1105",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1106",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1107",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1108",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1110",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1111",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1113",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1115",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1202",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1203",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1204",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1205",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1207",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1208",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1211",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1212",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1214",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1303",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1304",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1305",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1306",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1307",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1308",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1309",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1311",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1312",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1313",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1314",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1315",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1316",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1317",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1401",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1402",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1403",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1404",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1405",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1406",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1407",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1409",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1411",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1412",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1413",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1414",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1415",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1417",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1418",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1504",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1505",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1506",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1508",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1509",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1510",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1511",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1512",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1513",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1514",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1516",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA1517",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9801",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9802",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9803",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9804",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9807",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9808",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9809",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9810",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9811",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9812",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9816",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9817",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9901",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9902",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9903",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9906",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9907",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9908",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9909",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA9913",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0004",
+    "name": "Past Paper",
+    "difficulty": 1.83,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0007",
+    "name": "Past Paper",
+    "difficulty": 1.72,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0008",
+    "name": "Past Paper",
+    "difficulty": 4.16,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0010",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0011",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0012",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0013",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0014",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0015",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0016",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0017",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0101",
+    "name": "Past Paper",
+    "difficulty": 2.02,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0102",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0104",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0105",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0106",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0107",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0108",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0110",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0111",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0113",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0115",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0201",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0202",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0203",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0204",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0205",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0206",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0210",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0212",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0214",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0217",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0301",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0302",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0303",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0304",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0308",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0309",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0311",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0312",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0313",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0314",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0318",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0401",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0405",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0406",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0407",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0409",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0410",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0411",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0412",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0413",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0414",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0416",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0501",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0502",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0503",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0504",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0505",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0506",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0507",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0510",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0511",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0512",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0513",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0519",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0601",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0602",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0603",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0604",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0605",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0609",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0610",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0611",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0614",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0615",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0618",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0620",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0701",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0702",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0703",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0704",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0706",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0707",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0709",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0710",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0711",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0712",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0714",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0717",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0718",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0719",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0804",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0805",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0806",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0807",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0808",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0809",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0810",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0811",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0812",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0813",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0814",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0816",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0817",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0819",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0820",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0901",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0902",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0903",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0904",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0905",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0906",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0907",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0909",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0910",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0911",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0912",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0913",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0915",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0917",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0918",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "A001",
+    "name": "Introduction I",
+    "difficulty": 1,
+    "tags": [
+      "introduction"
+    ]
+  },
+  {
+    "id": "A002",
+    "name": "Introduction II",
+    "difficulty": 1,
+    "tags": []
+  },
+  {
+    "id": "A003",
+    "name": "Introduction III",
+    "difficulty": 0.1,
+    "tags": []
+  }
+]

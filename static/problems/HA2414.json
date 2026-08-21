@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The product of all the digits of a positive integer is called the \"digit product\" of that integer. For example: the digit product of 4 is 4; the digit product of 56 is $5 \\times 6 = 30$; the digit product of 789 is $7 \\times 8 \\times 9 = 504$. Among the integers from 1 to 2025, how many integers have a digit product of 8?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

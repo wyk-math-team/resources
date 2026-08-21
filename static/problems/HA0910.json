@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $A$ is the product of all the distinct positive factors of 2010. Find the value of $A$. (Answer in index form is accepted)",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

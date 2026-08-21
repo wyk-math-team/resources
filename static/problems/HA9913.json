@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find a four-digit number abcd, which is equal to dca when multiplied by 9.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

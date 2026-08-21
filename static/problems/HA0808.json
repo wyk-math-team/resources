@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $B$ is a 6-digit number $a2009b$ and is divisible by 12, find the greatest value of $B$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

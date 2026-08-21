@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $x^{2} - 2010x + 1 = 0, A = x^{2} + \\dfrac{1}{x^{2}}$. Find the value of $A$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

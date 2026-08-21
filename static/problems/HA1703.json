@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $2^{x} = 2018$ and $1009^{y} = 2018$, find the value of $\\dfrac{1}{x} +\\dfrac{1}{y}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

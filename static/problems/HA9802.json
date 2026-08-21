@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $a \\# b = ab - 1$, find the value of $\\dfrac{(2\\#3)\\#5}{2\\#(3\\#5)}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

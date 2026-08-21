@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "In a certain S1 tutorial class, 15 students take Mathematics, 12 take Chinese and 9 take English. It is known that there are 22 students in the class and each student must take at least one of the above subjects. At most how many students take all the three subjects?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

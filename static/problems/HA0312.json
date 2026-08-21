@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $\\{a_{n}\\}$ be a sequence such that $a_{1} = 1$ and $2004a_{n + 1} = 1 + 2004a_{n}$. Find $a_{2004}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

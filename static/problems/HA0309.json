@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A ship travels from $A$ to $B$ in 5 days. If it travels from $B$ to $A$, it will take 7 days. Suppose the direction and the speed of the current remain constant. How long does it take for a raft floating along the water to go from $A$ to $B$?",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

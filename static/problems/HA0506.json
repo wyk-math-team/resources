@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $\\mathbf{n}^3 +3\\mathbf{n} + 2006$ can be divided by $\\mathbf{n} + 3$ and $\\mathbf{n}$ is a 3-digit integer, find the greatest possible value of $\\mathbf{n}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

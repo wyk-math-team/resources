@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "For any integer n, E(n) denotes the sum of the odd digits of n. For example, $E(1998) = 1 + 9 + 9 = 19$. Find $E(1) + E(2) + ... + E(98) + E(99)$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

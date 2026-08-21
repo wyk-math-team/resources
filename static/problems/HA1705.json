@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The lengths of two sides of a triangle are 20 and 18 respectively. If the length of the third side is an integer. Find the maximum perimeter of this triangle.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

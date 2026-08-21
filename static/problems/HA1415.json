@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Fill in numbers in the boxes below so that the sum of the entries in each three consecutive boxes is 2015. Find the number that goes into the leftmost box.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

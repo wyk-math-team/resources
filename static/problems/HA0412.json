@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "In $\\Delta ABC$, $\\mathrm{BC} = 2004$, $\\mathrm{AC} = 2005$, $\\mathrm{AB} = \\sqrt{2004 + 2005}$, find $\\sin \\mathrm{A} \\times \\cos \\mathrm{C}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

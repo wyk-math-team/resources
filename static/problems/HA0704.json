@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A rectangle, whose sides are of integer length, has its perimeter and area equal in value. Find the area(s) of all these possible rectangle(s).",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

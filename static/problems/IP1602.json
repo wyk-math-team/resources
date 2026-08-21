@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $S$ be the set of all 2016-digit positive integers whose digits are all ‘2’, ‘0’, ‘1’\nor ‘6’. If a positive integer is chosen from $S$ at random, what is the probability that\nthe leftmost digit is smaller than the rightmost digit?",
+  "difficulty": 3.19,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

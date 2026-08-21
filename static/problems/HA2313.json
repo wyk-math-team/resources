@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "ABCDEF is a regular hexagon and its area is equal to $36 \\mathrm{~cm}^2$. G is a point on AB such that $AG:GB = 1:3$. H is a point on CD such that $CH:HD = 2:1$. Find the area of the quadrilateral GBCH.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

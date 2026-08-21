@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A rectangle has an area of $960 \\mathrm{cm}^2$ and sides in centimeters which are multiples of 4. How many rectangular shapes satisfy this condition? (note: rectangles of dimensions $4 \\mathrm{cm} \\times 240 \\mathrm{cm}$ and $240 \\mathrm{cm} \\times 4 \\mathrm{cm}$ are counted as one shape.)",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

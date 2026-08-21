@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A triangle has two medians of lengths $9$ and $12$. Find the largest possible area of the triangle.",
+  "difficulty": 5.08,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

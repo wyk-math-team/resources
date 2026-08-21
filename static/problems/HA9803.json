@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $x = \\dfrac{1}{2}\\left(\\sqrt[3]{7} - \\dfrac{1}{\\sqrt[3]{7}}\\right)$, find the value of $\\left(x + \\sqrt{1 + x^{2}}\\right)^{3}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

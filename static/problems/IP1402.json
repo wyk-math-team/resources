@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "If x is a real number, find the minimum value of $|x+1|+2|x-5|+|2x-7|+|\\dfrac{x-11}{2}|$.",
+  "difficulty": 5.9,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

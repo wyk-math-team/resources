@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $a$ is a prime number and $b$ is an odd number. If $a^2 + b^2 = 125$ and $b > 0$, find $a$ and $b$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

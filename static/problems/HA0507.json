@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $[\\mathbf{x}] =$ the greatest integer smaller than or equal to $\\mathbf{x}$. Find $\\mathbf{x}$ such that $\\mathbf{x}^3 - [\\mathbf{x}] = 4$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

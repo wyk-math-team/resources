@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Divide 2016 marbles among 130 people. If the total number of marbles obtained by any 31 people is not greater than 531, find the greatest possible number of marbles obtained by one person.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

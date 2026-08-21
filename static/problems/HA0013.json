@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "List these numbers in increasing order: $2^{800}, 3^{600}, 5^{400}, 6^{200}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

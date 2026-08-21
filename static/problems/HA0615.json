@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Po Leung Association provides dormitory for a certain number of students. If every room accommodates 4 students, 30 of the students will have no offer. If every room accommodates 9 students, one of the rooms will not be full. Find the number of rooms provided and the total number of students needed to be accommodated.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Each cell in the figure below is filled with a number such that the sum of the numbers in any three consecutive cells is 2026. Find the value of $a + b + c$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

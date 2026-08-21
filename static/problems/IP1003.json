@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $n$ be an integer greater than 1. If $n$ is greater than 1200 times any one of its prime factors, find the smallest possible value of $n$.",
+  "difficulty": 5.86,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

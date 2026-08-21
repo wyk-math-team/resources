@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "In the sequence $1^{1}, 2^{2}, 3^{3}, 4^{4}, \\ldots , 2008^{2008}, 2009^{2009}$, let the last digit of the sum of the smallest 1005 terms be $M$ and the last digit of the sum of the greatest 1004 terms be $N$. Find the value of $M - N$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $2012^{3} \\times 2013^{3} = a \\times 10^{p}$, where $p$ is a positive integer and $1 \\leq a < 10$, find the value of $p$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

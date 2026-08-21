@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that the product of a and b is greater than the sum of a and b by 142 where a, b are positive integers. Find the greatest value of a + b.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

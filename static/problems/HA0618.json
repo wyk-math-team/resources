@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Different groups of three two-digit numbers are formed from 1, 2, 3, 4, 5 and 6 with each digit used exactly once. Add the three two-digit numbers in each group. Write down all attainable sums.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

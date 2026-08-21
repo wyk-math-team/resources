@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "ABCDEFGH is a cube. It has 12 edges and 6 faces. On each face there are 2 diagonals. Altogether there are 12 edges and 12 diagonals, which means a total of 24 line segments. It is known that out of these 24 line segments, one can choose $N$ of them such that no two of these $N$ line segments are co-planar. What is the maximum value of $N$?",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

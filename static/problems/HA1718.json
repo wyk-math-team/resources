@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The number $2017 = 1008 + 1009$ is the sum of two consecutive positive integers. Write 2018 as the sum of at least two consecutive positive integers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

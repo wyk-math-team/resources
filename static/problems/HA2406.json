@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $2025! = 2025 \\times 2024 \\times 2023 \\times \\ldots \\times 3 \\times 2 \\times 1$. How many zeros are there at the end of 2025!?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

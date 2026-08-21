@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $y$ is an integer, $x = \\sqrt{124 + \\sqrt{2015}}$ and $x\\leq y$, find the least value of $y$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

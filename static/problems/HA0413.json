@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Ming went to school when it was 12:00 shown at the clock at home. On his way to school, he looked at the clock in the church and it was 12:20pm. When he reached school, he noted that the time shown at the clock in the school hall was 12:32pm. After staying for 10 minutes at school, he went back home. On his way back, he looked at the church clock again and it was 12:52pm and that the clock at home was 1:16pm when he arrived home. Ming was told that only the time shown at the clock in his home was correct, and if we assume that the speed of Ming remained constant during his journey, find the difference between both times shown at the church clock and the school hall clock and the time shown at the clock at home respectively.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

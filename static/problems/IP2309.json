@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the largest real root to the equation $\\sqrt[3]{x^3 + 3x^2 - 4} - x = \\sqrt[3]{x^3 - 3x + 2} - 1$.",
+  "difficulty": 6.63,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

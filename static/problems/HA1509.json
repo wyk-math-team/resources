@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $N = 1 + 2 + 3 + \\ldots +k$, $k$ is integer, we call $N$ a triangular number. Year 2016 is a triangular year, what is the next triangular year?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

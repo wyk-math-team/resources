@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The diagonals AC and BD of quadrilateral ABCD intersect at O. Given that $\\angle BAD + \\angle ACB = 180^{\\circ}$, $BC = 3$, $AD = 4$, $AC = 5$ and $AB = 6$. Find the value of $\\dfrac{DO}{OB}$.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

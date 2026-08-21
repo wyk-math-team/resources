@@ -1,0 +1,10 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In $\\triangle ABC$, $AC = \\sqrt{3}\\, AB$ and $BC = 2$. $D$ is a point inside $\\triangle ABC$ such that $\\angle BDC = 90^\\circ$, $\\angle DAC = 18^\\circ$ and $BD = 1$. Find $\\angle DAB$.",
+  "difficulty": 6.55,
+  "tags": [
+    "geometry",
+    "IMO Prelim",
+    "bug"
+  ]
+}

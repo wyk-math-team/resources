@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If the lengths of three sides of a triangle are $x$, $20 - x$ and $18$, where $x$ is a positive integer. Find the number of possible distinct triangles that can be drawn.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If the median of five integers $54, x - 9, x - 12, x - 15$ and $x + 2$ is 50, find the value of $x$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

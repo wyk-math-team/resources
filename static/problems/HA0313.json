@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The mean, unique mode, median and range of a collection of ten integers are all equal to 10. Find the largest integer that can be an element of this collection.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

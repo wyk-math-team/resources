@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "From the digits 2, 0, 1 and 3, when each digit cannot be used repeatedly, different 4-digit numbers are formed. Find the sum of all these 4-digit numbers.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $31^{x} = 2015$ and $65^{y} = 2015$, find the value of $\\dfrac{1}{x} +\\dfrac{1}{y}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

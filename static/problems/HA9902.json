@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $\\dfrac{a + b}{a - b} = \\dfrac{7}{4}$, find the value of $\\dfrac{a^2}{b^2}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

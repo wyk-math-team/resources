@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "There are two clocks with an hour hand and a minute hand. One runs 30 minutes slower each hour, and the other runs 20 minutes faster each hour. The two clocks are set right at midnight. What time is shown on the clocks when both look the same the next time?",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

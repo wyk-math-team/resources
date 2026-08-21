@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The total score of twenty-three students in a test is 2009 and no two students have the same score. Among them, the highest score obtained is 99 and the lowest score is A. Find the smallest value of A.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

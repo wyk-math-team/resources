@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $mn = 3m + 5n$, where $m \\cdot n$ are positive integers, find the minimum value of $m + n$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "x, y, z are three positive integers, their highest common factor is 2023, while their least common multiplier is 91035. Find the least possible value of x + y + z.",
+  "difficulty": 3.27,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

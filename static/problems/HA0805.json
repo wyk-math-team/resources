@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Calculate $(\\dfrac{1}{2} + \\dfrac{1}{3} + \\dfrac{1}{4} + \\dots + \\dfrac{1}{2009})(\\dfrac{1}{2} + \\dfrac{1}{3} + \\dfrac{1}{4} + \\dots + \\dfrac{1}{2008}) - (1 + \\dfrac{1}{2} + \\dfrac{1}{3} + \\dots + \\dfrac{1}{2009})(\\dfrac{1}{2} + \\dfrac{1}{3} + \\dfrac{1}{4} + \\dots + \\dfrac{1}{2008})$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

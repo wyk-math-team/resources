@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that the sum of 2015 consecutive integers is a square number, $x$ is the greatest number among the integers, find the value of $x$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

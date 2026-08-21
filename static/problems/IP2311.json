@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In a school there are 2023 students, numbered 1 to 2023. The teacher met the students one by one in the order of their numbers, and gave a candy to each student except if that would mean three students whose numbers form an arithmetic sequence all got candies. In this way, the teacher would give a candy to students 1 and 2, but not student 3 (as 1, 2, 3 form an arithmetic sequence), then to students 4 and 5, but not to students 6 and 7 (as both 4, 5, 6 and 1, 4, 7 are arithmetic sequences), and so on. How many students got candies in the end?",
+  "difficulty": 6.35,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

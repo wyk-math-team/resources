@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the remainder when $19^{17^{15^{.^{.^{3^{1}}}}}}$ is divided by 100.",
+  "difficulty": 5.28,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

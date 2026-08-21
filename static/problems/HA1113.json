@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $x + y = 5$ and $z^{2} = xy + y - 9$, find the value of $2x + 11y + 2012z$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

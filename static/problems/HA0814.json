@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the sum of all roots of the equation $(x^{2} - x - 1)^{x + 2009} = 1$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

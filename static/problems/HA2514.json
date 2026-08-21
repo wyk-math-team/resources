@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A box contains 26 red, 26 yellow, 26 blue, and 26 white marbles. If Siu Ming draws marbles from the box while blindfolded, what is the minimum number of marbles he must draw to guarantee that he has at least 20 marbles of the same colour?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

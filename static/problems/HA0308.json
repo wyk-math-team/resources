@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $1^{3} + 2^{3} + 3^{3} + \\ldots +15^{3} = 14400$, find $2^{3} + 4^{3} + 6^{3} + \\ldots +30^{3}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $0 \\leq x \\leq 90$, $0 \\leq y \\leq 90$ and $(0.5 + \\sin x^{0})^{2014} = \\sin y^{0}$, find the greatest possible value of $x + y$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

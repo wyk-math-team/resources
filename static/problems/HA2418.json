@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find all positive integers $a, b$ and $c$ satisfying the following equation.<br>$$1 + (2^{a})(7^{b}) = c^{2}$$",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

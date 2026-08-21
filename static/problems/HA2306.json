@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "M is a four-digit number, when M is added to 2024, there is at least one carry. How many numbers M satisfy the above conditions?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $a^{b^{c}}$ represents a raised to the power $b^{c}$. Find the last digit of $2017^{2018^{2019}}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

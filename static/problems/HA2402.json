@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the smallest possible value of $k$, in order that the inequality $\\sqrt{x} - \\sqrt{x - k} \\geq 3$ would have a real solution.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

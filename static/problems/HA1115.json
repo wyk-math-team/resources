@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The lengths of the sides of a right-angled triangle are $a, b, c$ where $c$ is the length of hypotenuse. If $\\dfrac{a + b + c}{a + c} = \\sqrt{2}$ and the area of the triangle is 2, find the perimeter of the triangle.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

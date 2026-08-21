@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Given that the length of the hypotenuse of a right-angled triangle is $c$ and the length of the other two sides are $a$ and $b$. If $a, b, c$ are integers and $c = \\dfrac{1}{3} ab - (a + b)$, find the greatest value of $c$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

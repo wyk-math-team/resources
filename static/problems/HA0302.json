@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $x = \\dfrac{\\sqrt{11} - 1}{3}$. Find the value of $9x^{2} + 6x + 2004$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the sum of all positive factors of either 96 or 180.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

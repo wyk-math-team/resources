@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The sequence $a_1, a_2, a_3, \\ldots$ satisfies $a_1 = 20$, $a_9 = 5$, and if $n \\geq 3$, $a_n$ is the arithmetic mean of the first $n - 1$ terms. Find $a_2$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

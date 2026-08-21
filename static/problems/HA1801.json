@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "From 1 to 2019, how many numbers are multiples of 3 and are relatively prime with 15?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

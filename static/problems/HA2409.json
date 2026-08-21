@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A set of 25 different positive integers is arranged in descending order and their mean is 20. Find the greatest possible value of the 5th integer.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

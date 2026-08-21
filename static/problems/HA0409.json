@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "There is a sequence of nine numbers. The average of the first five numbers is 7, and the average of the last five numbers is 10. If the average of all nine numbers is 9, find the fifth number.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

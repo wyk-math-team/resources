@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The product of three prime numbers is seven times their sum. Find the three prime numbers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

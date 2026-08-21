@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $x$ and $y$ are two numbers such that their sum, product and quotient are all equal, find $x + y$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Divide a certain number of pencils among students. If the pencils are distributed to classes A, B and C, each will get 42 pencils; if distributed to class A only, each will get 105; if distributed to class B only, each will get 98. If the pencils are distributed to class C only, how many pencils can each get?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

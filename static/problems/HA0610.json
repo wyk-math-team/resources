@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $2007! = 2007 \\times 2006 \\times 2005 \\times \\ldots \\times 3 \\times 2 \\times 1$. How many trailing zeros are there in 2007!?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

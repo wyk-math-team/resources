@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let m and n be positive integers where m > n. If $m = (m - n)^2$ and n is equal to 25 times the H.C.F. of m and n, find the L.C.M. of m and n.",
+  "difficulty": 5.84,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

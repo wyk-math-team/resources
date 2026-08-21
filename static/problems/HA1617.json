@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Each cell in the $3 \\times 3$ grid is marked with a number denoting the perimeter of the corresponding rectangle. In the figure, four of the cells are marked with the given numbers, while the numbers in the other five cells are denoted by $p, q, r, s$ and $t$.<br>(a) Find the value of $p$.<br>(b) If $q = 20$, find the values of $r, s$ and $t$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

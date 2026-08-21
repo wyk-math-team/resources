@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $(a,b)$ are the solution of $\\dfrac{1}{a} +\\dfrac{1}{b} = \\dfrac{1}{6}$ and $a,b$ are positive integers, how many solutions are there?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

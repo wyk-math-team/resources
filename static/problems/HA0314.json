@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $a_{1},a_{2},a_{3},\\dots$ be a sequence of positive integers, $a_{1}< a_{2}< a_{3}< \\ldots$ and $a_{n + 2} = a_{n} + a_{n + 1}$ for all $n\\geq 1$. If $a_{7} = 200$, find $a_{8}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$\\triangle ABC$ has area 1 and has $AB > AC$. \nThe internal bisector of $\\angle A$ meets $BC$ at $D$, \nand $\\triangle DBC' \\sim \\triangle ABC$ where $C'$ is the image of $C$ \nupon reflection across $AD$. \nWhen the perimeter of $\\triangle ABC$ is minimised, find the length of $AB$.",
+  "difficulty": 5.81,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

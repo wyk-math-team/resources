@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Using the 4 digits {2, 0, 1, 7} without repetition, how many different 3-digit numbers can be formed?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

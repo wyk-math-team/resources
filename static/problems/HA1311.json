@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $a, b$ are integers and $(ab)^{2} + (a + b)^{2} = 1$. How many pairs $(a, b)$ can satisfy the above conditions?",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

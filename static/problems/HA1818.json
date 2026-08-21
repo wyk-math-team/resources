@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "There are 2019 cards with number 1, 2, ..., 2018, 2019 and these cards will be put into 673 boxes. If the sums of the numbers on the cards in those boxes are all different, where the minimum is N, find the maximum value of N.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $x^{3} + x + 1 = 0$. Find the value of $\\dfrac{1}{(1 + x^{2})^{2}} +\\dfrac{1}{x}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

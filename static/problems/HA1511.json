@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the number of trailing zeros in $2016^{5}\\times 5^{2016}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

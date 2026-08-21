@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The mean, median and mode of five integers are 77, 87 and 97 respectively. If their range is 47, find the second smallest of these five integers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

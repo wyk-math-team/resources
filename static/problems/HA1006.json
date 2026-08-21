@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "How many distinct numbers are there in the $4\\times 4\\times 4$ \"multiplication cube\", that is, the sixty-four numbers $A\\times B\\times C$ where $A,B,C$ are integers running from 1 to 4?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

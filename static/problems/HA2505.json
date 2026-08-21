@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $A$ be the integer obtained by forming the integers from 1 to 2026 in order, that is,<br>$$A = 123456789101112131415\\dots 20252026$$<br>How many digits does $A$ have?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

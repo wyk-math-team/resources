@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "There are 2009 identical colour balls, of which 1000 are red, 801 are yellow and the rest are blue. In order to get at least 801 balls of the same colour, what is the minimum number of balls that must be drawn?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

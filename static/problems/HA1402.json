@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $a, b$ and $c$ are integers and $abc=2015$, find the smallest value of $a+b+c$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Natural numbers are written down on a strip of paper in ascending order: 123456789101112131415.... The paper is then cut into pieces, each of them contains 3 digits. For example, 123, 456, 789, 101, 112, 131, .... The digits appear on the first piece is 123 and the next piece with digits 123 on it is the $n^{\\mathrm{th}}$ piece. Find $n$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

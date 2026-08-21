@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "How many 0's are there at the right end of $2019\\times 2018\\times 2017\\times \\ldots \\times 1$?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

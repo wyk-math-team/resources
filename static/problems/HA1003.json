@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Solve $\\dfrac{x}{11\\times 13} +\\dfrac{x}{13\\times 15} +\\dots +\\dfrac{x}{2009\\times 2011} = \\dfrac{11}{2011}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

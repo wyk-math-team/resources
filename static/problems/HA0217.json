@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Four wounded soldiers have to cross a damaged bridge at night to escape from enemy fire. The bridge can only take two soldiers at a time; when two soldiers cross together, they have to travel at the speed of the slower member. The four soldiers have only one torch between them: to cross safely the torch has to go across each time. If the four soldiers individually take 1, 2, 4 and 6 minutes to cross the bridge, find the minimum time needed for all four to cross safely.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

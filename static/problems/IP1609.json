@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $Q(x)$ be a polynomial in which all coefficients are <b><i>non-negative</i></b> integers. If\n$Q(1) = 4$ and $Q(5) =152$ , find the value of $Q(7)$ .",
+  "difficulty": 5.16,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

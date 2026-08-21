@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find all points on the real $x - y$ plane that satisfying the following system of equations: <br>$(x + \\sqrt{1 + x^{2}})(y + \\sqrt{1 + y^{2}}) = 1$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

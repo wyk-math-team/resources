@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Consider a sequence $\\{a_{n}\\}$ such that $a_{1} = x > 0$, and $a_{n + 1} = \\dfrac{a_{n}}{1 + a_{n}}$ where $n\\geq 1$. If $a_{2012} = \\dfrac{1}{2013}$, find the value of $x$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

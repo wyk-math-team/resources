@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Construct a $4\\times 4$ grid of digits chosen from 1,2,3,4 such that all four digits appear in (i) each of the four rows, (ii) each of the four columns, (iii) each of the two diagonals, (iv) each of the four corner $2\\times 2$ grids.",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

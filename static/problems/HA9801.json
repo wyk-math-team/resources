@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Calculate $\\sqrt[3]{(8.5^{2} - 3.5^{2})(8.5^{2} - 7\\times 8.5 + 3.5^{2})(8.5^{2} + 17\\times 3.5 + 3.5^{2})}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

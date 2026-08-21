@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Five numbers $a,b,c,d,e$ satisfy $a + b = 3, b + c = 6, c + d = 9, d + e = 7$ and $e + a = 5$. Find $a,b,c,d,e$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

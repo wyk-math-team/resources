@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Simplify $\\sqrt{7 + 2(1 + \\sqrt{3})(1 + \\sqrt{5})}$ into the form $\\sqrt{x} +\\sqrt{y} +\\sqrt{z}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

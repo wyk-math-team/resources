@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "$ABC$ is a triangle. $CAF, ABD, BCE$ are straight lines such that $AF = AC, BD = BA, EC = CB$. If the area of triangle $ABC$ is 1 square unit. Find the area of triangle $DEF$.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

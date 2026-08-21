@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the smallest positive integer n such that the first four digits of $n^2$ (from left to right) are 2, 0, 2, 5 while the fifth digit of $n^2$ is non-zero.",
+  "difficulty": 3.89,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

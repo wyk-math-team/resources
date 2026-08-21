@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $x$ and $y$ are two positive integers. If the product of these two integers is less than $x^{2}$ by 2012, find the smallest value of the sum of these two numbers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

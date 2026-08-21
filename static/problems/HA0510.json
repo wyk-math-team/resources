@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The sum and product of two numbers are both equal to 2. Find the sum of the cubes of these two numbers.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A two-digit number is equal to the square of the sum of its digits. Find all the possible two-digit numbers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

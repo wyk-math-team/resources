@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "If $b$ is a positive integer not exceeding 200, how many sets of solutions $(a,b)$ are there to the equation $(\\log_{b}a)^{2017} = \\log_{b}(a^{2017})$?",
+  "difficulty": 6.29,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

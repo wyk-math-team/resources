@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $a$ is a prime number; $b$ and $c$ are integers greater than 1, if $ab^{b}c + a = 2013$, find the values of $a$, $b$ and $c$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

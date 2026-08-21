@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The symbol '#' is defined as $a\\# b = 50 - 2(a + b)$. Find the value of $6 \\# 8$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

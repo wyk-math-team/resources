@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that integer $N$ is formed by \"2012\" $k$ times, that is $N = 20122012\\dots 2012$. If $N$ is divisible by 33, find the smallest positive integral value of $k$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

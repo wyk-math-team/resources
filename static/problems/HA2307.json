@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $a_n$ denote the product of the first $n$ positive integers, what is the remainder when $(a_1 + a_2 + a_3 + \\ldots + a_{2023})$ is divided by 140?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

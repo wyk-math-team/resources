@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "How many two-digit positive integers $n$ are there such that $n$ is divisible by the ten-digit and the unit-digit?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

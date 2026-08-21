@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If the sum of $k$ consecutive positive integers is 2010, find the greatest possible value of $k$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

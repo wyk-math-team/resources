@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In triangle ABC, $BC = 1$ and $\\angle ACB = 90^\\circ$. If the median of the triangle through A, the internal angle bisector of $\\angle ABC$ and the altitude of the triangle from C are concurrent, find $AC$.",
+  "difficulty": 6.19,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

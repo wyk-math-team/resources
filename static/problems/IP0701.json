@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Someone forms an integer by writing the integers from $1$ to $82$ in ascending order: $1234567891011\\dots808182$. Find the sum of its digits.",
+  "difficulty": 3.32,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

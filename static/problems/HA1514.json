@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the number of pairs of positive integers $(x,y)$ such that $\\dfrac{1}{x} +\\dfrac{1}{y} = \\dfrac{1}{2016}$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

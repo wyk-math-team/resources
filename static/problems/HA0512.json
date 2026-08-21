@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the number of positive integral solution(s) of the equation $3x + 4y = 501$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

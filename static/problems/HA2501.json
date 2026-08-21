@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "On both sides of a street there are the same number of buildings, and each building directly faces a building on the opposite side. Starting from the leftmost building, the buildings are numbered consecutively 1, 2, 3, ... up to the last building at the far end of the street; the numbering then continues from that far end on the right-hand side back toward the first building on the right. If the building numbered 501 faces the building numbered 2026, what is the number of the building that faces building numbered 2001?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

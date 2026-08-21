@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Write 2011 as a difference of two squares of positive integers.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

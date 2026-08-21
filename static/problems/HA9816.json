@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "In a football tournament eight teams play against each other once, with two points awarded for a win, one point for a draw and zero for a loss. How many points must a team score to ensure that it is in the top four?",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

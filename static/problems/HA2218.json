@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The number 1223334444... is written down by starting with one 1, then two 2s, then three 3s, then four 4s, and so on. If it has 2023 digits, what is the last digit?",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

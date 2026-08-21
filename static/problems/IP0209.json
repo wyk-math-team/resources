@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $x_1,y_1,x_2,y_2$ be real numbers satisfying $x_1^2+5x_2^2=10$, $x_2y_1-x_1y_2=5$, $x_1y_1+5x_2y_2=\\sqrt{105}$. Find $y_1^2+5y_2^2$.",
+  "difficulty": 6.52,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

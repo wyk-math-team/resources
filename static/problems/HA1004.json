@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $A - B = 2009$, $B - C = -2010$ and $C - D = 2011$, find the value of $\\dfrac{(A - D)}{(A - C)(B - D)}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the sum of all fractions in lowest terms with value greater than $10$ but smaller than $100$ and with denominator equal to $3$.",
+  "difficulty": 4.07,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

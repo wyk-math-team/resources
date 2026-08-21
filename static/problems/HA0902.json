@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "It is given that $(a - 20)^2 +\\sqrt{b + 10} +\\dfrac{c^2}{2010} = 0$. If $M = 20ab - 10bc$, find the value of $M$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

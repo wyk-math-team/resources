@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the $2002$nd positive integer that is not the difference of two square <b>integers</b>.",
+  "difficulty": 4.7,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

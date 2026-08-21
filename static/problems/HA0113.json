@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $x + \\dfrac{1}{x} = 5$, find $\\dfrac{x^2}{x^4 + x^2 + 1}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

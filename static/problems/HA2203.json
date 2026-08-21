@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the value of $2023 - \\sqrt{1 + 2023\\sqrt{1 + 2022\\sqrt{1 + 2021\\times 2019}}}$.",
+  "difficulty": 4,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}

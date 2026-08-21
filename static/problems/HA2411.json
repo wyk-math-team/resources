@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The sum of areas of two squares is 365, where the side lengths of the squares are prime numbers. Find the difference in the areas of the two squares.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "In an isosceles triangle ABC, D is the mid-point of BC, where AD divides the perimeter of triangle ABC into two parts of lengths 24 cm and 30 cm respectively. Find the length of AB.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

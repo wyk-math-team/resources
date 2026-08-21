@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "A number A which is divisible by 9 has 2005 digits. The sum of all its digits is a, the sum of all digits of a is b and the sum of all digits of b is c. Find the value of c.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

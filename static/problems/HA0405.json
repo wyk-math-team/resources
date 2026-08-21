@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Suppose the perimeter of each triangular face of a tetrahedron is the same, and the total length of all six edges of the tetrahedron is $L$, what is the perimeter of each triangular face?",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

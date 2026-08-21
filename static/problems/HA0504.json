@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Given that $\\mathbf{x}_1,\\mathbf{x}_2,\\ldots ,\\mathbf{x}_{10}$ are positive integers such that $\\mathbf{x}_1< \\mathbf{x}_2< \\mathbf{x}_3< \\ldots < \\mathbf{x}_{10}$ and $\\mathbf{x}_1 + \\mathbf{x}_2 + \\ldots +\\mathbf{x}_{10} = 2006$, find the greatest possible value of $\\mathbf{x}_5$.",
+  "difficulty": 4,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

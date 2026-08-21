@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $x$ and $y$ be real numbers. Find the smallest possible value of\n$4x^2 +(x + 2y -6)^2 +16y - 23$.",
+  "difficulty": 5.57,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

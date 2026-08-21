@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The length of a cube is 3 units. It is formed by 27 smaller cubes with same size but different colours. How many different rectangular blocks can be found from this cube? (Your answer should include the number of cubes found.)",
+  "difficulty": 4,
+  "tags": [
+    "combinatorics",
+    "HKMHASC"
+  ]
+}

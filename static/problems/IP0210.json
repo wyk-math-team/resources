@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "How many positive integers less than $500$ have exactly $15$ positive integer factors?",
+  "difficulty": 4.3,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

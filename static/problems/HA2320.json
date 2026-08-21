@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let ABCD be a trapezoid where AD and BC are parallel. Let E be a point on the side BC such that $BE = 2EC$. A point F lies on the extension of AE such that CF and AB are parallel. If the area of $\\Delta CDE$ is 12, find the area of $\\Delta CEF$.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}
