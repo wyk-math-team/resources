@@ -216,38 +216,55 @@
       });
     }
 
-    // ---------- 导航：上一题/下一题 ----------
     async function setupNavigation(currentProblem) {
-      const navContainer = document.getElementById('navButtons');
-      if (!navContainer) return;
-      try {
-        const res = await apiCall('/api/problem?ids=1');
-        if (!res.success || !res.ids || res.ids.length === 0) {
-          navContainer.innerHTML = '';
-          return;
+  const navContainer = document.getElementById('navButtons');
+  if (!navContainer) return;
+  let ids = [];
+  try {
+    // 1. 尝试从 localStorage 缓存中获取 ID 列表
+    const cacheKey = 'problemListCache_full';
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) {
+      const data = JSON.parse(cached);
+      // 检查缓存是否在有效期内（24小时）
+      if (data.timestamp && (Date.now() - data.timestamp < 24 * 60 * 60 * 1000)) {
+        if (data.problems && data.problems.length) {
+          ids = data.problems.map(p => p.id);
         }
-        let ids = res.ids;
-        ids.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-        const idx = ids.indexOf(currentProblem.id);
-        if (idx === -1) {
-          navContainer.innerHTML = '';
-          return;
-        }
-        let html = '';
-        if (idx > 0) {
-          const prevId = ids[idx - 1];
-          html += `<a href="/problems/${encodeURIComponent(prevId)}" class="back-btn" title="Previous Problem">← Prev</a>`;
-        }
-        if (idx < ids.length - 1) {
-          const nextId = ids[idx + 1];
-          html += `<a href="/problems/${encodeURIComponent(nextId)}" class="back-btn" title="Next Problem">Next →</a>`;
-        }
-        navContainer.innerHTML = html;
-      } catch (e) {
-        console.error('Navigation setup error:', e);
-        navContainer.innerHTML = '';
       }
     }
+    // 2. 如果缓存未命中或过期，则请求 API
+    if (!ids.length) {
+      const res = await apiCall('/api/problem?ids=1');
+      if (res.success && res.ids) {
+        ids = res.ids;
+      } else {
+        navContainer.innerHTML = '';
+        return;
+      }
+    }
+    // 3. 按 ID 自然排序（与 problems 页保持一致）
+    ids.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    const idx = ids.indexOf(currentProblem.id);
+    if (idx === -1) {
+      navContainer.innerHTML = '';
+      return;
+    }
+    let html = '';
+    if (idx > 0) {
+      const prevId = ids[idx - 1];
+      html += `<a href="/problems/${encodeURIComponent(prevId)}" class="back-btn" title="Previous Problem">← Prev</a>`;
+    }
+    if (idx < ids.length - 1) {
+      const nextId = ids[idx + 1];
+      html += `<a href="/problems/${encodeURIComponent(nextId)}" class="back-btn" title="Next Problem">Next →</a>`;
+    }
+    navContainer.innerHTML = html;
+  } catch (e) {
+    console.error('Navigation setup error:', e);
+    navContainer.innerHTML = '';
+  }
+}
 
     async function initPage() {
       mainContainer.innerHTML = '';
