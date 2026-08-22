@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Ann, Ben and Cat join a game as a team. Each of them has to independently answer 2021 yes-no questions (the questions are the same for everyone), in each of which either 'yes' or 'no' must be chosen. After that, the answers of Ann and Ben are compared and the number of questions in which they chose the same answer is recorded. The same is done for Ann's and Cat's answers, as well as for Ben's and Cat's answers. The score of the team in the game is the largest number recorded. Find the minimum possible score of the team in the game.",
+  "difficulty": 3.3962352805052447,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

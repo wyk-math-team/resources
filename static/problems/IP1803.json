@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In $\\triangle ABC$, $\\angle BAC = 18^{\\circ}$ and $\\angle BCA = 24^{\\circ}$. $D$ is a point on $AC$ such that $\\angle BDC = 60^{\\circ}$. If the bisector of $\\angle ADB$ meets $AB$ at $E$, find $\\angle BEC$.",
+  "difficulty": 6.11,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

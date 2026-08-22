@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$ABCD$ is a trapezium with $AD \\parallel BC$, $AD > BC$ and $AB = CD$. $P$ is a point on the plane whose distance from $A, B, C, D$ are 1, 2, 3, 4 respectively. Find $AD:BC$. Write the ratio using a real number.",
+  "difficulty": 5.02,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

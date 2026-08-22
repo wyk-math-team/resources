@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "An arithmetic sequence with 10 terms has common difference $d$. If the absolute\nvalue of each term is a prime number, find the smallest possible value of $d$.",
+  "difficulty": 6.54,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "List these numbers in increasing order: $a=2^{800}, b=3^{600}, c=5^{400}, d=6^{200}$. Write the constants separated by ',' and do not add extra spaces.",
+  "difficulty": 2.74,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

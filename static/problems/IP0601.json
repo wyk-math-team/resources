@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "There are two positive integers, one of which is a square number. If the sum of the two numbers is 2006 smaller than their product, find the difference between the two numbers.",
+  "difficulty": 3.900351703841195,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

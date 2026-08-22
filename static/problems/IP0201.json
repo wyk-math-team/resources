@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $n$ be a positive integer such that no matter how $10^n$ is expressed as a product of two positive integers, at least one of them contains the digit $0$. Find the smallest possible $n$.",
+  "difficulty": 4.24,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

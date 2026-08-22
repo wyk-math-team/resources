@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In a country there are only four types of coins, of denominations 74, 87, 111 and 124 dollars respectively. In how many different ways can one pay exactly 2023 dollars using these coins?",
+  "difficulty": 6.3,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

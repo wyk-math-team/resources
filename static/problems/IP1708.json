@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $f(x) = x^{4} + x^{3} + b x^{2} + 100x + c$ and $g(x) = x^{3} + a x^{2} + x + 10$, where $a, b, c$ are constants. If the equation $g(x) = 0$ has three distinct real roots, each of which is also a root of $f(x) = 0$, find the value of $f(1)$.",
+  "difficulty": 5.07,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

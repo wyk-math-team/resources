@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the remainder when $1\\times 2\\times 3\\times 4 + 2\\times 3\\times 4\\times 5 + \\cdots + 2023\\times 2024\\times 2025\\times 2026$ is divided by 1000.",
+  "difficulty": 4.66,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A test question reads 'write down three consecutive positive integers not exceeding 2023 in ascending order, such that one of them is a multiple of 6, another one is a multiple of 7 and the remaining one is a multiple of 8'. How many different correct answers are there for this question?",
+  "difficulty": 5.07,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

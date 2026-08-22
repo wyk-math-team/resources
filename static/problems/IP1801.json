@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "There are 13 fractions, numerators and denominators are 1,2,...,26 each exactly once. At most how many of these fractions can be simplified to integers?",
+  "difficulty": 5.57,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

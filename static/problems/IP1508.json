@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$ABCD$ is a trapezium with $AB//CD$. $M,N$ midpoints of $AB,CD$. $AC=6, BD=8, MN=4$. Find <b>square</b> of area of $ABCD$.",
+  "difficulty": 5.45,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

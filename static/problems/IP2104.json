@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Three students each randomly chooses a prime number less than 100, and then the teacher multiplies the three chosen primes together. What is the probability that the product obtained by the teacher is divisible by 2021?",
+  "difficulty": 4.678197577879573,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

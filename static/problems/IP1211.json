@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "An $n$-digit number $x$ has the following property: if the last digit of $x$ is moved to the front, the result is $2x$. Find the smallest possible value of $n$.",
+  "difficulty": 6.13,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

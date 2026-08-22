@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $n$ be an integer greater than 100 such that the L.C.M. of 1, 2, 3, ..., $n$ is equal to the L.C.M. of 101, 102, 103, ..., $n$. Find the smallest possible value of $n$.",
+  "difficulty": 5.05,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

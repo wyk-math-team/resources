@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $x = \\sqrt[3]{4}+\\sqrt[3]{2}+1$. Find $\\left(1+\\dfrac1x\\right)^3$.",
+  "difficulty": 5.8,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

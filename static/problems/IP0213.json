@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$ABCD$ is a square of side $5$, $E$ on $BC$ with $BE=3$, $EC=2$. $P$ is a variable point on diagonal $BD$. Determine $PB^2$ when $PE+PC$ is minimised.<br>",
+  "difficulty": 6.52,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

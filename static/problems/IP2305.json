@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$ABCD$ is a square of side length 1. $BC$ is extended to $E$ and $DC$ is extended to $F$ such that $BE = DF = 3$. The circumcircle of $\\triangle AEF$ meets the extensions of $CB$ and $CD$ at $G$ and $H$ respectively. Find $GH$.",
+  "difficulty": 5.2,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

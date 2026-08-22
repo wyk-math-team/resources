@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $f(x)=\\dfrac{15}{x+1}+\\dfrac{16}{x^2+1}-\\dfrac{17}{x^3+1}$. Find $f(\\tan 15^\\circ )+f(\\tan 30^\\circ )+f(\\tan 45^\\circ )+f(\\tan 60^\\circ )+f(\\tan 75^\\circ )$.",
+  "difficulty": 6.31,
+  "tags": [
+    "trigonometry",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $f(x)=x^6-x^5-x^3-x^2-x$, $g(x)=x^4-x^3-x^2-1$. If $a,b,c,d$ are roots of $g(x)=0$, find $f(a)+f(b)+f(c)+f(d)$.",
+  "difficulty": 5.22,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

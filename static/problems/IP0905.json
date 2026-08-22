@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $\\{x_{n}\\}$ be a sequence of positive real numbers. If $x_{1} = \\dfrac{3}{2}$ and $x_{n + 1} - x_{n}^{2} = \\dfrac{1}{(n + 2)^{2}} - \\dfrac{1}{n^{2}}$ for all positive integers $n$, find $x_{1} + x_{2} + \\cdots + x_{2009}$.",
+  "difficulty": 5.858427349420668,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}
