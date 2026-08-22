@@ -76,7 +76,7 @@ async function loadUserStates() {
 async function loadProblem() {
   // 优先从 CDN 加载
   try {
-    const cdnUrl = `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/problems/${problemId}.json`;
+    const cdnUrl = `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`;
     const res = await fetch(cdnUrl);
     if (res.ok) {
       const data = await res.json();
