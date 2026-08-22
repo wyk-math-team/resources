@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A and B played the game \"paper, scissors and rock\". There was no draw. A showed paper 3 times, scissors 2 times, rock 1 time; B showed paper 1 time, scissors 2 times, rock 3 times. How many times did A win?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "If $x$ and $y$ are real numbers such that $\\dfrac{x + 22}{y} + \\dfrac{290}{xy} = \\dfrac{26 - y}{x}$, find $xy$.",
-  "difficulty": 4.02,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

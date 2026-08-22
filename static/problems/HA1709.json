@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Use the digits 2, 0, 1 and 8 once and without repetition to create all possible 4-digit numbers. How many of these numbers leaves a remainder of 4 when divided by 11?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A guide distributes five rooms to five customers. Then the guide distributes the five room keys to the five customers randomly. It is known that exactly three of the customers get their room keys correctly. How many different ways of distributing the keys to the five customers are there?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

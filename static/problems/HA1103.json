@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $x + \\dfrac{1}{x} = 3$, find the value of $x^{3} + \\dfrac{1}{x^{3}}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

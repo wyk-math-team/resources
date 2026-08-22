@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $\\dfrac{3}{m} +\\dfrac{6}{n} = 1$, where $m, n$ are positive integers, find the maximum value of $m + n$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

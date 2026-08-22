@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "ABCD is a square of side 1234. E on CD such that CEFG is a square of side 567 with F,G outside ABCD. Circumcircle of ACF meets BC again at H. Find CH.",
-  "difficulty": 5.13,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

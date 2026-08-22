@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $x + \\dfrac{1}{x} = 3$, find the value of $x^4 + 3x^3 - 16x^2 + 3x + 2009$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

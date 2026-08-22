@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Given that $5^{4}7^{2} = a^{b}$, where both $a$ and $b$ are positive integers, find the smallest possible value for $a + b$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

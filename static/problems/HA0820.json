@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Use ALL the nine digits 1, 2, 3, 4, 5, 6, 7, 8, 9 to form a nine-digit number such that the number formed by the first n digits, counting from the left to the right, is divisible by n. [Hint: You may find out the possible three digits in the middle portion of the number first.]",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

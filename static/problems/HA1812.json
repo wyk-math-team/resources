@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Each of the nine digits from 1 to 9 is used once to form 3 three-digit numbers. Consider the difference between the largest and the smallest numbers. (For example, if the 3 numbers formed are 123, 456 and 789, then the difference is $789 - 123 = 666$.) Find the least possible value of this difference.",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

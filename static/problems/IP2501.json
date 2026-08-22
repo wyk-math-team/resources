@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let n be a nine-digit positive integer whose product of digits is equal to 10!. Find the greatest possible value of n.",
-  "difficulty": 3.13,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

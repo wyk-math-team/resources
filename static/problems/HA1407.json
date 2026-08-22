@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "We glue together 990 small cubes with side 1 cm into a $9\\mathrm{cm}\\times 10\\mathrm{cm}\\times 11\\mathrm{cm}$ rectangular solid. Then we paint the outside of the solid. Find the number of the original 990 cubes having just one of their sides painted.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

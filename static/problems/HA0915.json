@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $(x^{2} + x + 1)^{1005} = a_{2010}x^{2010} + a_{2009}x^{2009} + a_{2008}x^{2008} + \\dots +a_{2}x^{2} + a_{1}x + a_{0}$, find the value of $a_{2010} + a_{2008} + a_{2006} + \\dots +a_{4} + a_{2} + a_{0}$. (Answer in index form is accepted)",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

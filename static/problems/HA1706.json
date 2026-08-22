@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $a, b, c$ and $d$ are positive integers and $abcd = 2018$, find the greatest value of $a + b + c + d$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "There are 2019 pieces of red, yellow, blue, white and black marbles each. If Peter takes out the marbles randomly, at least how many marbles need to be taken to ensure that there will be 64 identical marbles?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

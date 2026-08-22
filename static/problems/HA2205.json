@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is known that real numbers $a, b$ and $c$ satisfy $3a + 12b + 2c = 63$ and $2a + 7b + c = 35$. Find the value of $\\dfrac{a + 2b}{3b + c}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

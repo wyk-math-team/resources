@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $\\sqrt{a} + \\sqrt{b} = \\sqrt{17 + 2\\sqrt{30}}$ where a, b are positive integers and $a > b$, find the value of $a - b$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

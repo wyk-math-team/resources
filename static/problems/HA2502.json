@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the number of positive factors of $2026^{2026}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Given that the number of voters who voted in this year's District Council Election increased by $20\\%$ from the last time. The number of male voters increased by $10\\%$, and the number of female voters increased by $25\\%$. Find the ratio of number of female voters to number of all voters in this year's Election.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Let $a,b,c,d$ be four distinct real numbers such that $(a - c)(a - d) = 2$ and $(b - c)(b - d) = 2$. Find the value of $(a - c)(b - c)$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

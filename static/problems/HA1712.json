@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $m$ and $n$ are positive integers with $m > n$. If the last two digits of $9^{m}$ and $9^{n}$ are the same, find the least value of $m - n$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

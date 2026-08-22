@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "a, b, c are distinct even integers, find the least possible value of $a^2 + b^2 + 2c^2 - 2ac - 2bc$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

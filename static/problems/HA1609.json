@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that the sum of any two digits of a 3-digit number is equal to a multiple of the remaining digit. How many such 3-digit numbers are there?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

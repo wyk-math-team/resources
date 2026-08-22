@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "The mean of 7 integers is $x$ (correct to 2 decimal places). When Siu Keung calculated this mean, his result is 20.12 where the last digit is wrongly calculated. Find the correct value of $x$ (correct to 2 decimal places).",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

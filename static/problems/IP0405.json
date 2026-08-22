@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Evaluate $\\dfrac{3}{1! + 2! + 3!} +\\dfrac{4}{2! + 3! + 4!} +\\dots +\\dfrac{2004}{2002! + 2003! + 2004!}.$<br>\nThe answer looks like this:$\\dfrac{1}{a}+\\dfrac{1}{b!}$. Write your answer as a+b.",
-  "difficulty": 6.9,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

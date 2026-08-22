@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$\\Delta ABC$ is a triangle. $P, Q$ and $R$ are points on $BC, CA$ and $AB$ respectively such that $AP, BQ, CR$ are concurrent and meet at a point $O$. If $\\dfrac{AO}{OP} + \\dfrac{BQ}{OQ} + \\dfrac{CO}{OR} = 10$, find the value of $(\\dfrac{AO}{OP})(\\dfrac{BQ}{OQ})(\\dfrac{CO}{OR})$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

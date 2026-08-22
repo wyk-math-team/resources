@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the value of $1 - 2 - 3 + 4 + 5 - 6 - 7 + 8 + 9 - \\dots +1996 + 1997 - 1998 - 1999$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

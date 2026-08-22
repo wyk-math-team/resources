@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "If $x^2 + y^2 = \\dfrac{3961xy}{1980 } $ where $x > y > 0$, find $\\dfrac{x+y}{x-y}$.",
-  "difficulty": 3.81,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

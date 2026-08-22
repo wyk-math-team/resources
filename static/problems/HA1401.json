@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the greatest value of $\\dfrac{a+b}{a-b}$, where $a$ and $b$ are positive integers not greater than 2015.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $a$ and $b$ be non-zero real numbers such that $\\dfrac{a}{b} + \\dfrac{b}{a} = 5$ and $\\dfrac{a^2}{b} + \\dfrac{b^2}{a} = 12$. Find the value of $\\dfrac{1}{a} + \\dfrac{1}{b}$.",
-  "difficulty": 4.7245163144783815,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

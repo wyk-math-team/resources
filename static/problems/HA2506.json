@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $\\dfrac{14231}{x(x + 1)} +\\dfrac{14231}{(x + 1)(x + 2)} +\\dfrac{14231}{(x + 2)(x + 3)} +\\dots +\\dfrac{14231}{(x + 2025)(x + 2026)} = 2026$ and $x > 0$, find the value of $x$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

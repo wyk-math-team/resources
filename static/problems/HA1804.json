@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the number of positive integers which can divide $2019^{2019}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

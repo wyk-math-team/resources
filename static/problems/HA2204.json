@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If both $\\sqrt{5\\sqrt{n - 3}} - n + 1$ and $n$ are integers, Find the least possible value of $\\sqrt{5\\sqrt{n - 3}} - n + 1$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

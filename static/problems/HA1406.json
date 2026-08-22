@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Divide $x$ books among 100 students such that each student receives at least one book and no four students obtain same number of books. Find the least value of $x$.",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

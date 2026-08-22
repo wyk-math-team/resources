@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "$ABCD$ is a trapezium with $\\angle DAB = \\angle ABC = 90^{\\circ}$ and $AB = BC = 2AD$. $P$ is a point inside the trapezium such that $PA = 1$, $PB = 2$ and $PC = 3$. Find the area of $ABCD$.",
-  "difficulty": 6.35,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

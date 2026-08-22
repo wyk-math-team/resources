@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$N = \\overline{abc}$ is a number expressed in base 10. That is, $N = 100a + 10b + c$. If we consider $\\overline{abc}$ as a number expressed in base $x$, where $x$ is a number different from 10, then its numerical value is equal to $2N$. Find the largest possible value of $N$, in base 10, satisfying the above conditions.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

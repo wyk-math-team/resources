@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$x$ and $y$ are positive integers. How many even numbers are there between $2(3xy - 19)$ and $(6xy + 20)$ inclusively?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

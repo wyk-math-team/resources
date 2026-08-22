@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Given $a = 999\\times 998998999$ and $b = 998\\times 999999998$. Find the value of $a - b$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that a triangle is not an equilateral triangle and that all the sides of that triangle are all integers. One of the side lengths is 4, but the shortest side length of the triangle is not 4. How many such triangles are there?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

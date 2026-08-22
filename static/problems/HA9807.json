@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "The length of the sides of a triangle are 11, 15 and n, where n is a positive integer. For how many values of n are the triangle obtuse?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "For the given sequence $x_{1},x_{2},x_{3},\\ldots ,x_{n},\\ldots$, it is known that $x_{1} = 0, x_{2} = 2x_{1} + 1, x_{3} = 2x_{2} + 1,\\ldots, x_{n + 1} = 2x_{n} + 1$, find the unit digit of $x_{2010} - x_{2009}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If a positive integer can be expressed as the difference between the squares of two positive integers, it is called a 'wise integer'. Starting from 1 to 2008, how many 'wise integers' are there?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

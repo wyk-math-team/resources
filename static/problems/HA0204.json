@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the remainder when the 40-digit number 20032003200320032003200320032003200320032003 is divided by 9.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

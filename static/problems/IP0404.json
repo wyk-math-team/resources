@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "A palindrome is a positive integer which is the same when reading from the right hand side or from the left hand side, e.g. 2002. Find the largest five-digit palindrome which is divisible by 101.",
-  "difficulty": 4.2,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

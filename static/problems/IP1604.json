@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "A class of 26 students attempted a test with $n$ questions, each carrying 1 mark. If\nno two students obtained the same score and no question was correctly answered\nby more than 3 students, find the smallest possible value of $n$.",
-  "difficulty": 4.44,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

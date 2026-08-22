@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "When $\\dfrac{2}{7}$ is expressed as a recurring decimal, a part of n digits are taken after the decimal point from the recurring decimal. If the sum of these n digits is 2008, find the value of n.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

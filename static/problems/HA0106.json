@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Let $a, b, c$ and $d$ be integers. One of them is an even number, and the others are odd numbers. The possible sums of adding any two numbers are 66, 75, 87, 98, 110, 119. Find the sum of the three odd numbers.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

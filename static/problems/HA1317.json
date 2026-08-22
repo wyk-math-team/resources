@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "(a) Four circles, each of radius $1 \\mathrm{~cm}$, are placed at the four corners of a square with side of length $4 \\mathrm{~cm}$. Each circle touches two adjacent sides of the square and two other circles. Find the radius of the smaller circle that touches all four circles.<br>(b) Eight spheres, each of radius $1 \\mathrm{~cm}$, are placed at the eight corners of a cube with side of length $4 \\mathrm{~cm}$. Each sphere touches three adjacent faces of the cube and three other spheres. Find the radius of the smaller sphere that touches all eight spheres.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

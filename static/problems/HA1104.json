@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Ming's calculator can provide only two operations: add 12 to the number displayed, or subtract 7 from it. Today, the calculator shows 2010. What is the minimum number of operations needed to display the number 2012?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

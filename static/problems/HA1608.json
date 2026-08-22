@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "There are 2016 different proper fractions. The sum of any 2015 of them is a proper fraction with denominator 2017 when expressed in its simplest form. Find the sum of these 2016 proper fractions.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

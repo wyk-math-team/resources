@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$n = \\overline{A B C D E F G H J}$ is a nine-digit integer, where each of the digits 1 to 9 appears exactly once. If $E< D$ and $E< F$, how many possible values of $n$?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

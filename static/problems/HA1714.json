@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "When a four-digit number is divided by 433, the quotient is $a$ while the remainder is $r$. Find the greatest possible value of $a + r$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

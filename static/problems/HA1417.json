@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "ABCD is a convex quadrilateral with area 1 square unit. AB is produced to $B^{\\prime}$ with $BB^{\\prime} = AB$; BC is produced to $C^{\\prime}$ with $CC^{\\prime} = BC$; CD is produced to $D^{\\prime}$ with $DD^{\\prime} = CD$; DA is produced to $A^{\\prime}$ with $AA^{\\prime} = DA$. Find the area of the quadrilateral $A^{\\prime}B^{\\prime}C^{\\prime}D^{\\prime}$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

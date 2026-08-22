@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Let $a$ and $b$ be positive integers. It is known that the product of $a$ and $b$ exceeds their sum by 2025. Find the minimum value of $a + b$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let n be a positive integer such that $1^3+2^3+...+n^3$ is divisible by n+3. Find the greatest possible value of n.",
-  "difficulty": 4.64,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

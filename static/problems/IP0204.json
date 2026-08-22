@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "A multiple choice test consists of $100$ questions. If a student answers a question\ncorrectly, he will get 4 marks; if he answers a question wrongly, he will get –1 mark. He will\nget 0 mark for an unanswered question. Determine the number of different total marks of the\ntest. (A total mark can be negative.)",
-  "difficulty": 6.5,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

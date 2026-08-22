@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $2011^{x} = 2$ and $2011^{y} = 3$, find the value of $2011^{3x + 2y}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

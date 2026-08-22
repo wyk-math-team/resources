@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In $\\triangle ABC$, $X,Y$ on $BC$ with $BX=XY=YC$, $M,N$ on $AC$ with $AM=MN=NC$. $BM$ and $BN$ intersect $AY$ at $S$ and $R$. If $[ABC]=1$, find $[SMNR]$.<br>\nNote that: The area is a fraction$\\dfrac{a}{b}$ where $(a,b)=1$. Write your answer as $a+b$.",
-  "difficulty": 7.12,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

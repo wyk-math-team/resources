@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the value of $\\sqrt{1 + 2018\\sqrt{1 + 2017\\sqrt{1 + 2016\\times 2014}}}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Evaluate $\\dfrac{2028 \\times 2027 \\times 2026 \\times 2025 \\times 2024 \\times 2023 \\times 2022}{(2025^2 + 2025 - 6)(2025^2 + 2025 - 2)(2025^2 - 4050 - 3)}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

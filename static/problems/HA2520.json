@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Six students A, B, C, D, E and F take a test and obtain different scores. The following is their conversation.<br>A says, 'my score is higher than the scores of C, E and F.'<br>B says, 'my score is higher than the scores of A, E and F.'<br>C says, 'my score is higher than the scores of exactly one of A and E.'<br>D says, 'my score is higher than the score of B.'<br>E says, 'my score is higher than the scores of exactly two of A, B and F.'<br>F says, 'my score is higher than the scores of exactly two of B, C and E.'<br>It is known that exactly one of the students is lying. Arrange the scores of these students in descending order.",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

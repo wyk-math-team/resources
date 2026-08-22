@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$\\overline{ABC}$ is a three-digit positive integer. Among the three positive integers $\\overline{AB}$, $\\overline{AC}$ and $\\overline{ABC}$, the followings hold:<br>(i) exactly two of them are multiples of 3; (ii) exactly two of them are multiples of 5; (iii) exactly one of them is multiples of 8; (iv) exactly one of them is multiples of 11;<br>Find the value of $\\overline{ABC}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $x$ and $y$ are positive integers, find the number of integers between $x(y + 2007)$ and $xy$?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

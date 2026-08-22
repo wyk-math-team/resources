@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "An integer is formed by placing finitely many numbers 1, 2, 3, ... in order and stopping at some stage: 1234567891011121314151617181920212223... The $10^{\\mathrm{th}}$ digit is 1. The $30^{\\mathrm{th}}$ digit is 2. What is the $2005^{\\mathrm{th}}$ digit?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If 20142014...2014125 is divisible by 15, and $N < 2014$. Find the largest value of $N$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

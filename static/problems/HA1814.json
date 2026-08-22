@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "The sum of 2019 consecutive even numbers is $2019N^2$ where N is a positive integer. Find the minimum value of N.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

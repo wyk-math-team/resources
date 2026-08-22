@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the sum of all the digits in all the integers from 1 to 100000000. (e.g. $123 \\rightarrow 1 + 2 + 3$)",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

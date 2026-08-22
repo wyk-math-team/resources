@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $a, b, c, d$ and $m$ are five different integers, $a + b + c + d = 16$ and $m$ is greater than each of the values of $a, b, c$ and $d$. If $(m - a)(m - b)(m - c)(m - d) = 2013$ and $m > 0$, find the value of $m$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

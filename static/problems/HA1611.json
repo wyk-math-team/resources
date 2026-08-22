@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "For positive integer $n$, denote $1 \\times 2 \\times 3 \\times \\dots \\times n = n!$. If $M = 1! \\times 2! \\times \\dots \\times 10!$, find the number of positive factors of $M$ which are perfect cubes.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

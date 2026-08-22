@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A six-digit number $a2019b$ can be divided by 24, where $a$ and $b$ are single digits. Find the maximum value of the six-digit number.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

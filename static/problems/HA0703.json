@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Let $\\mathrm{a} = 3^{50}$, $\\mathrm{b} = 15^{25}$, $\\mathrm{c} = 33^{20}$ and $\\mathrm{d} = 1024^{10}$. Arrange a, b, c and d in decreasing order of magnitude.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

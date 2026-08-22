@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Among the integers 1 to 1111, how many of them have at least one zero?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

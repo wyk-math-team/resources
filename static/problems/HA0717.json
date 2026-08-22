@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "20 students chose to study physics, chemistry or mathematics. Each student must select at least two subjects. There were 12 students in physics, 15 students in chemistry and 18 students in mathematics. How many students studied all three subjects?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

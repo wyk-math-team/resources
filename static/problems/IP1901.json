@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Find the remainder when $1111^{2019}$ is divided by 11111.",
-  "difficulty": 5.423873655820881,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

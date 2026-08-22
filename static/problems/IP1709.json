@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In quadrilateral $ABCD$, $\\angle BAD = \\angle ADC$ and $\\angle ABD = \\angle BCD$. If $AB = 8$, $BD = 10$ and $BC = 6$, find the length of $CD$.",
-  "difficulty": 5.97,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

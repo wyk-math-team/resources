@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the integral part of $\\sqrt{2011 + \\sqrt{2011 + \\sqrt{\\dots + \\sqrt{2011}}}}$ (the number of 2011 is 2011).",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

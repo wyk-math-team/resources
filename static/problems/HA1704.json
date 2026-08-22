@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that the sum of $N - 1$ angles of a convex $N$-sided polygon is $2018^{\\circ}$. Find the value of $N$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

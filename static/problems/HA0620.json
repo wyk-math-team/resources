@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Write one '1', followed by two '2's, three '3's, four '4's, ten '10's, eleven '11's, twelve '12's, and so on. What is the digit in the 2007th position?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

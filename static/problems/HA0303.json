@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the number of positive integral solution of $x^{2} + y^{2} \\leq 10$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

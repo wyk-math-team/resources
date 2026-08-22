@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "How many pairs (m, n) where m and n are positive integers are the solutions of the equation $\\dfrac{4}{m} +\\dfrac{2}{n} = 1?$",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

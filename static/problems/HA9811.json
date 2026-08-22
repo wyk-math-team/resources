@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Nine congruent spheres are packed inside a unit cube in such a way that one of them has its centre at the centre of the cube and each of the remaining 8 spheres touches the centre sphere and three faces of the cube. Find the radius of each sphere.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

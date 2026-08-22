@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "The mean of 35 natural numbers is $x$ (correct to 3 decimal places). Ming calculated the mean correctly but he miswrote the last digit. His incorrect answer is 2.023. Find the value of $x$ (correct to 3 decimal places).",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

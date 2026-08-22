@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$1 \\square \\triangle$ is a three-digit integer that is equal to the sum of cubes of its digits, that is: $1 \\square \\triangle = 1^{3} + \\square^{3} + \\triangle^{3}$. Find this integer.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

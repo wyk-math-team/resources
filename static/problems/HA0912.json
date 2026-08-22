@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "How many triangles of perimeter 27 units can be formed with sides of integral units?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

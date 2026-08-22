@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $2^{10} + 5^{12}$ is a product of two prime numbers $p$ and $q$, where $p > q$. Find the value of $p - q$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Ten children line up in a queue, and a certain number of sweets are distributed among all of them. It is found that among the first nine children, the number of sweets that each child received is equal to $\\dfrac{1}{20}$ of the total number of sweets obtained by the remaining nine children. If the number of sweets that the tenth child received is equal to $k$ times the total number of sweets received by the first nine children, find the value of $k$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

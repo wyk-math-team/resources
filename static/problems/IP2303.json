@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "There is a $20 \\times 20$ table and 400 cards printed with the numbers 1 to 400. The cards are then distributed to the cells of the table so that there is one card in each cell. After that, we put a red sticker on the card in each row with the largest number, and a blue sticker on the card in each column with the largest number. Let $A$ denote the smallest number on the 20 cards with red stickers, and $B$ denote the smallest number on the 20 cards with blue stickers. How many different possible values of $|A - B|$ are there?",
-  "difficulty": 4.97,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

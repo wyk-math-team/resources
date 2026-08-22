@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let [$x$] be greatest integer less than or equal to $x$. Find the last seven digits (from left to right) of the number $\\left[ \\dfrac{10^{2016}}{10^{672}+2015}\\right]$.",
-  "difficulty": 6.05,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

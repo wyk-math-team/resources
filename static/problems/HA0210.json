@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A solid cube has edges of length 1 unit. The collection of points precisely 1 unit away from the surface of the cube encloses a solid shape. Find the volume of the solid shape in terms of $\\pi$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

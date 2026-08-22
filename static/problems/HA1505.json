@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$N$ is an integer. The square of the product of $N$ and 14 is not greater than 2016. Find the number of integer $N$ satisfying the above condition.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

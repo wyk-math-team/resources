@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Solve $\\dfrac{x}{1 + 2} +\\dfrac{x}{1 + 2 + 3} +\\dfrac{x}{1 + 2 + 3 + 4} +\\dots +\\dfrac{x}{1 + 2 + 3 + \\dots +2012 + 2013} = \\dfrac{1}{2014}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the unit digit of the number $18^{42}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

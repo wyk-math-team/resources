@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "With the same engine power, if a ferry is running for 60km with the current, it takes 5 hours fewer than when it returns. When the engine power is doubled, that means the speed of ferry in still water is doubled, it takes 1 hour fewer when the ferry is running for 60 km with the current than it is against the current. Find the speed of the current in km/h.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

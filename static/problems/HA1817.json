@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that a and b are prime numbers while c is an odd number. If $a^2 + b^2 c^2 = 1229$, find the value of $b + c - a$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

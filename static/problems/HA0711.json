@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the smallest integer which is greater than $\\left(\\sqrt{7} +\\sqrt{6}\\right)^{2}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Suppose $r$ is the decimal part of $\\sqrt{5}$, find the value of $r^{2} + 2r + 2\\sqrt{5}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

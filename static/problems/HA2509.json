@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Suppose positive integer $(9n + 2)$ is divisible by positive integer $(45 - n)$, where $n$ is a positive integer. Find the minimum value of $n$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is known that the sum of two positive integers is 45 and their L.C.M. is 168, find these two integers.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

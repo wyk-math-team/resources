@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Calculate $\\dfrac{1 + 2^2 + 2^4 + 2^6 + \\dots + 2^{100}}{1 + 2^3 + 2^6 + 2^9 + \\dots + 2^{99}}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

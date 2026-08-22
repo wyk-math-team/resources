@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the highest common factor of $3^{2046} - 1$ and $3^{2016} - 1$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

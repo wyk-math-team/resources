@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the sum of the squares of all possible integers $n$ such that $(n^2 - 5n + 5)^{n + 1} = 1$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

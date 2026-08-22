@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $\\Delta ABC$ is an equilateral triangle. If the coordinates of $A$ and $B$ are $(-4, 0)$ and $(2, 0)$ respectively, find the coordinates of $C$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $\\mathbf{S} = 1 + 11 + 111 + 1 111 + \\ldots + 1 111\\ldots 111 111$ (sum of 2011 terms), what are the last five digits of S?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

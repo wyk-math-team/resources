@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the value of $\\sqrt{1 + 2015\\sqrt{1 + 2014\\sqrt{1 + 2013\\sqrt{1 + 2012\\sqrt{1 + 2011\\times 2009}}}}}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "A positive integer n is a square number as well as a multiple of 2016. Find the\nsmallest possible value of n.",
-  "difficulty": 3.4,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

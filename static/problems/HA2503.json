@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "How many sets of positive integers $(w,x,y,z)$ satisfy the equation $w + x + y + z = 10?$",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

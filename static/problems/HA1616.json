@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "In $\\Delta ABC$, $AB = 3$, $BC = 4$ and $AC = 5$. Let $X$ be a point inside the triangle. Find the least value of $AX^2 + BX^2 + CX^2$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

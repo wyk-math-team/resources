@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Let $\\mathbf{a}_1 = 2019$, $\\mathbf{a}_2 = 1999$, and $\\mathbf{a}_{n + 2} = \\mathbf{a}_{n + 1} - \\mathbf{a}_n$ for all positive integers $\\mathbf{n}$. Find the value of $\\mathbf{a}_1 + \\mathbf{a}_2 + \\mathbf{a}_3 + \\ldots + \\mathbf{a}_{2019}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

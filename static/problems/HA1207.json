@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $\\alpha$ is a positive factor of 2013 and is divisible by 3. Find the product of all the distinct possible values of $\\alpha$. (Give your answer in index form.)",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

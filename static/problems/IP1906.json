@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In $\\triangle ABC$, $AB < AC$. Let $H$ be the orthocentre of $\\triangle ABC$, and $D$ be the foot of the perpendicular from $A$ to $BC$. If $AH = 4$, $HD = 3$ and $BC = 12$, find the length of $BD$.",
-  "difficulty": 4.834948975850638,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

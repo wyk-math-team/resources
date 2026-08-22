@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$x,y$ and $z$ are prime numbers, where $x< y< z$. If $x + y + z = 2016$, find the smallest value of y.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Given that $a, b$ and $c$ ($a < b < c$) are three consecutive odd numbers and $b^{3} = 4913$. Find the value of $a \\div c$. (Correct to 2 decimal places)",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

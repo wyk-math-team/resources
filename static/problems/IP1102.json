@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "For positive integer $n$, let $f(n)$ denote the unit digit of $1+2+\\dots+n$. Find $f(1)+f(2)+\\dots+f(2011)$.",
-  "difficulty": 4.08,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

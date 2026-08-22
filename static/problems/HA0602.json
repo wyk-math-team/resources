@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $a$ and $b$ are real numbers such that $a + b< 0$, $ab< 0$ and $a< b$, arrange $a, -a, b$ and $-b$ in ascending order of magnitude.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

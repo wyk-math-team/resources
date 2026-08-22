@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A group of workmen takes some bricks from one place to another. If each workman takes y bricks, there will be 12 bricks left. If each of them takes 8 bricks, the last workman just needs to take 7 bricks. What is the number of this group of workmen?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

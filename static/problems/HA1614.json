@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "At the beginning, there are 3 numbers {1, 2, 3}. In each operation, one of the numbers is replaced by the sum of the other two numbers. After 7 operations, $M$ is the greatest number of these 3 numbers. Find the greatest possible value of $M$.",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

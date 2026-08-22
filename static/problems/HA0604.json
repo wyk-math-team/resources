@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $\\sqrt{7\\sqrt{n - 5} - n}$ is an integer, find the smallest possible value of integer $n$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

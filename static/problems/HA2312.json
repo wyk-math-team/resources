@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A total of 30 marbles are placed in two boxes, and neither of the boxes is empty. Some of the marbles are red, and the rest are green. In each box, the number of red marbles is less than the number of green marbles. A marble is drawn from each box. If the probability that both of them are red is $\\dfrac{9}{50}$, what is the probability that both of them are green?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

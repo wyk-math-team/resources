@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Simplify $a + b(1 + a) + c(1 + a)(1 + b) + d(1 + a)(1 + b)(1 + c) - (1 + a)(1 + b)(1 + c)(1 + d)$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

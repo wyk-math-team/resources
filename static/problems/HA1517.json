@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "In triangle ABC, $AB = 3cm$, $BC = 4cm$ and $CA = 5cm$. D is a point on BC such that AD bisects angle CAB. E is the foot of perpendicular from D to AC. Find the area of triangle CDE.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

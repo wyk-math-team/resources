@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "There are 20 different positive integers arranged in descending order. If the mean of these 20 numbers is 19, find the greatest possible value of the fifth number.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

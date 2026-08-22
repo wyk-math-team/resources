@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "The age of Tim's grandpa is a two-digit number. When the two digits are reversed, the age of his father is obtained. If the difference between the ages of his grandpa and father is 4 times Tim's age, find Tim's present age.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

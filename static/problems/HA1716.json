@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "In $\\Delta ABC$, point $D$ lies on $BC$ such that $AD$ is the angle bisector of $\\angle BAC$, $AB = 8$, $AC = 10$ and $AD = 6$. The point $E$ lies on $AC$ such that $AE = 2$, $M$ and $N$ are midpoints of $AE$ and $BC$ respectively. Find the value of $MN$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

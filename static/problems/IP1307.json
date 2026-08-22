@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "There are $n$ different positive integers, each one not greater than 2013, with the\nproperty that the sum of any three of them is divisible by 39. Find the greatest\nvalue of $n$.",
-  "difficulty": 3.7,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

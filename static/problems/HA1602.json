@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Find the last digit of $2017^{2016}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

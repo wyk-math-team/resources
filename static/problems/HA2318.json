@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Suppose $n$ is a positive integer, $p$ and $q$ are prime numbers satisfying $n^3 = 17p^5 q^2 + n$. Find the value of $n + 3p + 5q$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

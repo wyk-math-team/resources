@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "On the $xy$-plane, find the number of triangles whose vertices have integer coordinates $(x,y)$ satisfying $1\\leq x\\leq 4$ and $1\\leq y\\leq 4$.",
-  "difficulty": 5.89,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

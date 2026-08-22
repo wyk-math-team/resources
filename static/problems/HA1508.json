@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Each face of a cube is written a number, namely 1, 2, 3, 4, 5, and 6. The number on the three adjacent faces at each common vertex are used to form three-digit numbers, there are eight three-digit numbers can be formed. Suppose $A$ is the sum of the eight three-digit numbers, find the smallest value of $A$.",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

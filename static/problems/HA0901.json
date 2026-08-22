@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $m$ satisfies $(2010 - m)^2 + (m - 2009)^2 = 2011$, $K = (2010 - m)(m - 2009)$, find the value of $K$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

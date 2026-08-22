@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "How many 9-digit octal numbers which are divisible by 7 and all digits are 0 or 4?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

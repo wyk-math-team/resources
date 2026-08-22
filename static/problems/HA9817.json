@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A $9 \\times 9 \\times 9$ cube is composed of twenty-seven $3 \\times 3 \\times 3$ cubes. The big cube is \"tunnelled\" as follows: First, the six $3 \\times 3 \\times 3$ cubes which make up the centre of each face of the $9 \\times 9 \\times 9$ cube as well as the centre $3 \\times 3 \\times 3$ cube are removed. Second, each of the twenty remaining $3 \\times 3 \\times 3$ cubes is \"tunnelled\" in the same way, that is, the centre facial unit cubes as well as each centre cube are removed. Find the total surface area of the final figure.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

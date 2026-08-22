@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "For any real number $x$, the function $f$ satisfies $f(x + 2) = -f(x) = f(-x)$. If $f(x) = 2x$ for $0 < x < 1$, find the value of $f(10\\sqrt{3})$.",
-  "difficulty": 5.34,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

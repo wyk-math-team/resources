@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A cube with sides of length 4 cm is made up of a number of smaller cubes with sides of length 1 cm. Among these smaller cubes, $x$ of them are adjacent to exactly 4 other smaller cubes. Find the value of $x$.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

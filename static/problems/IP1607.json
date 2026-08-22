@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In $\\triangle ABC$, $M$ is the mid-point of $AB$, $D$ is the foot of perpendicular from $A$ to $BC$,\nand $P$ is a point on $MD$ (suitably extended if necessary) such that $CP$ is\nperpendicular to $MD$. If $AB = 3$, $BD =1$ and $PB = PC$ , find the length of $AC$ corrected to 6 d.p..",
-  "difficulty": 5.48,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

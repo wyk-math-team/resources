@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A bag contains 2018 black marbles and white marbles. It is given that there are at least 999 black marbles. If there are at least 1 white marble when 1000 marbles are arbitrary taken from the bag, find the least number of white marbles in the bag?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

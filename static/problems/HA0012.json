@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Determine the units digit in $3^{33}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

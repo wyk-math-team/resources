@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Find the highest common factor of $8^8 - 1$ and $4^9 + 1$.",
-  "difficulty": 3.07,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

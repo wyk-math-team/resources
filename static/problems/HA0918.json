@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "ABC is a triangle with D and E as mid-points of BC and AC respectively. AD and BE intersect at M. The triangle is divided into four regions ABM, BDM, DCEM and AEM with area a, b, c and d respectively. Arrange a, b, c, d in ascending order.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

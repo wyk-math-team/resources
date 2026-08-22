@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If correct to 4 significant figures, $2010abc12011\\approx 2.011\\times 10^{11}$, how many different 3-digit numbers abc are there?",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$x$ is a three-digit number. Its digits are all different and not equal to zero. Rearrange the digits of $x$ to get five other numbers. These five numbers and $x$ are added together to get 4218. Find the sum of digits of $x$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A big cube with each side of n units long (n is an integer) is formed from a certain number of unit cubes. If the four diagonals of the big cube pass through 33 unit cubes, find the value of n.",
-  "difficulty": 4,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "Factorize $2018x^{2} - (2018^{2} - 1)x - 2018$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

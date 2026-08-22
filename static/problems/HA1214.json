@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "A wire of length $2013 \\mathrm{cm}$ is bent to form a triangle with lengths $x \\mathrm{cm}$, $y \\mathrm{cm}$ and $z \\mathrm{cm}$, so that $x$, $y$ and $z$ are integers, $x < y < z$ and $z$ has to be maximized. How many possible triangles can be formed?",
-  "difficulty": 4,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

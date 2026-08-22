@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $n$ be a two-digit number such that the square of the sum of digits of $n$ is equal to the sum of digits of $n^2$. Find the sum of all possible values of $n$.",
-  "difficulty": 6.08,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

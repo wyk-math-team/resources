@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $\\left\\{ \\begin{array}{l}2a^2 + 2007a + 3 = 0 \\\\ 3b^2 + 2007b + 2 = 0 \\end{array} \\right.$ and $ab \\neq 1$, find $\\dfrac{a}{b}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

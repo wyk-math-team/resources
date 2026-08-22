@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "For positive integer $n$, let $D(n)$ be the eventual value obtained when the digits of $n$ (in base 10) are added up recursively until a one-digit number is obtained. For example $D(4)=4$, $D(2012)=D(5)=5$ and $D(1997)=D(26)=D(8)=8$. If $x$ denotes the 2012th Fibonacci number, find $D(x)$.<br>\nF(1)=1,F(2)=1,F(3)=2…",
-  "difficulty": 4.12,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

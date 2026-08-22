@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "How many three-digit positive integers are there such that, the three digits of every\ninteger, taken from left to right, form an arithmetic sequence?",
-  "difficulty": 5.05,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

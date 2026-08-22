@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "It is given that $(5x + 1)^{2008} + \\sqrt{(y - 5)} = 0$. Find the value of $x^{2009} \\times y^{2010}$.",
-  "difficulty": 4,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

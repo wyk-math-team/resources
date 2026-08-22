@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$\\overline{abc}$ is a three-digit number, where $a < b < c$. The sum of the other five numbers formed by using $a, b$ and $c$ is 3194. Find the three-digit number $\\overline{abc}$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

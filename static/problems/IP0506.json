@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "If $m$ is a positive integer not exceeding 1000 and the fraction $\\dfrac{m + 4}{m^2 + 7}$ is in its lowest term, how many possible values of $m$ are there?",
-  "difficulty": 5.28,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

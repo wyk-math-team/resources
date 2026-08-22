@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "100 students numbered 1 to 100 are divided into 20 groups of 5. The student with the largest number in each group becomes the group leader. What is the maximum number of group leaders whose number is prime?",
-  "difficulty": 4.6297237215880145,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

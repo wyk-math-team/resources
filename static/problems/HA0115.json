@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "$1111122222$ can be factorized into the product of two consecutive positive integers. Find the larger factor.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

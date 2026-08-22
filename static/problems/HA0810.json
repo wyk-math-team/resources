@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $x$ is a positive integer and $x^{2}$ is the sum of the squares of 11 consecutive integers, find the smallest value of $x$.",
-  "difficulty": 4,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

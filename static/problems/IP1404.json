@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $f(x) = ax + b$ where $a$ and $b$ are integers. \nIf $f(f(0)) = 0$ and $f(f(f(4))) = 9$, \nfind the value of\n$\nf(f(f(f(1)))) + f(f(f(f(2)))) + \\cdots + f(f(f(f(2014)))).\n$",
-  "difficulty": 6.04,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}
