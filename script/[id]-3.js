@@ -335,7 +335,10 @@ async function initPage() {
             <span id="detailDifficulty">Lv.${diff === 0 ? '∞' : diff.toFixed(2)}</span>
           </span>
           <span style="font-size:0.8rem" id="detailTags">${(problem.tags || []).join(', ')}</span>
-          <span id="navButtons" style="margin-left:auto;display:flex;gap:0.5rem;"></span>
+          <span style="display:flex;gap:0.5rem;align-items:center;">
+  <span id="navButtons" style="display:flex;gap:0.5rem;"></span>
+  <button id="reportBtn" class="back-btn" style="color:var(--danger);">Report</button>
+</span>
         </div>
         <div class="answer-area">
           <div class="mode-switch">
@@ -439,7 +442,19 @@ async function initPage() {
         }
       });
     }
-
+    document.getElementById('reportBtn').addEventListener('click', async function() {
+      if (!confirm('Confirm report this problem as bug? Your username will be recorded.')) return;
+      try {
+        const res = await apiCall('/api/problem?action=report', 'POST', { problemId });
+        if (res.success) {
+          alert('Report submitted. Thank you!');
+        } else {
+          alert('Failed to submit report: ' + (res.message || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Network error. Please try again.');
+      }
+    });
     document.getElementById('detailFavorite').addEventListener('click', async function() {
       const icon = this.querySelector('i');
       if (!icon) return;
