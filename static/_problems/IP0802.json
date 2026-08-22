@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $a, b, c$ be pairwise distinct positive integers such that $a + b$, $b + c$ and $c + a$ are all square numbers. Find the smallest possible value of $a + b + c$.",
+  "difficulty": 5.11,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find the last 3 digits of $2025^{2025}$.",
+  "difficulty": 1.93,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

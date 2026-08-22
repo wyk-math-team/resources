@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find a positive integer $n$ less than 2006 such that $2006n$ is a multiple of $2006 + n$.",
+  "difficulty": 5.632972520492443,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

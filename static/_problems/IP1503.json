@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In $\\triangle ABC$, $\\angle A = 54^\\circ$ and $\\angle C = 24^\\circ$. $P$ is a point on $AC$ such that $AP = BC$. Find $\\angle CBP$.",
+  "difficulty": 7.17,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

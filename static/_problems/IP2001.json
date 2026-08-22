@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let n =$ (10^{2020}+ 2020)^2$. Find the sum of all digits of n.",
+  "difficulty": 2.97,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

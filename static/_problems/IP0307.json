@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "The number of apples produced by a group of farmers is less than 1000. It is known that they shared the apples in the following way. In turn, each farmer took from the collection of apples either exactly one-half or exactly one-third of the apples remaining in the collection. No apples were cut into pieces. After each farmer had taken his share, the rest was given to charity. Find the greatest number of farmers that could take part in the apple sharing.",
+  "difficulty": 5.16,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

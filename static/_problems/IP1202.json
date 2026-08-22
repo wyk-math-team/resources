@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A positive integer $n$ is said to be 'good' if $n^2 - 1$ can be written as the product of three distinct prime numbers. Find the sum of the five smallest 'good' integers.",
+  "difficulty": 4.75,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

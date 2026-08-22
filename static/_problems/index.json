@@ -1,0 +1,1464 @@
+[
+  {
+    "id": "IP2304",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2306",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.64,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2315",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.57,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2101",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.6297237215880145,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2105",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.3962352805052447,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1904",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 8,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1801",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.57,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1702",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.97,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1704",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.1,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1705",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.82,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1706",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.29,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1710",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.35,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1605",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.06,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1606",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.57,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1501",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.87,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1507",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.31,
+    "tags": [
+      "trigonometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1401",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.9,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1301",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.12,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1302",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.05,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1303",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.48,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1205",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.54,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2309",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.63,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2313",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.55,
+    "tags": [
+      "geometry",
+      "IMO Prelim",
+      "bug"
+    ]
+  },
+  {
+    "id": "IP2314",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.3,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2201",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.81,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2102",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.852267934098592,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2104",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.678197577879573,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2001",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 2.97,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1902",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.450006686962579,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1802",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.68,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1805",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.05,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1701",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.25,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1707",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.11,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1604",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.44,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1607",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.48,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1508",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.45,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1512",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.22,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1514",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.97,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1516",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.54,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1402",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.9,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1210",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.06,
+    "tags": [
+      "trigonometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1102",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.08,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1117",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 8,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1004",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.55,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0905",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.858427349420668,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0701",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.32,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0702",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.27,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0602",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.632972520492443,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0507",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.08,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0508",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.38,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0202",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.96,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0203",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.3,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0204",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.5,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0205",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.5,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0207",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.12,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0209",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.52,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0210",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.3,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1201",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.08,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1202",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.75,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1208",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.11,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1209",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.72,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1001",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.58,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0903",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.3463687900540595,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0603",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.9826576284352075,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0503",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.27,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0206",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.8,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2401",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2402",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.16,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2403",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.37,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2404",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.03,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2301",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.2,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2303",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.97,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2305",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.2,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2310",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.66,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2311",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.35,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2312",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.02,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2103",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.7245163144783815,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1903",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 8,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1907",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.956153955785044,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1803",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.11,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1806",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1601",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.4,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1608",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.15,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1609",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.16,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1505",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.36,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1509",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.75,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1510",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.81,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1511",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.62,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1515",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.05,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1307",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.7,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2302",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.93,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2307",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.53,
+    "tags": [
+      "geometry",
+      "IMO Prelim",
+      "bug"
+    ]
+  },
+  {
+    "id": "IP2308",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.68,
+    "tags": [
+      "algebra",
+      "IMO Prelim",
+      "bug"
+    ]
+  },
+  {
+    "id": "IP2107",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.1913580753514745,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1901",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.423873655820881,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1905",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 8,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1906",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.834948975850638,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1804",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.34,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1703",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.87,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1708",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.07,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1709",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.97,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1602",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.19,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1603",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.79,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1502",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.13,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1503",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.17,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1504",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.28,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1506",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.62,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1513",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.25,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1403",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.79,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1404",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.04,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1203",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.68,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1207",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.79,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1211",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.13,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1101",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.07,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0802",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.11,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0601",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.900351703841195,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0501",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0502",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.84,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0506",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.28,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0208",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.9,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0212",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 7.13,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0213",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.52,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1204",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.12,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1106",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.073269585261578,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1002",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.11,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP1003",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.86,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0901",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.811399950992873,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0801",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.02,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0504",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.7,
+    "tags": [
+      "optimization",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0505",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.89,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0509",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.29,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0511",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.42,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0301",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.8,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0302",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.3,
+    "tags": [
+      "combinatorics",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0307",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.16,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0201",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.24,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0211",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.7,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2501",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.13,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2502",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 3.89,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2503",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.84,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2504",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.36,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP2505",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.19,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0401",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 5.4,
+    "tags": [
+      "geometry",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0404",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 4.2,
+    "tags": [
+      "number theory",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "IP0405",
+    "name": "IMO Prelim Past Paper",
+    "difficulty": 6.9,
+    "tags": [
+      "algebra",
+      "IMO Prelim"
+    ]
+  },
+  {
+    "id": "676767",
+    "name": "6+7",
+    "difficulty": 67,
+    "tags": [
+      "67"
+    ]
+  },
+  {
+    "id": "HA2301",
+    "name": "Past Paper",
+    "difficulty": 3.27,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA2401",
+    "name": "Past Paper",
+    "difficulty": 1.93,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0004",
+    "name": "Past Paper",
+    "difficulty": 1.83,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0007",
+    "name": "Past Paper",
+    "difficulty": 1.72,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0008",
+    "name": "Past Paper",
+    "difficulty": 4.16,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0010",
+    "name": "Past Paper",
+    "difficulty": 2.1,
+    "tags": [
+      "combinatorics",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0011",
+    "name": "Past Paper",
+    "difficulty": 3.51,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0012",
+    "name": "Past Paper",
+    "difficulty": 1,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0013",
+    "name": "Past Paper",
+    "difficulty": 2.74,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0014",
+    "name": "Past Paper",
+    "difficulty": 3.53,
+    "tags": [
+      "number theory",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0015",
+    "name": "Past Paper",
+    "difficulty": 4.92,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0016",
+    "name": "Past Paper",
+    "difficulty": 3.59,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0101",
+    "name": "Past Paper",
+    "difficulty": 2.02,
+    "tags": [
+      "geometry",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "HA0603",
+    "name": "Past Paper",
+    "difficulty": 4,
+    "tags": [
+      "algebra",
+      "HKMHASC"
+    ]
+  },
+  {
+    "id": "A001",
+    "name": "Introduction I",
+    "difficulty": 1,
+    "tags": [
+      "introduction"
+    ]
+  },
+  {
+    "id": "A002",
+    "name": "Introduction II",
+    "difficulty": 1,
+    "tags": []
+  },
+  {
+    "id": "A003",
+    "name": "Introduction III",
+    "difficulty": 1,
+    "tags": []
+  }
+]

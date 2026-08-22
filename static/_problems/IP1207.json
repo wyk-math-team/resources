@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the smallest positive integer which cannot be expressed in the form $\\dfrac{2^a - 2^b}{2^c - 2^d}$ where $a,b,c,d$ are non-negative integers.",
+  "difficulty": 5.79,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

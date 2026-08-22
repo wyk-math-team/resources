@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "There are $12$ lamps, initially all off, each of which comes with a switch. When a\nswitch is pressed, a lamp which is off will be turned on, and a lamp which is on\nwill be turned off. Now one is allowed to press exactly $5$ different switches in each\nround. What is the minimum number of rounds needed so that all lamps will be\nturned on?",
+  "difficulty": 3.87,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

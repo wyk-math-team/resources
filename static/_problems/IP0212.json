@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In trapezium $ABCD$, $BC\\perp AB$, $BC\\perp CD$, $AC\\perp BD$. $AB=\\sqrt{11}$, $AD=\\sqrt{1001}$. Find $BC^2$.",
+  "difficulty": 7.13,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "How many solutions are there to the equation $\\log_3 x = 3\\sin (3\\pi x)$?",
+  "difficulty": 5.68,
+  "tags": [
+    "algebra",
+    "IMO Prelim",
+    "bug"
+  ]
+}

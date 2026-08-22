@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the smallest positive integer $n$ such that the last three digits of $2007n$ are $837$.",
+  "difficulty": 3.27,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

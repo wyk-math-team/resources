@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A clock has an hour hand of length $3$ and a minute hand of length $4$. From 1:00 am\nto 1:00 pm of the same day, find the number of occurrences when the distance between the\ntips of the two hands is an integer.",
+  "difficulty": 4.96,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

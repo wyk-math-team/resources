@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A positive integer is said to be a “palindrome” if it reads the same from left to right\nas from right to left. For example 2002 is a palindrome. Find the sum of all 4-digit\npalindromes",
+  "difficulty": 6.5,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

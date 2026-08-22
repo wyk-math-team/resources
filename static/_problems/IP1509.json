@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $k$ be an integer. If the equation $kx^2 (4k - 2)x + (4k - 7) = 0$ has an integral\nroot, find the sum of all possible values of $k$.",
+  "difficulty": 5.75,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

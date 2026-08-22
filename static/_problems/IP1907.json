@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $\\alpha, \\beta, \\gamma$ be the roots of the equation $x^{3} + 2x^{2} + 3x + 4 = 0$. Find the value of $(\\alpha^{4} - 1)(\\beta^{4} - 1)(\\gamma^{4} - 1)$.",
+  "difficulty": 5.956153955785044,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

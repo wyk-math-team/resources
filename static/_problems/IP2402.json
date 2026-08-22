@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let n be a positive integer less than 100 such that the tens digit of $n^2$ is 7. Find the sum of all possible values of n.",
+  "difficulty": 5.16,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

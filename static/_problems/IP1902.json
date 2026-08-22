@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "There are 9 cards, and the numbers 1, 1, 2, 2, 3, 4, 5, 6, 8 are written on them respectively. Cards on which an odd number is written are then coloured red and the rest are coloured green. How many ways are there to arrange the 9 cards in a row, so that the number on each red card is less than or equal to those on every red card to its right?",
+  "difficulty": 5.450006686962579,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the sum of all integers from $1$ to $1000$ which contain at least one digit $7$.",
+  "difficulty": 6.3,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

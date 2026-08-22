@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $f(n) = \\left\\lfloor \\dfrac{4032n}{2017} \\right\\rfloor $, where $ \\lfloor x \\rfloor $ denotes the greatest integer less than or equal to $x$.<br>\nFind the value of \n        $\n        f(1) + f(2) + \\cdots + f(2016).\n        $",
+  "difficulty": 5.06,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

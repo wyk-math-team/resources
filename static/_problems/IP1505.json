@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$ABCD$ is a trapezium with $AB // CD$, $AB = 42$, $BC = 20$ and $DA = 15$. $P$ is a point\non $AB$, and a circle with centre $P$ is tangent to both $BC$ and $AD$. Find $AP \\times PB$.",
+  "difficulty": 6.36,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

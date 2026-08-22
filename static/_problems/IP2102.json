@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let n be a three-digit number divisible by the product of its digits. Find the greatest possible n.",
+  "difficulty": 4.852267934098592,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

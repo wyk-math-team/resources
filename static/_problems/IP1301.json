@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $a, b, c, d$ be positive numbers such that $\\dfrac{1}{a^3} = \\dfrac{512}{b^3} = \\dfrac{125}{c^3} = \\dfrac{d}{(a + b + c)^3}$. Find $d$.",
+  "difficulty": 4.12,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

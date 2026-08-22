@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let m and n be positive integers such that $\\sqrt{m} + \\sqrt{n} = \\sqrt{2023}$. Find the greatest possible value of $m + n$.",
+  "difficulty": 3.93,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

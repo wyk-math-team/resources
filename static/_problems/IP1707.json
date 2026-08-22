@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "How many sets of positive integers $(x,y,z)$ have the properties that $x\\leq y\\leq z$, their H.C.F. is 30 and their L.C.M. is 3000?",
+  "difficulty": 6.11,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}
