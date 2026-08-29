@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "There are 111 balls in a box, each being red, green, blue or white. It is known that if 100 balls are drawn, we can ensure getting balls of all four colours. Find the smallest integer $N$ such that if $N$ balls are drawn, we can ensure getting balls of at least three different colours.",
-  "difficulty": 3.55,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

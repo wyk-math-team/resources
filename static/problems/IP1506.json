@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $a,b$ be integers. If $a+b$ is a root of $x^2+ax+b=0$, find the smallest possible value of $ab$.",
-  "difficulty": 6.62,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

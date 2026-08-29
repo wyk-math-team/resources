@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let n be positive integer. If (n+1)(2n+15) and n(n+5) have exactly the same prime factors, find greatest possible n.",
-  "difficulty": 5.62,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

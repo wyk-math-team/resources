@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $f(n)=3n^2-3n+1$. Find the last four digits of $f(1)+f(2)+\\dots+f(2010)$.",
-  "difficulty": 4.58,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

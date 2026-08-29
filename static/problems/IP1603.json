@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In a test, a question required students to draw a triangle in which the largest and the\nsmallest interior angles differ by $54^\\circ$, and then compute the sum of any two of the\ninterior angles of the triangle drawn. The sums obtained by two students were $x^\\circ$\nand $y^\\circ$ respectively. Find the greatest possible value of $x - y$ .",
-  "difficulty": 4.79,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

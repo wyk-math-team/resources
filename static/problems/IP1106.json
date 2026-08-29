@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "The parabola $y = ax^{2} + bx + c$ has vertex at $\\left(\\dfrac{1}{4}, -\\dfrac{9}{8}\\right)$. If $a > 0$ and $a + b + c$ is an integer, find the minimum possible value of $a$.",
-  "difficulty": 5.073269585261578,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $a_0 = 1$, $a_1 = 2$ and $a_n = a_{n-2} + (a_{n-1})^2$ for $n > 1$. Find the remainder when $a_{2017}$ is divided by 7.",
-  "difficulty": 5.25,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

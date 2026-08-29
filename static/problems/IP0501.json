@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $a_{1}, a_{2}, \\ldots, a_{n}$ be <b> integers </b>$(n > 1)$ satisfying $a_{1} + a_{2} + \\cdots + a_{n} = a_{1}a_{2}\\cdots a_{n} = 2005$. Find the smallest possible value of $n$.",
-  "difficulty": 5,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

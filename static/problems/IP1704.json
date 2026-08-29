@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In how many different ways can we put 600 identical balls into 3 identical boxes such that each box contains at least one ball?",
-  "difficulty": 6.1,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

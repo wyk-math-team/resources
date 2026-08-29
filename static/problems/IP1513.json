@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let k be a real number such that $-1< k <1$. The straight line $y = x + k$ meets the\ncurve $y =1- x^2$ at $A$ and $B$. If $C$ denotes the point $(1,0)$ , find the <b>square</b> of greatest possible area of \n$\\triangle ABC$.",
-  "difficulty": 7.25,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

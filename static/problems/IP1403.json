@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "If $x$ and $y$ are real numbers, find the minimum value of  \n$\n\\sqrt{4 + y^2} + \\sqrt{x^2 + y^2 - 4x - 4y + 8} + \\sqrt{x^2 - 8x + 17}.\n$",
-  "difficulty": 6.79,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

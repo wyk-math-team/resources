@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "There are 13 students in a class (one of them being the monitor) and 13 seats in the classroom. Every day, the 13 students line up in random order and then enter the classroom one by one. Except for the monitor, each student will randomly choose an unoccupied seat and sit down. The monitor, however, prefers the seat next to the door and chooses it if possible. What is the probability that the monitor can choose his favourite seat?",
-  "difficulty": 4.68,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

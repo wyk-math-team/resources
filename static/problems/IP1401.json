@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "If $x-y=12$, find $x^3 - y^3 - 36xy$.",
-  "difficulty": 3.9,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

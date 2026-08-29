@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "The length of segments $a, b, c, d$ are 16, 13, 10, and 6 respectively. Use these segments to construct quadrilateral such that side $a$ parallel to side $c$. How many different quadrilaterals can be constructed?",
-  "difficulty": 4.92,
-  "tags": [
-    "geometry",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Someone extracted n consecutive digits in the infinite decimal representation of 1/13 and found that the sum of the n digits is equal to 2023. Find n.",
-  "difficulty": 4.2,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

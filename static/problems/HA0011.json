@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If \"&\" represents an operation defined as $a \\& b = b^{a} + a^{b}$, find $(2 \\& 3) \\& 2$.",
-  "difficulty": 3.51,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

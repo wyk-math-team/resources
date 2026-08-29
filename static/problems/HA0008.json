@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "For any positive integer $n$, $E(n)$ represents the sum of all the odd digits of $n$. e.g. $E(1547) = 1 + 5 + 7 = 13$.<br>(a) Evaluate $E(23046)$ and $E(102)$.<br>(b) Evaluate $E(1) + E(2) + E(3) + \\dots + E(98) + E(99)$.<br>\nWrite your answer comma separated.",
-  "difficulty": 4.16,
-  "tags": [
-    "number theory",
-    "HKMHASC"
-  ]
-}

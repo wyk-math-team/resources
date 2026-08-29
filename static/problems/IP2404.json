@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Mike wrote down m consecutive integers with sum 2m, while Kent wrote down 2m consecutive integers with sum m. $$$$If the difference between the largest integer written by Mike and the largest integer written by Kent is 2024, find m.",
-  "difficulty": 5.03,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

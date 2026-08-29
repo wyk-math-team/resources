@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "The graph of $x^2(x+y+1) = y^2(x+y+1)$ together with the two coordinate axes divide the $xy$-plane into $n$ regions. Find the value of $n$.",
-  "difficulty": 3.97,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

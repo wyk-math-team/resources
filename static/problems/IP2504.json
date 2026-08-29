@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Find a negative number x such that $(x^2 - 2\\sqrt{3} x)(x^2 - 3) = 2016$.",
-  "difficulty": 6.36,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Find the sum of all real roots of $(2\\sqrt[5]{x+1}-1)^4 + (2\\sqrt[5]{x+1}-3)^4 = 16$.",
-  "difficulty": 5.1913580753514745,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

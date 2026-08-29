@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $a, b, c, d$ be integers with absolute values not exceeding 10. If the two roots to\nthe equation  $x^2 + ax +b = 0$ are $c$ and $d$, while the two roots to the equation\n$x^2 +cx + d = 0$ are $a$ and $b$, how many possible sets of values are there for\n$(a,b,c,d)$ ?",
-  "difficulty": 6.15,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

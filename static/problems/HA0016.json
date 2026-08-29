@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "If $x, y, z$ are real numbers such that $3^{x} = 4^{y} = 12^{z}$, find the value of $\\dfrac{z}{x} + \\dfrac{z}{y}$.",
-  "difficulty": 3.59,
-  "tags": [
-    "algebra",
-    "HKMHASC"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "How many five-digit positive integers are divisible by 36 and have their tens digit and unit digit equal?",
-  "difficulty": 8,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "If $\\dfrac{\\sin x}{\\sin y}=3$ and $\\dfrac{\\cos x}{\\cos y}=\\dfrac{1}{2}$, find $\\dfrac{\\sin 2x}{\\sin 2y} + \\dfrac{\\cos 2x}{\\cos 2y}$.",
-  "difficulty": 6.06,
-  "tags": [
-    "trigonometry",
-    "IMO Prelim"
-  ]
-}

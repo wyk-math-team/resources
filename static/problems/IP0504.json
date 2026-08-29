@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "A student has budget $\\$10000$ for a rectangular banner with integer length and width (m). Length costs $\\$330$ per m, width $\\$450$ per m. Find the maximum area (m$^2$) possible.",
-  "difficulty": 4.7,
-  "tags": [
-    "optimization",
-    "IMO Prelim"
-  ]
-}

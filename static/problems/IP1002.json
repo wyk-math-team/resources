@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $n$ be a positive integer divisible by $2010$ and exactly one of its digits is even. Find the smallest possible $n$.",
-  "difficulty": 5.11,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

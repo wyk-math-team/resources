@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Find the smallest positive integer $k$ such that $2xy-3x-5y=k$ has an odd number of positive integer solutions.",
-  "difficulty": 4.38,
-  "tags": [
-    "number theory",
-    "IMO Prelim"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In a school there are 300 boys and 300 girls, divided into 5 classes, each with the same number of students. It is known that there are at least 33 boys and 33 girls in each class. A boy and a girl from the same class may form a group to enter a contest, and each student may only belong to one group. What is the maximum number of groups that can be guaranteed to form?",
-  "difficulty": 4.54,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

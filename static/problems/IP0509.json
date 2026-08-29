@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In $\\triangle ABC$, $\\angle B=60^\\circ$, $\\angle C=90^\\circ$, $AB=1$. $BCP,CAQ,ABR$ are equilateral triangles outside $\\triangle ABC$. $QR$ meets $AB$ at $T$. Find area of $\\triangle PRT$.",
-  "difficulty": 6.29,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

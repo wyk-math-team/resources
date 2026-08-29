@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Points $A$ and $B$ lie on a plane. A straight line passing through $A$ will divide\nthe plane into 2 regions. A further straight line through $B$ will altogether divide the plane\ninto 4 regions, and so on. If 1002 and 1000 straight lines are drawn passing through $A$ and\n$B$ respectively, what is the maximum number of regions formed?",
-  "difficulty": 6.8,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "$ABC$ is an acute-angled triangle. $D$ is a point on $BC$ such that $BD:DC = 2:3$, while $E$ is a point on $AC$ such that $AE:EC = 3:4$. $AD$ and $BE$ meet at $F$. Find $\\dfrac{AF}{FD} \\times \\dfrac{BF}{FE}$.<br>\nPlease use expression mode.",
-  "difficulty": 4.84,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

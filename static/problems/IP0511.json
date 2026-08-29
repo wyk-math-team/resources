@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "When $n$ fair dice are thrown, the probability of sum $2005$ and the probability of sum $S$ are both equal to a positive number $p$. Find the smallest possible $S$.",
-  "difficulty": 4.42,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

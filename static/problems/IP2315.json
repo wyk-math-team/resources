@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "There is a $3 \\times 3$ table and 9 cards printed with the numbers -4, -3, -2, -1, 0, 1, 2, 3, 4. How many ways are there for these cards to be distributed to the cells of the table so that there is one card in each cell, and that the sum of the numbers of the three cards on each row, each column and each of the two diagonals of the table is non-negative?",
-  "difficulty": 6.57,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}

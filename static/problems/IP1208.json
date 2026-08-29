@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "Let $f(x)=x^2+12x+30$. Find the largest real root of the equation $f(f(f(x)))=0$.",
-  "difficulty": 4.11,
-  "tags": [
-    "algebra",
-    "IMO Prelim"
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "name": "Past Paper",
-  "statement": "How many three-digit numbers can be formed from the digits 0, 1, 2, 3 and 4 if no repetitions are allowed?",
-  "difficulty": 2.1,
-  "tags": [
-    "combinatorics",
-    "HKMHASC"
-  ]
-}

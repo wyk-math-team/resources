@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "In $\\triangle ABC$, $AB=2AC$ and $\\angle BAC=112^\\circ$. $P,Q$ on $BC$ such that $AB^2+BC\\cdot CP=BC^2$ and $3AC^2+2BC\\cdot CQ=BC^2$. Find $\\angle PAQ$.",
-  "difficulty": 8,
-  "tags": [
-    "geometry",
-    "IMO Prelim"
-  ]
-}

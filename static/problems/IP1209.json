@@ -1,9 +1,0 @@
-{
-  "name": "IMO Prelim Past Paper",
-  "statement": "How many different ways are there to rearrange the letters in the word 'BRILLIANT' so that no two adjacent letters are the same after the rearrangement?",
-  "difficulty": 4.72,
-  "tags": [
-    "combinatorics",
-    "IMO Prelim"
-  ]
-}
