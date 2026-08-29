@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A participant chooses a nine-digit number ABCDEFGHI with distinct non-zero digits. Score = A^(B^(C^(...))). Which nine-digit number maximises the score?",
+  "difficulty": 4.66,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "How many triples (a, b, c) of positive integers are there such that a is a factor of both b and c, and that a + b + c = 300?",
+  "difficulty": 5.14,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $ABCD$ be a quadrilateral with $BC = CD = DA = 1$, $\\angle DAB = 135^\\circ$ and $\\angle ABC = 75^\\circ$. Find $AB$.",
+  "difficulty": 5.15,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

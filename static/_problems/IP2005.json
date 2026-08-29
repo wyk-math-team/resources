@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "28 students sit in a circle. Each says 'the two next to me are of different genders'. All boys lie, exactly 3 girls lie. How many girls are there?",
+  "difficulty": 4.76,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

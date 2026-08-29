@@ -1,6 +1,6 @@
 {
   "name": "IMO Prelim Past Paper",
-  "statement": "15 students, every day 3 are on duty. After the course, every pair of students have been on duty together exactly once. How many days does the course last?",
+  "statement": "15 students join a summer course. Every day, 3 students are on duty after school to clean the classroom. After the course, it was found that every pair of students have been on duty together exactly once. How many days does the course last for?",
   "difficulty": 5.3,
   "tags": [
     "combinatorics",

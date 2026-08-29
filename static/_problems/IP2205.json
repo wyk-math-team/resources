@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "One edge of a triangular pyramid has length 6 while every other edge has length 5. Find the volume of the pyramid.",
+  "difficulty": 5.5,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

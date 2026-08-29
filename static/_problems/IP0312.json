@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the last two digits of $7 \\times 19 \\times 31 \\times \\cdots \\times 1999$. (Here 7, 19, 31, ..., 1999 form an arithmetic sequence of common difference 12.)",
+  "difficulty": 5.63,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

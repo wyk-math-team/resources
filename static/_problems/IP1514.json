@@ -1,6 +1,6 @@
 {
   "name": "IMO Prelim Past Paper",
-  "statement": "<style>\n.math-box {\n    display: inline-block;\n    width: 1.8em;\n    height: 1.2em;           /* same as typical line height */\n    border: 1.5px solid black;\n    text-align: center;\n    vertical-align: middle;  /* aligns with the surrounding text */\n    line-height: 1.2em;      /* keeps the content vertically centred */\n    margin: 0 2px;\n    background: white;       /* optional */\n  }\n</style>\nThe following is a question in a mathematics test. How many different possible\ncorrect answers are there to the question?<br>\n“In each box below fill in a positive integer not exceeding 11 (repetition\nis allowed) so that the statement is true: <br>\n? $\\times$ ? + ? $\\times$ ?<span class=\"math-box\"></span> is a multiple of 11.",
+  "statement": "The following is a question in a mathematics test. How many different possible\ncorrect answers are there to the question?<br>\nIn each box below fill in a positive integer not exceeding 11 (repetition\nis allowed) so that the statement is true: <br>\n[] $\\times$ [] + [] $\\times$ [] is a multiple of 11.",
   "difficulty": 6.97,
   "tags": [
     "number theory",

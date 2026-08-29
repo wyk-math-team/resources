@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Given that 22! = 1124000727777__680000, where the box contains three missing digits. Write down the missing digits from left to right.",
+  "difficulty": 6.19,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

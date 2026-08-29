@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $\\overline{ab}$ denote a two-digit number. Find $\\overline{xy}$ satisfying $\\overline{xy} = (x-y)!\\,(\\overline{yx}-3)$.",
+  "difficulty": 4.22,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A positive integer $n$ is said to be increasing if, by reversing the digits of $n$, we get an integer larger than $n$. For example, 2003 is increasing because, by reversing the digits of 2003, we get 3002, which is larger than 2003. How many four-digit positive integers are increasing?",
+  "difficulty": 4.13,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

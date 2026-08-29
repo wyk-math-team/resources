@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In a mathematics competition there are four problems, carrying 1, 2, 3 and 4 marks respectively. For each question, full score is awarded if the answer is correct; otherwise 0 mark will be given. The total score obtained by a contestant is multiplied by a time bonus of 4, 3, 2 or 1 according to the time taken to solve the problems, and a further bonus score of 20 will be added after multiplying by the time bonus if one gets all four problems correct. How many different final scores are possible?",
+  "difficulty": 4.95,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

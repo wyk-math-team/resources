@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $a$ and $b$ be positive integers such that $90 < a + b < 99$ and $0.9 < \\dfrac{a}{b} < 0.91$. Find $ab$.",
+  "difficulty": 4.74,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

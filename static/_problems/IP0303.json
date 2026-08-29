@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find the number of pairs of consecutive integers in the set $\\{1000, 1001, 1002, \\ldots, 2000\\}$ such that no carrying is required when the two integers are added.",
+  "difficulty": 4.85,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

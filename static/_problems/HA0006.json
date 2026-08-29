@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "$OPQ$ is a quadrant of a circle. $OP$ and $OQ$ are diameters of two semi-circles as shown in the diagram. Areas $a$ and $b$ are shaded. Find the ratio $\\dfrac{a}{b}$.<br><svg width=\"600\" height=\"400\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"300\" y1=\"0\" x2=\"300\" y2=\"400\" stroke=\"#ccc\" stroke-width=\"1\"></line><line x1=\"0\" y1=\"200\" x2=\"600\" y2=\"200\" stroke=\"#ccc\" stroke-width=\"1\"></line><circle cx=\"303\" cy=\"200.875\" r=\"115.0173899895142\" fill=\"none\" stroke=\"red\" stroke-width=\"2\"></circle><line x1=\"300\" y1=\"85.875\" x2=\"299\" y2=\"200.875\" stroke=\"blue\" stroke-width=\"2\"></line><line x1=\"298\" y1=\"201.87499999999997\" x2=\"418\" y2=\"198.875\" stroke=\"blue\" stroke-width=\"2\"></line><circle cx=\"300\" cy=\"142.875\" r=\"57.0087712549569\" fill=\"none\" stroke=\"red\" stroke-width=\"2\"></circle><circle cx=\"360\" cy=\"200.875\" r=\"60.03332407921454\" fill=\"none\" stroke=\"red\" stroke-width=\"2\"></circle><text x=\"295\" y=\"69.875\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">P</text><text x=\"448\" y=\"203.87499999999997\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">Q</text><text x=\"336.00000000000006\" y=\"164.875\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">a</text><text x=\"370\" y=\"123.875\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">b</text></svg>",
+  "difficulty": 2.55,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

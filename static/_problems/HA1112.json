@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "The lengths of AB, BC and CA of $\\Delta ABC$ are 3, 4 and 5 respectively. The angle bisector of $\\angle BAC$ intersects $BC$ at $D$. Find the area of $\\Delta ABD$.",
+  "difficulty": 2.97,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

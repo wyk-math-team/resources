@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Denote by [a] the greatest integer less than or equal to a. Let N be an integer, x and y be numbers satisfying the simultaneous equations $\\left\\{ \\begin{array}{l} [x] + 2y = N + 2 \\\\ [y] + 2x = 3 - N \\end{array} \\right.$ . Find x in terms of N.",
+  "difficulty": 5.72,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

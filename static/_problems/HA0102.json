@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Let $ABCD$ be a parallelogram of area $15 \\mathrm{cm}^2$ with $AB = 4 \\mathrm{cm}$ and $BC = 5 \\mathrm{cm}$. $E, F, G$ and $H$ lie on $AB, BC, CD$ and $DA$ respectively, with $AE = BF = DG = AH = 3 \\mathrm{cm}$. Find the area of the quadrilateral $EFGH$.",
+  "difficulty": 4.42,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

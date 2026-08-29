@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Given a rectangle $ABCD$, $X$ and $Y$ are respectively points on $AB$ and $BC$. Suppose the areas of the triangles $\\triangle ADX$, $\\triangle BXY$ and $\\triangle DYC$ are respectively 5, 4 and 3. Find the area of $\\triangle DXY$.",
+  "difficulty": 6.68,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

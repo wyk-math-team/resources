@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A collector has N precious stones. If he takes away the three heaviest stones then the total weight of the stones decreases by 35%. From the remaining stones if he takes away the three lightest stones the total weight further decreases by 5/13. Find N.",
+  "difficulty": 4.55,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

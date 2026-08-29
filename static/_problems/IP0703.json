@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$ABCD$ is a parallelogram with $\\angle D$ obtuse. $M, N$ are the feet of perpendiculars from $D$ to $AB$ and $BC$ respectively. If $DB = DC = 50$ and $DA = 60$, find $DM + DN$.",
+  "difficulty": 4,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

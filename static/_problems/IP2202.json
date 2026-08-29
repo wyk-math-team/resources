@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $a$ and $b$ be the two roots of the equation $x^{\\frac{4}{3}} - 2022x^{\\frac{2}{3}} + 2023 = 0$. If $p = a + 3a^{\\frac{1}{3}}b^{\\frac{1}{3}}$ and $q = b + 3a^{\\frac{2}{3}}b^{\\frac{1}{3}}$, find the value of $(p + q)^{\\frac{2}{3}} + (p - q)^{\\frac{2}{3}}$.",
+  "difficulty": 4.97,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

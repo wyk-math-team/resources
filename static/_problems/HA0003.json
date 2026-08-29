@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If the area of the shaded regular hexagon is $5\\mathrm{cm}^2$, find the area of the large regular hexagon in $\\mathrm{cm}^2$.<br>\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 600 600\">\n    <polygon points=\"300,90 429.9,165 429.9,315 300,390 170.1,315 170.1,165\" fill=\"none\" stroke=\"black\" stroke-width=\"2\" />\n    <line x1=\"300\" y1=\"90\" x2=\"429.9\" y2=\"315\" stroke=\"black\" stroke-width=\"1.5\" />\n    <line x1=\"429.9\" y1=\"165\" x2=\"300\" y2=\"390\" stroke=\"black\" stroke-width=\"1.5\" />\n    <line x1=\"429.9\" y1=\"315\" x2=\"170.1\" y2=\"315\" stroke=\"black\" stroke-width=\"1.5\" />\n    <line x1=\"300\" y1=\"390\" x2=\"170.1\" y2=\"165\" stroke=\"black\" stroke-width=\"1.5\" />\n    <line x1=\"170.1\" y1=\"315\" x2=\"300\" y2=\"90\" stroke=\"black\" stroke-width=\"1.5\" />\n    <line x1=\"170.1\" y1=\"165\" x2=\"429.9\" y2=\"165\" stroke=\"black\" stroke-width=\"1.5\" />\n    <polygon points=\"343.3,165 386.6,240 343.3,315 256.7,315 213.4,240 256.7,165\" fill=\"#4d9eff\" stroke=\"black\" stroke-width=\"2\" />\n    <circle cx=\"300\" cy=\"90\" r=\"4\" fill=\"black\" />\n    <circle cx=\"429.9\" cy=\"165\" r=\"4\" fill=\"black\" />\n    <circle cx=\"429.9\" cy=\"315\" r=\"4\" fill=\"black\" />\n    <circle cx=\"300\" cy=\"390\" r=\"4\" fill=\"black\" />\n    <circle cx=\"170.1\" cy=\"315\" r=\"4\" fill=\"black\" />\n    <circle cx=\"170.1\" cy=\"165\" r=\"4\" fill=\"black\" />\n</svg>",
+  "difficulty": 2.25,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

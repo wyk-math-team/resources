@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A child lines up $2020^2$ pieces of bricks in a row, and then remove bricks whose positions are square numbers (i.e. the 1st, 4th, 9th, 16th, ... bricks). Then he lines up the remaining bricks again and remove those that are in a 'square position'. This process is repeated until the number of bricks remaining drops below 250. How many bricks remain in the end?",
+  "difficulty": 4.28,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

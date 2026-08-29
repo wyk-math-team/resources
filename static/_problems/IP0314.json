@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A regular 201-sided polygon is inscribed inside a circle of center $C$. Triangles are drawn by connecting any three of the 201 vertices of the polygon. How many of these triangles have the point $C$ lying inside the triangle?",
+  "difficulty": 5.46,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

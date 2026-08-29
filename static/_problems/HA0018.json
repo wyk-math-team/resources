@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Find all positive integers $n$ such that $n^{3} + n - 4$ is divisible by $n - 4$. <br>Your answer should be separated by comma, any missing/extra number will deduct your score. Additionally, you can input your answer in any order.",
+  "difficulty": 4.02,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In $\\triangle ABC$, $BC=4$, $\\angle BAC=60^\\circ$. $I$ is the incenter. Circle through $B,I,C$ meets the perpendicular bisector of $BC$ at $X$ inside $\\triangle ABC$. Find $AX$.",
+  "difficulty": 4.56,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

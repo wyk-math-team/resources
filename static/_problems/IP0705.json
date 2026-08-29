@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "$\\triangle ABC$ has area 1. $E$ and $F$ are points on $AB$ and $AC$ respectively such that $EF \\parallel BC$. If $\\triangle AEF$ and $\\triangle EBC$ have equal area, find the area of $\\triangle EFC$.",
+  "difficulty": 4.95,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

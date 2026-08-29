@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "On a certain planet there are 100 countries. They all agree to form unions, each with a maximum of 50 countries, and that each country will be joining a number of unions, so that every two different countries will belong to a same union. At least how many unions must be formed?",
+  "difficulty": 5.62,
+  "tags": [
+    "combinatorics",
+    "IMO Prelim"
+  ]
+}

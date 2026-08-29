@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "In pentagon $ABCDE$, $AB=BC=CD=DE$, $\\angle B=96^\\circ$, $\\angle C=\\angle D=108^\\circ$. Find $\\angle E$.",
+  "difficulty": 5.73,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

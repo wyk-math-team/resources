@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find a factor of $1464101210001$, such that it lies between $1210000$ and $1220000$.",
+  "difficulty": 5.73,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "One day, a truck driver drove through a tunnel and measured the time taken between the moment at which the truck started entering the tunnel and the moment at which the truck left the tunnel completely. The next day a container was added and the length of the truck was increased from $6$ m to $12$ m. The driver reduced the speed by $20\\%$ and measured the time again. He found that the time taken was increased by half. Find the length of the tunnel (in metres).",
+  "difficulty": 4.12,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

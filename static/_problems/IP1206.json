@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "If $x^3 - 3\\sqrt{2}x^2 + 6x - 2\\sqrt{2} - 8 = 0$, find the value of $x^5 - 41x^2 + 2012$.",
+  "difficulty": 5.52,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

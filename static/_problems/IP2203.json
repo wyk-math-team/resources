@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "How many pairs of positive integers $(m, n)$ are there such that $m^{2}n = 20^{22}$?",
+  "difficulty": 2.7,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

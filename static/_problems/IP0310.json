@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Simplify $(\\cos 42^\\circ + \\cos 102^\\circ + \\cos 114^\\circ + \\cos 174^\\circ)^2$ into a rational number.",
+  "difficulty": 5.11,
+  "tags": [
+    "trigonometry",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $x, y, z$ be positive integers satisfying $x < y < z$ and $x + xy + xyz = 37$. Find the greatest possible value of $x + y + z$.",
+  "difficulty": 3.53,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

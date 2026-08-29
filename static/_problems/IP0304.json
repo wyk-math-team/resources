@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "A positive integer $x$ is called a magic number if, when $x$ is expressed in binary form, it possesses an even number of '1's. For example, the first five magic numbers are 3, 5, 6, 9 and 10. Find, in decimal notation, the sum of the first 2003 magic numbers.",
+  "difficulty": 6.26,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

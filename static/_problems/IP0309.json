@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find an integer $x$ such that $\\left(1 + \\dfrac{1}{x}\\right)^{x + 1} = \\left(1 + \\dfrac{1}{2003}\\right)^{2003}$.",
+  "difficulty": 3.89,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

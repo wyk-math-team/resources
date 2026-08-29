@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "The ratio of the sides of a triangle, which is inscribed in a circle of radius $2\\sqrt{3}$, is $3:5:7$. Find the area of the triangle.",
+  "difficulty": 4.65,
+  "tags": [
+    "geometry",
+    "IMO Prelim"
+  ]
+}

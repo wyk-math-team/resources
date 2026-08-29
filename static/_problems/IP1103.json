@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Find a positive integer $k$ whose product of digits is equal to $\\dfrac{11k}{4}-199$.",
+  "difficulty": 6.12,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "If $(2^{a} + 1)(4^{b} + 1) = 3^{c} + 1$, and $a, b$, and $c$ are all different non-negative integers, find the smallest sum of $a, b$, and $c$. Justify your assertion. (Hint: Is $3^{c} + 1$ always even?)",
+  "difficulty": 4.37,
+  "tags": [
+    "number theory",
+    "HKMHASC"
+  ]
+}

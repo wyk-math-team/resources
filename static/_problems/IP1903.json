@@ -1,7 +1,7 @@
 {
   "name": "IMO Prelim Past Paper",
   "statement": "A straight line passing through the point $(6,8)$ intersects the circle $x^{2} + y^{2} = 25$ at two points $P$ and $Q$. Let $M$ be the mid-point of $PQ$. As the slope of the line varies, find the length of the locus of $M$.",
-  "difficulty": 8,
+  "difficulty": 5.36,
   "tags": [
     "geometry",
     "IMO Prelim"

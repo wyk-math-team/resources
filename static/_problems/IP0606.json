@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "If $x$ is real and $-1\\le x\\le1$, find the maximum of $x+\\sqrt{1-x^2}$.",
+  "difficulty": 3.89,
+  "tags": [
+    "algebra",
+    "IMO Prelim"
+  ]
+}

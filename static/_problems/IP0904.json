@@ -1,0 +1,9 @@
+{
+  "name": "IMO Prelim Past Paper",
+  "statement": "Let $n>1$ be an integer such that all digits of $9997n$ are odd. Find the smallest possible $n$.",
+  "difficulty": 4.21,
+  "tags": [
+    "number theory",
+    "IMO Prelim"
+  ]
+}

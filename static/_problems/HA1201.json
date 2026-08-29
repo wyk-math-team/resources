@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "In the figure, ABCD is a rectangle of area 64 and $AE = BE$, find the area of ADE.<br>\n<svg width=\"600\" height=\"400\" xmlns=\"http://www.w3.org/2000/svg\"><line x1=\"300\" y1=\"0\" x2=\"300\" y2=\"400\" stroke=\"#ccc\" stroke-width=\"1\"></line><line x1=\"0\" y1=\"200\" x2=\"600\" y2=\"200\" stroke=\"#ccc\" stroke-width=\"1\"></line><line x1=\"300\" y1=\"201.125\" x2=\"453\" y2=\"200.12500000000003\" stroke=\"blue\" stroke-width=\"2\"></line><line x1=\"304.555360956856\" y1=\"201.0952263989748\" x2=\"304\" y2=\"116.12499999999999\" stroke=\"blue\" stroke-width=\"2\"></line><line x1=\"446.5427595044853\" y1=\"200.16720418624521\" x2=\"446\" y2=\"117.12499999999999\" stroke=\"blue\" stroke-width=\"2\"></line><line x1=\"301\" y1=\"116.12499999999999\" x2=\"454\" y2=\"115.12500000000001\" stroke=\"blue\" stroke-width=\"2\"></line><text x=\"284\" y=\"108.125\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">A</text><text x=\"462\" y=\"105.125\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">B</text><text x=\"473\" y=\"214.125\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">C</text><text x=\"290\" y=\"213.125\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">D</text><line x1=\"378\" y1=\"113.12500000000001\" x2=\"379\" y2=\"124.125\" stroke=\"blue\" stroke-width=\"2\"></line><text x=\"376\" y=\"105.125\" fill=\"black\" font-size=\"16\" text-anchor=\"middle\" dominant-baseline=\"middle\">E</text><line x1=\"380\" y1=\"115.12500000000001\" x2=\"303\" y2=\"201.125\" stroke=\"blue\" stroke-width=\"2\"></line></svg>",
+  "difficulty": 1.11,
+  "tags": [
+    "geometry",
+    "HKMHASC"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Past Paper",
+  "statement": "Evaluate $\\sqrt{\\underbrace{111\\cdots 111}_{4002} - \\underbrace{222\\cdots 222}_{2001}}$.\n<br>Hint: The answer format is $\\underbrace{a\\cdots a}_{b}$. Write $a+b$",
+  "difficulty": 3.89,
+  "tags": [
+    "algebra",
+    "HKMHASC"
+  ]
+}
