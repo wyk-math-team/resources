@@ -74,13 +74,15 @@ async function loadUserStates() {
 }
 
 async function loadProblem() {
-  // 优先从 CDN 加载
+  // 优先从 CDN 加载，超时 1 秒
   try {
     const cdnUrl = `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`;
-    const res = await fetch(cdnUrl);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1000);
+    const res = await fetch(cdnUrl, { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (res.ok) {
       const data = await res.json();
-      // 确保返回的数据包含必要字段，若缺失则补默认值
       return {
         success: true,
         problem: {
@@ -93,7 +95,9 @@ async function loadProblem() {
         }
       };
     }
-  } catch (e) { /* CDN 加载失败，继续走 API */ }
+  } catch (e) {
+    // CDN 超时或失败，忽略，走 API 回退
+  }
 
   // 回退到 API
   try {
@@ -302,9 +306,23 @@ async function initPage() {
   try {
     mainContainer.innerHTML = '';
 
-    const userPromise = loadUserStates();
+    // const userPromise = loadUserStates();
     const problemPromise = loadProblem();
-    const favPromise = loadFavorites();
+    // const favPromise = loadFavorites();
+    const preloadPromise = apiCall('/api/users?action=preload')
+  .then(res => {
+    if (res.success) {
+      userStates = res.states || {};
+      window.favorites = new Set(res.favorites || []);
+    } else {
+      userStates = {};
+      window.favorites = new Set();
+    }
+  })
+  .catch(() => {
+    userStates = {};
+    window.favorites = new Set();
+  });
 
     const problemResult = await problemPromise;
     if (!problemResult.success || !problemResult.problem) {
