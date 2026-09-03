@@ -66,13 +66,6 @@ function tryRenderNameFromCache() {
   }
 }
 
-async function loadUserStates() {
-  try {
-    const data = await apiCall('/api/users?action=stats');
-    if (data.success) userStates = data.states;
-  } catch (err) { userStates = {}; }
-}
-
 async function loadProblem() {
   // 优先从 CDN 加载，超时 1 秒
   try {
@@ -120,16 +113,9 @@ async function loadProblem() {
   return { success: false, problem: null };
 }
 
-async function loadFavorites() {
-  try {
-    const res = await apiCall('/api/users?action=favorites');
-    return new Set(res.success ? res.favorites : []);
-  } catch (e) { return new Set(); }
-}
-
 const domPurifyConfig = {
-  ALLOWED_TAGS: ['b', 'i', 'u', 'strong', 'em', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'code', 'pre', 'svg', 'g', 'defs', 'clipPath', 'foreignObject', 'path', 'circle', 'line', 'polyline', 'polygon', 'rect', 'text', 'tspan', 'linearGradient', 'radialGradient', 'stop', 'image', 'use','img'],
-  ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id', 'style', 'xmlns', 'viewBox', 'width', 'height', 'd', 'cx', 'cy', 'r', 'x', 'y', 'x1', 'x2', 'y1', 'y2', 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-opacity', 'stroke-opacity', 'opacity', 'font-size', 'text-anchor', 'dominant-baseline', 'transform','src']
+  ALLOWED_TAGS: ['b', 'i', 'u', 'strong', 'em', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'code', 'pre', 'svg', 'g', 'defs', 'clipPath', 'foreignObject', 'path', 'circle', 'line', 'polyline', 'polygon', 'rect', 'text', 'tspan', 'linearGradient', 'radialGradient', 'stop', 'image', 'use', 'img'],
+  ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id', 'style', 'xmlns', 'viewBox', 'width', 'height', 'd', 'cx', 'cy', 'r', 'x', 'y', 'x1', 'x2', 'y1', 'y2', 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-opacity', 'stroke-opacity', 'opacity', 'font-size', 'text-anchor', 'dominant-baseline', 'transform', 'src']
 };
 
 function updateProblemDetailIcon(pid, pname) {
@@ -302,27 +288,26 @@ async function setupNavigation(currentProblem) {
 }
 
 async function initPage() {
-  // 全局捕获错误，避免白屏
   try {
     mainContainer.innerHTML = '';
 
-    // const userPromise = loadUserStates();
-    const problemPromise = loadProblem();
-    // const favPromise = loadFavorites();
+    // 使用 preload 一次获取 states 和 favorites
     const preloadPromise = apiCall('/api/users?action=preload')
-  .then(res => {
-    if (res.success) {
-      userStates = res.states || {};
-      window.favorites = new Set(res.favorites || []);
-    } else {
-      userStates = {};
-      window.favorites = new Set();
-    }
-  })
-  .catch(() => {
-    userStates = {};
-    window.favorites = new Set();
-  });
+      .then(res => {
+        if (res.success) {
+          userStates = res.states || {};
+          window.favorites = new Set(res.favorites || []);
+        } else {
+          userStates = {};
+          window.favorites = new Set();
+        }
+      })
+      .catch(() => {
+        userStates = {};
+        window.favorites = new Set();
+      });
+
+    const problemPromise = loadProblem();
 
     const problemResult = await problemPromise;
     if (!problemResult.success || !problemResult.problem) {
@@ -354,9 +339,9 @@ async function initPage() {
           </span>
           <span style="font-size:0.8rem" id="detailTags">${(problem.tags || []).join(', ')}</span>
           <span style="display:flex;gap:0.5rem;align-items:center;">
-  <span id="navButtons" style="display:flex;gap:0.5rem;"></span>
-  <button id="reportBtn" class="back-btn" style="color:var(--danger);">Report</button>
-</span>
+            <span id="navButtons" style="display:flex;gap:0.5rem;"></span>
+            <button id="reportBtn" class="back-btn" style="color:var(--danger);">Report</button>
+          </span>
         </div>
         <div class="answer-area">
           <div class="mode-switch">
@@ -423,10 +408,10 @@ async function initPage() {
       }
     }
 
-    // 加载用户状态、收藏
-    await userPromise;
-    const favorites = await favPromise;
-    const isFav = favorites.has(problemId);
+    // 等待 preload 完成
+    await preloadPromise;
+
+    const isFav = window.favorites.has(problemId);
     const currentState = userStates[problemId] || 'not_started';
 
     if (isAdmin) {
