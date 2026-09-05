@@ -1,1 +1,767 @@
-!function(){"use strict";isLoggedIn()||(window.location.href="/index.html"),localStorage.getItem("cacheClean_v3")||(localStorage.removeItem("problemListCache"),localStorage.removeItem("problemListVersion"),localStorage.removeItem("userStatesCache"),localStorage.removeItem("favoritesCache"),localStorage.setItem("cacheClean_v3","1"));const t=document.getElementById("mainContent");let e=[],a=[],s=[],n={},r=new Set,i=1;let o=1,l="id",c="asc",d="",f="all";window.favorites=new Set;let p=0,m=null;function u(t){return String(t).replace(/[&<>]/g,(t=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[t])))}function g(){const t=document.getElementById("refreshProblemsBtn");t&&(p>0?(t.disabled=!0,t.title=`${p}s`):(t.disabled=!1,t.title=""))}function v(t){localStorage.setItem("userStatesCache",JSON.stringify({states:t,timestamp:Date.now()}))}function h(t){localStorage.setItem("favoritesCache",JSON.stringify({favorites:Array.from(t),timestamp:Date.now()}))}async function b(t){try{const r=await apiCall("/api/problem?all=1");if(r.success&&r.problems){if(e=r.problems,s=r.allTags||[],a=e,n=s,localStorage.setItem("problemListCache_full",JSON.stringify({problems:a,allTags:n,timestamp:Date.now()})),void 0!==t)localStorage.setItem("problemListVersion",String(t));else{const t=await apiCall("/api/problem?checkVersion=1");t.success&&localStorage.setItem("problemListVersion",String(t.version))}return!0}}catch(t){console.error(t)}var a,n;return!1}async function y(){try{const[t,e]=await Promise.all([apiCall("/api/problem?checkVersion=1"),apiCall("/api/users?action=preload")]);if(e.success&&(n=e.states||{},window.favorites=new Set(e.favorites||[]),v(n),h(window.favorites)),t.success){const e=String(t.version),a=localStorage.getItem("problemListVersion");a&&a===e||await b(e)}w(),S()}catch(t){console.error("Refresh data failed:",t)}}function w(){let t=e.slice();if(d){const e=d;t=t.filter((t=>{const a=String(t.id);if(e.startsWith("%")&&e.endsWith("%")){const t=e.slice(1,-1);return a.includes(t)}if(e.startsWith("%")){const t=e.slice(1);return a.endsWith(t)}if(e.endsWith("%")){const t=e.slice(0,-1);return a.startsWith(t)}return a===e}))}r.size>0&&(t=t.filter((t=>t.tags&&t.tags.some((t=>r.has(t)))))),"public"===f?t=t.filter((t=>!1!==t.public)):"hidden"===f&&(t=t.filter((t=>!1===t.public)));const s=t.sort(((t,e)=>{let a,s;if("difficulty"===l)a=t.difficulty||0,s=e.difficulty||0;else{if("solves"!==l){const a=/^([A-Za-z]*)(\d+)$/,s=t.id.match(a),n=e.id.match(a);if(s&&n){const t=s[1].toLowerCase(),e=n[1].toLowerCase();if(t!==e)return"asc"===c?t.localeCompare(e):e.localeCompare(t);const a=parseInt(s[2],10),r=parseInt(n[2],10);return"asc"===c?a-r:r-a}return t.id<e.id?"asc"===c?-1:1:t.id>e.id?"asc"===c?1:-1:0}a=t.solves||0,s=e.solves||0}return"asc"===c?a-s:s-a}));a=s,o=Math.ceil(a.length/60)||1,i>o&&(i=Math.max(1,o))}function S(){const e="admin"===getCurrentUser()?.role||"root"===getCurrentUser()?.role,v="true"===localStorage.getItem("showTags"),h=60*(i-1),b=a.slice(h,h+60);let x='<span style="font-weight:600;">Filter tags:</span>';0===s.length?x+='<span style="color:var(--text-secondary);">(none)</span>':s.forEach((t=>{const e=r.has(t)?"active":"";x+=`<button class="filter-tag-btn ${e}" data-tag="${t}">${u(t)}</button>`}));let $,L="";if(e){L=`<div style="margin-top:0.5rem;display:flex;gap:0.5rem;align-items:center;">\n          <button id="visibilityFilterBtn" class="btn btn-secondary" style="padding:0.2rem 0.8rem;">Visibility: ${{all:"All",public:"Public",hidden:"Hidden"}[f]}</button>\n        </div>`}$=0===b.length?'<tr><td colspan="6" class="loading-msg">No problems found.</td></tr>':function(t){const e="admin"===getCurrentUser()?.role||"root"===getCurrentUser()?.role;let a="";return t.forEach((t=>{const s=n[t.id]||"not_started",r="failed"===s?"state-failed":"passed"===s?"state-passed":"state-not_started",i=window.favorites?.has(t.id)||!1,o=`<i class="favorite-star ${i?"fas":"far"} fa-star" style="cursor:pointer;font-size:1.2rem;color:${i?"#f1c40f":"#aaa"};"></i>`;let l="";"passed"===s?l='<i class="fa fa-check-circle fa-green"></i>':"failed"===s&&(l='<i class="fa fa-times-circle fa-red"></i>');let c="";e&&!1===t.public&&(c='<i class="fas fa-eye-slash" style="color: var(--text-secondary); margin-left: 0.3rem; text-decoration: line-through;" title="Not public"></i>');const d=(t.tags||[]).map((t=>`<span class="tag">${u(t)}</span>`)).join("");let f,p="",m="";if(0===t.difficulty)f="∞";else{const e=t.difficulty;f=e.toFixed(2),e>=1&&e<2?p="background-color:hsl(0,0%,85%)!important;color:#000000!important;border-radius:4px;padding:0 6px;":e>=2&&e<3?p=`background-color:hsl(120,60%,${70-(e-2)/1*35}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`:e>=3&&e<4?p=`background-color:hsl(210,70%,${65-(e-3)/1*30}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`:e>=4&&e<5?p=`background-color:hsl(280,60%,${65-(e-4)/1*30}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`:e>=5&&e<6?p=`background-color:hsl(45,80%,${70-(e-5)/1*30}%)!important;color:#000000!important;border-radius:4px;padding:0 6px;`:e>=6&&e<7?p=`background-color:hsl(0,70%,${60-(e-6)/1*25}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`:e>=7&&e<8?(m="rainbow-bg",p="color:#000000!important;border-radius:4px;padding:0 6px;"):e>=8&&e<9?(m="star-shine",p="color:#000000!important;border-radius:4px;padding:0 6px;"):(m="chaos",p="color:#ffffff!important;border-radius:4px;padding:0 6px;")}a+=`<tr class="problem-row ${r}" data-id="${t.id}" onclick="sessionStorage.setItem('problemListScroll',window.scrollY);location.href='/problems/${encodeURIComponent(t.id)}'">\n          <td class="col-fav" onclick="event.stopPropagation(); toggleFavorite('${t.id}', this)">${o}</td>\n          <td class="col-id">${t.id}</td>\n          <td class="col-name">${u(t.name)}${l}${c}</td>\n          <td class="col-tags"><div class="tags-container">${d}</div></td>\n          <td class="col-level difficulty-cell ${m}" style="${p}">${f}</td>\n          <td class="col-solves">${t.solves||0}</td>\n        </tr>`})),a}(b);const C=function(){let t='<div class="pagination-placeholder">';if(o>1){t+='<div class="pagination">';for(let e=1;e<=o;e++)t+=`<a class="${e===i?"active":""}" href="?page=${e}">${e}</a>`;t+="</div>"}else t+='<div style="height:40px;"></div>';return t+="</div>",t}(),k=`\n        <div class="updates-panel" style="padding:0.5rem;">\n          <div class="updates-header">\n            <h2>Problem Set</h2>\n            <div>\n              <button id="refreshProblemsBtn" class="btn btn-primary" style="margin-left:0.5rem;"><i class="fas fa-sync-alt"></i></button>\n              <button id="randomUnsolvedBtn" class="btn btn-primary" style="margin-left:1rem;">Random Unsolved</button>\n              <a href="/problems/bookmarked" class="btn btn-secondary" style="margin-left:0.5rem;">Bookmarked</a>\n            </div>\n          </div>\n          <div class="filter-bar">${x}</div>\n          <div class="visibility-filter-container">${L}</div>\n          <div class="id-filter-bar" style="margin-top:0.5rem; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">\n            <span style="font-weight:600;">Filter ID:</span>\n            <input type="text" id="idFilterInput" style="padding:0.2rem 0.5rem; border:1px solid var(--border-color); border-radius:4px; flex:1; min-width:150px;">\n            <button class="btn btn-secondary" id="idFilterClearBtn" style="padding:0.2rem 0.8rem;">Clear</button>\n          </div>\n          <div id="paginationTopContainer">${C}</div>\n          <div class="table-responsive">\n            <table class="problems-table ${v?"show-tags":""}">\n              <thead>\n                <tr>\n                  <th class="col-fav"></th>\n                  <th class="col-id sortable" data-sort="id">ID</th>\n                  <th class="col-name sortable" data-sort="id">Name</th>\n                  <th class="col-tags">Tags</th>\n                  <th class="col-level sortable" data-sort="difficulty">Level</th>\n                  <th class="col-solves sortable" data-sort="solves">Solves</th>\n                </tr>\n              </thead>\n              <tbody id="problemsBody">${$}</tbody>\n            </table>\n          </div>\n          <div id="paginationContainer">${C}</div>\n        </div>\n      `;t.innerHTML=k;const E=document.getElementById("idFilterInput");E&&(E.value=d),function(){document.querySelectorAll(".sortable").forEach((t=>{t.dataset.listener||(t.dataset.listener="true",t.addEventListener("click",(()=>{const e=t.dataset.sort;l===e?c="asc"===c?"desc":"asc":(l=e,c="asc"),i=1,w(),I(),S()})))})),document.querySelectorAll(".filter-tag-btn").forEach((t=>{t.dataset.listener||(t.dataset.listener="true",t.addEventListener("click",(()=>{const e=t.dataset.tag;r.has(e)?r.delete(e):r.add(e),localStorage.setItem("problemFilterTags",JSON.stringify(Array.from(r))),i=1,w(),I(),S()})))})),document.querySelectorAll(".pagination a").forEach((t=>{t.dataset.listener||(t.dataset.listener="true",t.addEventListener("click",(e=>{e.preventDefault();const a=t.getAttribute("href");if(!a)return;const s=parseInt(new URLSearchParams(a.substring(a.indexOf("?"))).get("page"));s&&s!==i&&(i=s,I(),S())})))}));const t=document.getElementById("randomUnsolvedBtn");t&&!t.dataset.listener&&(t.dataset.listener="true",t.onclick=async()=>{try{const t=await apiCall("/api/problem?ids=1");if(!t.success)return;const e=t.ids.filter((t=>"passed"!==n[t]));if(0===e.length)return void alert("All problems solved!");location.href=`/problems/${e[Math.floor(Math.random()*e.length)]}`}catch(t){alert("Error")}});const e=document.getElementById("idFilterInput");e&&!e.dataset.listener&&(e.dataset.listener="true",e.addEventListener("keydown",(t=>{"Enter"===t.key&&(t.preventDefault(),function(){const t=document.getElementById("idFilterInput");if(!t)return;const e=t.value.trim();d=e,i=1,w(),I(),S()}())})));const a=document.getElementById("idFilterClearBtn");a&&!a.dataset.listener&&(a.dataset.listener="true",a.addEventListener("click",(()=>{const t=document.getElementById("idFilterInput");t&&(t.value=""),d="",i=1,w(),I(),S()})));const s=document.getElementById("visibilityFilterBtn");s&&!s.dataset.listener&&(s.dataset.listener="true",s.addEventListener("click",(()=>{const t=["all","public","hidden"];let e=t.indexOf(f);e=(e+1)%t.length,f=t[e],i=1,w(),I(),S()})));const o=document.getElementById("refreshProblemsBtn");o&&!o.dataset.listener&&(o.dataset.listener="true",o.addEventListener("click",(async function(){this.disabled||(!function(t=30){p=t,m&&clearInterval(m),m=setInterval((()=>{p--,p<=0&&(clearInterval(m),p=0),g()}),1e3),g()}(30),await y())})))}(),g()}function I(){const t=new URLSearchParams;t.set("page",i),"id"!==l&&t.set("sortBy",l),"asc"!==c&&t.set("order",c),r.size>0&&t.set("tags",Array.from(r).join(",")),d&&t.set("idfilter",d),"all"!==f&&t.set("visibility",f),window.history.replaceState({},"",`${location.pathname}?${t.toString()}`)}async function x(){const a=new URLSearchParams(window.location.search);if(l=a.get("sortBy")||"id",c=a.get("order")||"asc",a.has("tags"))r=new Set(a.get("tags").split(","));else{const t=localStorage.getItem("problemFilterTags");if(t)try{r=new Set(JSON.parse(t))}catch(t){}}d=a.has("idfilter")?a.get("idfilter"):"",a.has("visibility")?(f=a.get("visibility"),["all","public","hidden"].includes(f)||(f="all")):f="all",i=function(){const t=parseInt(new URLSearchParams(window.location.search).get("page"));return t>0?t:1}();const o=function(){const t=localStorage.getItem("problemListCache_full");if(!t)return!1;try{const a=JSON.parse(t);return!(a.timestamp&&Date.now()-a.timestamp>864e5||!a.problems||!a.allTags||(e=a.problems,s=a.allTags,0))}catch{return!1}}(),p=function(){const t=localStorage.getItem("userStatesCache");if(!t)return!1;try{const e=JSON.parse(t);return!(e.timestamp&&Date.now()-e.timestamp>864e5||!e.states||(n=e.states,0))}catch{return!1}}(),m=function(){const t=localStorage.getItem("favoritesCache");if(!t)return!1;try{const e=JSON.parse(t);return!(e.timestamp&&Date.now()-e.timestamp>864e5||!e.favorites||(window.favorites=new Set(e.favorites),0))}catch{return!1}}();if(o&&p&&m)w(),S(),y();else{!function(){const e=`\n        <div class="updates-panel refreshing" style="padding:0.5rem;">\n          <div class="updates-header">\n            <h2>Loading Problem Set...</h2>\n            <div></div>\n          </div>\n          <div class="filter-bar"><span style="font-weight:600;">Filter tags:</span><span style="color:var(--text-secondary);">(loading...)</span></div>\n          <div id="paginationTopContainer"></div>\n          <div class="table-responsive">\n            <table class="problems-table">\n              <thead>\n                <tr>\n                  <th class="col-fav"></th>\n                  <th class="col-id sortable" data-sort="id">ID</th>\n                  <th class="col-name sortable" data-sort="id">Name</th>\n                  <th class="col-tags">Tags</th>\n                  <th class="col-level sortable" data-sort="difficulty">Level</th>\n                  <th class="col-solves sortable" data-sort="solves">Solves</th>\n                </tr>\n              </thead>\n              <tbody id="problemsBody">${function(t=30){let e="";for(let a=0;a<t;a++)e+='<tr class="skeleton-row">\n          <td><span class="skeleton-line" style="width:30px"></span></td>\n          <td><span class="skeleton-line" style="width:60px"></span></td>\n          <td><span class="skeleton-line" style="width:120px"></span></td>\n          <td><span class="skeleton-line" style="width:100px"></span></td>\n          <td><span class="skeleton-line" style="width:50px"></span></td>\n          <td><span class="skeleton-line" style="width:40px"></span></td>\n        </tr>';return e}(30)}</tbody>\n            </table>\n          </div>\n          <div id="paginationContainer"></div>\n        </div>\n      `;t.innerHTML=e}();const[e,a]=await Promise.all([b(),apiCall("/api/users?action=preload")]);a.success&&(n=a.states||{},window.favorites=new Set(a.favorites||[]),v(n),h(window.favorites)),w(),S()}const u=sessionStorage.getItem("problemListScroll");u&&(window.scrollTo(0,parseInt(u)),sessionStorage.removeItem("problemListScroll"))}window.toggleFavorite=async function(t,e){const a=e.querySelector("i"),s=a.classList.contains("fas");s?(a.classList.replace("fas","far"),a.style.color="#aaa",window.favorites.delete(t),h(window.favorites)):(a.classList.replace("far","fas"),a.style.color="#f1c40f",window.favorites.add(t),h(window.favorites));try{const e=await apiCall("/api/users?action=favorite","POST",{problemId:t});e.success?(window.favorites=new Set(e.favorites),h(window.favorites)):(s?(window.favorites.add(t),a.classList.replace("far","fas"),a.style.color="#f1c40f"):(window.favorites.delete(t),a.classList.replace("fas","far"),a.style.color="#aaa"),h(window.favorites),alert("Error toggling favorite"))}catch(e){s?(window.favorites.add(t),a.classList.replace("far","fas"),a.style.color="#f1c40f"):(window.favorites.delete(t),a.classList.replace("fas","far"),a.style.color="#aaa"),h(window.favorites),alert("Network error")}},window.addEventListener("popstate",x),x()}();
+
+  (function() {
+    "use strict";
+
+    if (!isLoggedIn()) window.location.href = '/index.html';
+
+    // ========== 缓存清理 ==========
+    if (!localStorage.getItem('cacheClean_v3')) {
+      localStorage.removeItem('problemListCache');
+      localStorage.removeItem('problemListVersion');
+      localStorage.removeItem('userStatesCache');
+      localStorage.removeItem('favoritesCache');
+      localStorage.setItem('cacheClean_v3', '1');
+    }
+
+    const mainContainer = document.getElementById('mainContent');
+
+    // ========== 状态变量 ==========
+    let allProblems = [];
+    let filteredProblems = [];
+    let allTags = [];
+    let userStates = {};
+    let activeTags = new Set();
+    let currentPage = 1;
+    const pageLimit = 60;
+    let totalPages = 1;
+    let sortBy = 'id';
+    let sortOrder = 'asc';
+    let idFilterPattern = '';
+    let visibilityFilter = 'all';
+    window.favorites = new Set();
+
+    // 刷新冷却相关
+    let refreshCooldownRemaining = 0;
+    let refreshCooldownTimer = null;
+
+    // ========== 辅助函数 ==========
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]);
+    }
+
+    function getPageFromURL() {
+      const p = parseInt(new URLSearchParams(window.location.search).get('page'));
+      return (p > 0) ? p : 1;
+    }
+
+    // ========== 刷新按钮冷却 ==========
+    function updateRefreshButtonState() {
+      const btn = document.getElementById('refreshProblemsBtn');
+      if (!btn) return;
+      if (refreshCooldownRemaining > 0) {
+        btn.disabled = true;
+        btn.title = `${refreshCooldownRemaining}s`;
+      } else {
+        btn.disabled = false;
+        btn.title = '';
+      }
+    }
+
+    function startRefreshCooldown(seconds = 30) {
+      refreshCooldownRemaining = seconds;
+      if (refreshCooldownTimer) clearInterval(refreshCooldownTimer);
+      refreshCooldownTimer = setInterval(() => {
+        refreshCooldownRemaining--;
+        if (refreshCooldownRemaining <= 0) {
+          clearInterval(refreshCooldownTimer);
+          refreshCooldownRemaining = 0;
+        }
+        updateRefreshButtonState();
+      }, 1000);
+      updateRefreshButtonState();
+    }
+
+    // ========== UserStates 缓存 ==========
+    function loadUserStatesFromCache() {
+      const raw = localStorage.getItem('userStatesCache');
+      if (!raw) return false;
+      try {
+        const data = JSON.parse(raw);
+        if (data.timestamp && (Date.now() - data.timestamp > 24 * 60 * 60 * 1000)) return false;
+        if (!data.states) return false;
+        userStates = data.states;
+        return true;
+      } catch { return false; }
+    }
+
+    function saveUserStatesToCache(states) {
+      localStorage.setItem('userStatesCache', JSON.stringify({
+        states: states,
+        timestamp: Date.now()
+      }));
+    }
+
+    // ========== Favorites 缓存 ==========
+    function loadFavoritesFromCache() {
+      const raw = localStorage.getItem('favoritesCache');
+      if (!raw) return false;
+      try {
+        const data = JSON.parse(raw);
+        if (data.timestamp && (Date.now() - data.timestamp > 24 * 60 * 60 * 1000)) return false;
+        if (!data.favorites) return false;
+        window.favorites = new Set(data.favorites);
+        return true;
+      } catch { return false; }
+    }
+
+    function saveFavoritesToCache(favs) {
+      localStorage.setItem('favoritesCache', JSON.stringify({
+        favorites: Array.from(favs),
+        timestamp: Date.now()
+      }));
+    }
+
+    // ========== 题目列表缓存 ==========
+    function loadProblemsFromCache() {
+      const cacheKey = 'problemListCache_full';
+      const cached = localStorage.getItem(cacheKey);
+      if (!cached) return false;
+      try {
+        const data = JSON.parse(cached);
+        if (data.timestamp && (Date.now() - data.timestamp > 24 * 60 * 60 * 1000)) return false;
+        if (!data.problems || !data.allTags) return false;
+        allProblems = data.problems;
+        allTags = data.allTags;
+        return true;
+      } catch { return false; }
+    }
+
+    function saveProblemsToCache(problems, tags) {
+      localStorage.setItem('problemListCache_full', JSON.stringify({
+        problems: problems,
+        allTags: tags,
+        timestamp: Date.now()
+      }));
+    }
+
+    // ========== 从服务器获取数据 ==========
+    async function fetchAllProblems(knownVersion) {
+      try {
+        const data = await apiCall('/api/problem?all=1');
+        if (data.success && data.problems) {
+          allProblems = data.problems;
+          allTags = data.allTags || [];
+          saveProblemsToCache(allProblems, allTags);
+          if (knownVersion !== undefined) {
+            localStorage.setItem('problemListVersion', String(knownVersion));
+          } else {
+            const verRes = await apiCall('/api/problem?checkVersion=1');
+            if (verRes.success) localStorage.setItem('problemListVersion', String(verRes.version));
+          }
+          return true;
+        }
+      } catch (e) { console.error(e); }
+      return false;
+    }
+
+    async function fetchUserStates() {
+      try {
+        const data = await apiCall('/api/users?action=stats');
+        if (data.success) {
+          userStates = data.states || {};
+          saveUserStatesToCache(userStates);
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    async function fetchFavorites() {
+      try {
+        const data = await apiCall('/api/users?action=favorites');
+        if (data.success) {
+          window.favorites = new Set(data.favorites || []);
+          saveFavoritesToCache(window.favorites);
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    // ========== 刷新数据（核心优化） ==========
+    async function refreshData() {
+      try {
+        const [verRes, preload] = await Promise.all([
+          apiCall('/api/problem?checkVersion=1'),
+          apiCall('/api/users?action=preload')
+        ]);
+
+        // 更新用户状态与收藏
+        if (preload.success) {
+          userStates = preload.states || {};
+          window.favorites = new Set(preload.favorites || []);
+          saveUserStatesToCache(userStates);
+          saveFavoritesToCache(window.favorites);
+        }
+
+        // 版本变化时才拉取新题目列表
+        if (verRes.success) {
+          const newVersion = String(verRes.version);
+          const cachedVersion = localStorage.getItem('problemListVersion');
+          if (!cachedVersion || cachedVersion !== newVersion) {
+            await fetchAllProblems(newVersion);
+          }
+        }
+
+        // 重新过滤、排序并渲染
+        applyFiltersAndSort();
+        renderFullPage();
+      } catch (e) {
+        console.error('Refresh data failed:', e);
+      }
+    }
+
+    // ========== 客户端过滤与排序 ==========
+    function applyFiltersAndSort() {
+      let problems = allProblems.slice();
+
+      if (idFilterPattern) {
+        const pattern = idFilterPattern;
+        problems = problems.filter(prob => {
+          const id = String(prob.id);
+          if (pattern.startsWith('%') && pattern.endsWith('%')) {
+            const middle = pattern.slice(1, -1);
+            return id.includes(middle);
+          } else if (pattern.startsWith('%')) {
+            const suffix = pattern.slice(1);
+            return id.endsWith(suffix);
+          } else if (pattern.endsWith('%')) {
+            const prefix = pattern.slice(0, -1);
+            return id.startsWith(prefix);
+          } else {
+            return id === pattern;
+          }
+        });
+      }
+
+      if (activeTags.size > 0) {
+        problems = problems.filter(p => p.tags && p.tags.some(t => activeTags.has(t)));
+      }
+
+      if (visibilityFilter === 'public') {
+        problems = problems.filter(p => p.public !== false);
+      } else if (visibilityFilter === 'hidden') {
+        problems = problems.filter(p => p.public === false);
+      }
+
+      const sorted = problems.sort((a, b) => {
+        let valA, valB;
+        if (sortBy === 'difficulty') {
+          valA = a.difficulty || 0;
+          valB = b.difficulty || 0;
+        } else if (sortBy === 'solves') {
+          valA = a.solves || 0;
+          valB = b.solves || 0;
+        } else {
+          const regex = /^([A-Za-z]*)(\d+)$/;
+          const matchA = a.id.match(regex);
+          const matchB = b.id.match(regex);
+          if (matchA && matchB) {
+            const prefixA = matchA[1].toLowerCase();
+            const prefixB = matchB[1].toLowerCase();
+            if (prefixA !== prefixB) {
+              return sortOrder === 'asc' ? prefixA.localeCompare(prefixB) : prefixB.localeCompare(prefixA);
+            }
+            const numA = parseInt(matchA[2], 10);
+            const numB = parseInt(matchB[2], 10);
+            return sortOrder === 'asc' ? numA - numB : numB - numA;
+          }
+          if (a.id < b.id) return sortOrder === 'asc' ? -1 : 1;
+          if (a.id > b.id) return sortOrder === 'asc' ? 1 : -1;
+          return 0;
+        }
+        return sortOrder === 'asc' ? valA - valB : valB - valA;
+      });
+
+      filteredProblems = sorted;
+      totalPages = Math.ceil(filteredProblems.length / pageLimit) || 1;
+      if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+    }
+
+    // ========== 渲染 ==========
+    function renderSkeletonRows(count = 30) {
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        html += `<tr class="skeleton-row">
+          <td><span class="skeleton-line" style="width:30px"></span></td>
+          <td><span class="skeleton-line" style="width:60px"></span></td>
+          <td><span class="skeleton-line" style="width:120px"></span></td>
+          <td><span class="skeleton-line" style="width:100px"></span></td>
+          <td><span class="skeleton-line" style="width:50px"></span></td>
+          <td><span class="skeleton-line" style="width:40px"></span></td>
+        </tr>`;
+      }
+      return html;
+    }
+
+    function renderPagination() {
+      let html = '<div class="pagination-placeholder">';
+      if (totalPages > 1) {
+        html += '<div class="pagination">';
+        for (let i = 1; i <= totalPages; i++) {
+          html += `<a class="${i === currentPage ? 'active' : ''}" href="?page=${i}">${i}</a>`;
+        }
+        html += '</div>';
+      } else {
+        html += '<div style="height:40px;"></div>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderTableBody(problems) {
+      const isAdmin = getCurrentUser()?.role === 'admin' || getCurrentUser()?.role === 'root';
+      let rowsHtml = '';
+      problems.forEach(prob => {
+        const state = userStates[prob.id] || 'not_started';
+        const rowClass = state === 'failed' ? 'state-failed' : (state === 'passed' ? 'state-passed' : 'state-not_started');
+        const isFav = window.favorites?.has(prob.id) || false;
+        const starIcon = `<i class="favorite-star ${isFav ? 'fas' : 'far'} fa-star" style="cursor:pointer;font-size:1.2rem;color:${isFav ? '#f1c40f' : '#aaa'};"></i>`;
+        let statusIcon = '';
+        if (state === 'passed') statusIcon = '<i class="fa fa-check-circle fa-green"></i>';
+        else if (state === 'failed') statusIcon = '<i class="fa fa-times-circle fa-red"></i>';
+        let publicIcon = '';
+        if (isAdmin && prob.public === false) {
+          publicIcon = `<i class="fas fa-eye-slash" style="color: var(--text-secondary); margin-left: 0.3rem; text-decoration: line-through;" title="Not public"></i>`;
+        }
+        const tagsHtml = (prob.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+        let diffDisplay, colorStyle = '', extraClass = '';
+        if (prob.difficulty === 0) {
+          diffDisplay = '∞';
+        } else {
+          const diff = prob.difficulty;
+          diffDisplay = diff.toFixed(2);
+          if (diff >= 1 && diff < 2) {
+            const lightness = 85;
+            colorStyle = `background-color:hsl(0,0%,${lightness}%)!important;color:#000000!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 2 && diff < 3) {
+            const t = (diff - 2) / 1;
+            const lightness = 70 - t * 35;
+            colorStyle = `background-color:hsl(120,60%,${lightness}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 3 && diff < 4) {
+            const t = (diff - 3) / 1;
+            const lightness = 65 - t * 30;
+            colorStyle = `background-color:hsl(210,70%,${lightness}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 4 && diff < 5) {
+            const t = (diff - 4) / 1;
+            const lightness = 65 - t * 30;
+            colorStyle = `background-color:hsl(280,60%,${lightness}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 5 && diff < 6) {
+            const t = (diff - 5) / 1;
+            const lightness = 70 - t * 30;
+            colorStyle = `background-color:hsl(45,80%,${lightness}%)!important;color:#000000!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 6 && diff < 7) {
+            const t = (diff - 6) / 1;
+            const lightness = 60 - t * 25;
+            colorStyle = `background-color:hsl(0,70%,${lightness}%)!important;color:#ffffff!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 7 && diff < 8) {
+            extraClass = 'rainbow-bg';
+            colorStyle = `color:#000000!important;border-radius:4px;padding:0 6px;`;
+          } else if (diff >= 8 && diff < 9) {
+            extraClass = 'star-shine';
+            colorStyle = `color:#000000!important;border-radius:4px;padding:0 6px;`;
+          } else {
+            extraClass = 'chaos';
+            colorStyle = `color:#ffffff!important;border-radius:4px;padding:0 6px;`;
+          }
+        }
+        rowsHtml += `<tr class="problem-row ${rowClass}" data-id="${prob.id}" onclick="sessionStorage.setItem('problemListScroll',window.scrollY);location.href='/problems/${encodeURIComponent(prob.id)}'">
+          <td class="col-fav" onclick="event.stopPropagation(); toggleFavorite('${prob.id}', this)">${starIcon}</td>
+          <td class="col-id">${prob.id}</td>
+          <td class="col-name">${escapeHtml(prob.name)}${statusIcon}${publicIcon}</td>
+          <td class="col-tags"><div class="tags-container">${tagsHtml}</div></td>
+          <td class="col-level difficulty-cell ${extraClass}" style="${colorStyle}">${diffDisplay}</td>
+          <td class="col-solves">${prob.solves || 0}</td>
+        </tr>`;
+      });
+      return rowsHtml;
+    }
+
+    function renderFullPage() {
+      const isAdmin = getCurrentUser()?.role === 'admin' || getCurrentUser()?.role === 'root';
+      const showTags = localStorage.getItem('showTags') === 'true';
+      const start = (currentPage - 1) * pageLimit;
+      const pageProblems = filteredProblems.slice(start, start + pageLimit);
+
+      let filterHtml = '<span style="font-weight:600;">Filter tags:</span>';
+      if (allTags.length === 0) {
+        filterHtml += '<span style="color:var(--text-secondary);">(none)</span>';
+      } else {
+        allTags.forEach(tag => {
+          const active = activeTags.has(tag) ? 'active' : '';
+          filterHtml += `<button class="filter-tag-btn ${active}" data-tag="${tag}">${escapeHtml(tag)}</button>`;
+        });
+      }
+
+      let visibilityHtml = '';
+      if (isAdmin) {
+        const labels = { 'all': 'All', 'public': 'Public', 'hidden': 'Hidden' };
+        visibilityHtml = `<div style="margin-top:0.5rem;display:flex;gap:0.5rem;align-items:center;">
+          <button id="visibilityFilterBtn" class="btn btn-secondary" style="padding:0.2rem 0.8rem;">Visibility: ${labels[visibilityFilter]}</button>
+        </div>`;
+      }
+
+      let rowsHtml;
+      if (pageProblems.length === 0) {
+        rowsHtml = '<tr><td colspan="6" class="loading-msg">No problems found.</td></tr>';
+      } else {
+        rowsHtml = renderTableBody(pageProblems);
+      }
+
+      const pagHtml = renderPagination();
+
+      const fullHtml = `
+        <div class="updates-panel" style="padding:0.5rem;">
+          <div class="updates-header">
+            <h2>Problem Set</h2>
+            <div>
+              <button id="refreshProblemsBtn" class="btn btn-primary" style="margin-left:0.5rem;"><i class="fas fa-sync-alt"></i></button>
+              <button id="randomUnsolvedBtn" class="btn btn-primary" style="margin-left:1rem;">Random Unsolved</button>
+              <a href="/problems/bookmarked" class="btn btn-secondary" style="margin-left:0.5rem;">Bookmarked</a>
+            </div>
+          </div>
+          <div class="filter-bar">${filterHtml}</div>
+          <div class="visibility-filter-container">${visibilityHtml}</div>
+          <div class="id-filter-bar" style="margin-top:0.5rem; display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+            <span style="font-weight:600;">Filter ID:</span>
+            <input type="text" id="idFilterInput" style="padding:0.2rem 0.5rem; border:1px solid var(--border-color); border-radius:4px; flex:1; min-width:150px;">
+            <button class="btn btn-secondary" id="idFilterClearBtn" style="padding:0.2rem 0.8rem;">Clear</button>
+          </div>
+          <div id="paginationTopContainer">${pagHtml}</div>
+          <div class="table-responsive">
+            <table class="problems-table ${showTags ? 'show-tags' : ''}">
+              <thead>
+                <tr>
+                  <th class="col-fav"></th>
+                  <th class="col-id sortable" data-sort="id">ID</th>
+                  <th class="col-name sortable" data-sort="id">Name</th>
+                  <th class="col-tags">Tags</th>
+                  <th class="col-level sortable" data-sort="difficulty">Level</th>
+                  <th class="col-solves sortable" data-sort="solves">Solves</th>
+                </tr>
+              </thead>
+              <tbody id="problemsBody">${rowsHtml}</tbody>
+            </table>
+          </div>
+          <div id="paginationContainer">${pagHtml}</div>
+        </div>
+      `;
+
+      mainContainer.innerHTML = fullHtml;
+      const idInput = document.getElementById('idFilterInput');
+      if (idInput) idInput.value = idFilterPattern;
+      bindEvents();
+      updateRefreshButtonState(); // 更新按钮冷却状态
+    }
+
+    function showSkeleton() {
+      const skeletonRows = renderSkeletonRows(30);
+      const html = `
+        <div class="updates-panel refreshing" style="padding:0.5rem;">
+          <div class="updates-header">
+            <h2>Loading Problem Set...</h2>
+            <div></div>
+          </div>
+          <div class="filter-bar"><span style="font-weight:600;">Filter tags:</span><span style="color:var(--text-secondary);">(loading...)</span></div>
+          <div id="paginationTopContainer"></div>
+          <div class="table-responsive">
+            <table class="problems-table">
+              <thead>
+                <tr>
+                  <th class="col-fav"></th>
+                  <th class="col-id sortable" data-sort="id">ID</th>
+                  <th class="col-name sortable" data-sort="id">Name</th>
+                  <th class="col-tags">Tags</th>
+                  <th class="col-level sortable" data-sort="difficulty">Level</th>
+                  <th class="col-solves sortable" data-sort="solves">Solves</th>
+                </tr>
+              </thead>
+              <tbody id="problemsBody">${skeletonRows}</tbody>
+            </table>
+          </div>
+          <div id="paginationContainer"></div>
+        </div>
+      `;
+      mainContainer.innerHTML = html;
+    }
+
+    // ========== 事件绑定 ==========
+    function bindEvents() {
+      document.querySelectorAll('.sortable').forEach(th => {
+        if (th.dataset.listener) return;
+        th.dataset.listener = 'true';
+        th.addEventListener('click', () => {
+          const field = th.dataset.sort;
+          if (sortBy === field) {
+            sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+          } else {
+            sortBy = field;
+            sortOrder = 'asc';
+          }
+          currentPage = 1;
+          applyFiltersAndSort();
+          updateURL();
+          renderFullPage();
+        });
+      });
+
+      document.querySelectorAll('.filter-tag-btn').forEach(btn => {
+        if (btn.dataset.listener) return;
+        btn.dataset.listener = 'true';
+        btn.addEventListener('click', () => {
+          const tag = btn.dataset.tag;
+          if (activeTags.has(tag)) activeTags.delete(tag);
+          else activeTags.add(tag);
+          localStorage.setItem('problemFilterTags', JSON.stringify(Array.from(activeTags)));
+          currentPage = 1;
+          applyFiltersAndSort();
+          updateURL();
+          renderFullPage();
+        });
+      });
+
+      document.querySelectorAll('.pagination a').forEach(link => {
+        if (link.dataset.listener) return;
+        link.dataset.listener = 'true';
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+          if (!href) return;
+          const page = parseInt(new URLSearchParams(href.substring(href.indexOf('?'))).get('page'));
+          if (page && page !== currentPage) {
+            currentPage = page;
+            updateURL();
+            renderFullPage();
+          }
+        });
+      });
+
+      const randomBtn = document.getElementById('randomUnsolvedBtn');
+      if (randomBtn && !randomBtn.dataset.listener) {
+          randomBtn.dataset.listener = 'true';
+          randomBtn.onclick = async () => {
+              try {
+                  // 1. 从 localStorage 获取题目列表缓存
+                  const problemCacheRaw = localStorage.getItem('problemListCache_full');
+                  if (!problemCacheRaw) {
+                      alert('Problem list not cached. Please refresh the page.');
+                      return;
+                  }
+                  const problemCache = JSON.parse(problemCacheRaw);
+                  // 检查缓存有效性（可选：检查时间戳）
+                  if (!problemCache.problems || !Array.isArray(problemCache.problems)) {
+                      alert('Invalid problem cache.');
+                      return;
+                  }
+                  // 提取所有题目 ID
+                  const allIds = problemCache.problems.map(p => p.id);
+
+                  // 2. 从 localStorage 获取用户状态缓存
+                  const stateCacheRaw = localStorage.getItem('userStatesCache');
+                  let userStates = {};
+                  if (stateCacheRaw) {
+                      const stateCache = JSON.parse(stateCacheRaw);
+                      userStates = stateCache.states || {};
+                  }
+                  // 如果状态缓存不存在或为空，可以继续，但所有题目都视为未解决
+
+                  // 3. 过滤出未解决的题目
+                  const unsolved = allIds.filter(id => {
+                      const state = userStates[id];
+                      return state !== 'passed'; // 未通过（包括 failed, not_started, 或 undefined）
+                  });
+
+                  if (unsolved.length === 0) {
+                      alert('🎉 All problems solved!');
+                      return;
+                  }
+
+                  // 4. 随机选择一个
+                  const randomId = unsolved[Math.floor(Math.random() * unsolved.length)];
+                  location.href = `/problems/${encodeURIComponent(randomId)}`;
+
+              } catch (e) {
+                  console.error('Random unsolved error:', e);
+                  alert('Error selecting random problem. Please try again.');
+              }
+          };
+      }
+
+      const idInput = document.getElementById('idFilterInput');
+      if (idInput && !idInput.dataset.listener) {
+        idInput.dataset.listener = 'true';
+        idInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); applyIdFilter(); }
+        });
+      }
+
+      const clearBtn = document.getElementById('idFilterClearBtn');
+      if (clearBtn && !clearBtn.dataset.listener) {
+        clearBtn.dataset.listener = 'true';
+        clearBtn.addEventListener('click', () => {
+          const input = document.getElementById('idFilterInput');
+          if (input) input.value = '';
+          idFilterPattern = '';
+          currentPage = 1;
+          applyFiltersAndSort();
+          updateURL();
+          renderFullPage();
+        });
+      }
+
+      const visBtn = document.getElementById('visibilityFilterBtn');
+      if (visBtn && !visBtn.dataset.listener) {
+        visBtn.dataset.listener = 'true';
+        visBtn.addEventListener('click', () => {
+          const modes = ['all', 'public', 'hidden'];
+          let idx = modes.indexOf(visibilityFilter);
+          idx = (idx + 1) % modes.length;
+          visibilityFilter = modes[idx];
+          currentPage = 1;
+          applyFiltersAndSort();
+          updateURL();
+          renderFullPage();
+        });
+      }
+
+      // 刷新按钮 - 冷却 + 高效刷新
+      const refreshBtn = document.getElementById('refreshProblemsBtn');
+      if (refreshBtn && !refreshBtn.dataset.listener) {
+        refreshBtn.dataset.listener = 'true';
+        refreshBtn.addEventListener('click', async function() {
+          if (this.disabled) return;
+          startRefreshCooldown(30);
+          await refreshData();
+        });
+      }
+    }
+    // ========== 其他功能 ==========
+    function applyIdFilter() {
+      const input = document.getElementById('idFilterInput');
+      if (!input) return;
+      const raw = input.value.trim();
+      idFilterPattern = raw;
+      currentPage = 1;
+      applyFiltersAndSort();
+      updateURL();
+      renderFullPage();
+    }
+
+    function updateURL() {
+      const params = new URLSearchParams();
+      params.set('page', currentPage);
+      if (sortBy !== 'id') params.set('sortBy', sortBy);
+      if (sortOrder !== 'asc') params.set('order', sortOrder);
+      if (activeTags.size > 0) params.set('tags', Array.from(activeTags).join(','));
+      if (idFilterPattern) params.set('idfilter', idFilterPattern);
+      if (visibilityFilter !== 'all') params.set('visibility', visibilityFilter);
+      window.history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+    }
+
+    async function toggleFavorite(problemId, starCell) {
+      const starIcon = starCell.querySelector('i');
+      const reallyFav = starIcon.classList.contains('fas');
+      if (reallyFav) {
+        starIcon.classList.replace('fas', 'far');
+        starIcon.style.color = '#aaa';
+        window.favorites.delete(problemId);
+        saveFavoritesToCache(window.favorites);
+      } else {
+        starIcon.classList.replace('far', 'fas');
+        starIcon.style.color = '#f1c40f';
+        window.favorites.add(problemId);
+        saveFavoritesToCache(window.favorites);
+      }
+      try {
+        const res = await apiCall('/api/users?action=favorite', 'POST', { problemId });
+        if (res.success) {
+          window.favorites = new Set(res.favorites);
+          saveFavoritesToCache(window.favorites);
+        } else {
+          if (reallyFav) {
+            window.favorites.add(problemId);
+            starIcon.classList.replace('far', 'fas');
+            starIcon.style.color = '#f1c40f';
+          } else {
+            window.favorites.delete(problemId);
+            starIcon.classList.replace('fas', 'far');
+            starIcon.style.color = '#aaa';
+          }
+          saveFavoritesToCache(window.favorites);
+          alert('Error toggling favorite');
+        }
+      } catch (e) {
+        if (reallyFav) {
+          window.favorites.add(problemId);
+          starIcon.classList.replace('far', 'fas');
+          starIcon.style.color = '#f1c40f';
+        } else {
+          window.favorites.delete(problemId);
+          starIcon.classList.replace('fas', 'far');
+          starIcon.style.color = '#aaa';
+        }
+        saveFavoritesToCache(window.favorites);
+        alert('Network error');
+      }
+    }
+
+    // ========== 初始化 ==========
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      sortBy = params.get('sortBy') || 'id';
+      sortOrder = params.get('order') || 'asc';
+      if (params.has('tags')) {
+        activeTags = new Set(params.get('tags').split(','));
+      } else {
+        const saved = localStorage.getItem('problemFilterTags');
+        if (saved) {
+          try { activeTags = new Set(JSON.parse(saved)); } catch (e) {}
+        }
+      }
+      if (params.has('idfilter')) {
+        idFilterPattern = params.get('idfilter');
+      } else {
+        idFilterPattern = '';
+      }
+      if (params.has('visibility')) {
+        visibilityFilter = params.get('visibility');
+        if (!['all', 'public', 'hidden'].includes(visibilityFilter)) visibilityFilter = 'all';
+      } else {
+        visibilityFilter = 'all';
+      }
+      currentPage = getPageFromURL();
+
+      const hasProblems = loadProblemsFromCache();
+      const hasStates = loadUserStatesFromCache();
+      const hasFavs = loadFavoritesFromCache();
+
+      if (hasProblems && hasStates && hasFavs) {
+        // 有完整缓存：先渲染缓存内容
+        applyFiltersAndSort();
+        renderFullPage();
+        // 后台静默更新（包含版本检查与用户数据更新）
+        refreshData();
+      } else {
+        // 无缓存：显示骨架屏，然后并行获取题目列表和用户数据
+        showSkeleton();
+        const [problemsRes, preload] = await Promise.all([
+          fetchAllProblems(),
+          apiCall('/api/users?action=preload')
+        ]);
+        if (preload.success) {
+          userStates = preload.states || {};
+          window.favorites = new Set(preload.favorites || []);
+          saveUserStatesToCache(userStates);
+          saveFavoritesToCache(window.favorites);
+        }
+        applyFiltersAndSort();
+        renderFullPage();
+      }
+
+      const savedScroll = sessionStorage.getItem('problemListScroll');
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+        sessionStorage.removeItem('problemListScroll');
+      }
+    }
+
+    window.toggleFavorite = toggleFavorite;
+    window.addEventListener('popstate', init);
+    init();
+  })();
