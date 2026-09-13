@@ -265,13 +265,13 @@ html, body {
 }
 
 /* 链接悬停 */
-a, button, input[type="submit"], .btn, .clickable, [role="button"] {
+a, button, input[type="submit"], .btn, .clickable, [role="button"],.generic {
   cursor: url('https://cdn.jsdelivr.net/gh/makipom/BlueArchive-Cursors@main/link.cur') 0 0, pointer;
 }
 
 input, textarea, select, [contenteditable="true"] {
   cursor:
-    url('https://cdn.jsdelivr.net/gh/makipom/BlueArchive-Cursors@main/Millennium%20Edition/Optional/millennium_text_static.cur') 0 0,
+    /* url('https://cdn.jsdelivr.net/gh/makipom/BlueArchive-Cursors@main/Millennium%20Edition/Optional/millennium_text_static.cur') 0 0, */
     url('https://cdn.jsdelivr.net/gh/makipom/BlueArchive-Cursors@main/Millennium%20Edition/millennium_text.ani') 0 0,
     text;
 }
