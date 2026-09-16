@@ -395,7 +395,9 @@ async function initPage() {
           delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }]
         });
       }
+      mountPdfQuizSplit();
       mountMcQuiz();
+      
     }
 
     await preloadPromise;
@@ -842,7 +844,131 @@ async function loadDiscussions(problemId) {
     listDiv.innerHTML = '<p>Error loading discussions.</p>';
   }
 }
+// ============ PDF + Quiz 左右分欄 ============
+function mountPdfQuizSplit() {
+  const pdfMount = document.getElementById('pdf-quiz-split');
+  if (!pdfMount) return;                    // 沒有標記 → 走原有邏輯
 
+  const pdfUrl = pdfMount.dataset.pdf;
+  if (!pdfUrl) return;
+
+  // 轉成絕對路徑，讓 iframe 與「新分頁」都能正確解析
+  let absolutePdfUrl;
+  try {
+    absolutePdfUrl = new URL(pdfUrl, location.href).href;
+  } catch {
+    absolutePdfUrl = pdfUrl;
+  }
+
+  // CSS 只注入一次
+  if (!document.getElementById('pdf-quiz-split-style')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'pdf-quiz-split-style';
+    styleEl.textContent = `
+      .pdf-quiz-split {
+        display: flex;
+        gap: 1rem;
+        align-items: stretch;
+        min-height: 70vh;
+        margin-top: 0.5rem;
+      }
+      .pdf-quiz-split > .pdf-quiz-left,
+      .pdf-quiz-split > .pdf-quiz-right {
+        flex: 1 1 50%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        overflow: hidden;
+        background: var(--card-bg);
+      }
+      .pdf-quiz-split > .pdf-quiz-right {
+        overflow-y: auto;
+        max-height: 85vh;
+        padding: 0.6rem;
+      }
+      .pdf-viewer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 12px;
+        background: #f0f2f5;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.85rem;
+        flex-shrink: 0;
+      }
+      [data-theme="dark"] .pdf-viewer-header { background: #21262d; }
+      .pdf-viewer-title { font-weight: 700; color: var(--text-primary); }
+      .pdf-open-btn {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .pdf-open-btn:hover { text-decoration: underline; }
+      .pdf-viewer-iframe {
+        flex: 1;
+        width: 100%;
+        border: none;
+        min-height: 600px;
+        background: #fff;
+      }
+      @media (max-width: 900px) {
+        .pdf-quiz-split {
+          flex-direction: column;
+          min-height: auto;
+        }
+        .pdf-quiz-split > .pdf-quiz-left,
+        .pdf-quiz-split > .pdf-quiz-right {
+          flex: 1 1 auto;
+        }
+        .pdf-quiz-split > .pdf-quiz-right {
+          max-height: none;
+        }
+        .pdf-viewer-iframe {
+          min-height: 60vh;
+        }
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+
+  // 把 PDF 與 quiz 包進同一個 flex 容器
+  const quizMount = document.getElementById('mc-quiz-mount');
+  if (quizMount && quizMount.parentNode === pdfMount.parentNode) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'pdf-quiz-split';
+    pdfMount.parentNode.insertBefore(wrapper, pdfMount);
+
+    pdfMount.classList.add('pdf-quiz-left');
+    quizMount.classList.add('pdf-quiz-right');
+
+    wrapper.appendChild(pdfMount);
+    wrapper.appendChild(quizMount);
+  } else {
+    // 只有 PDF、沒有 quiz：全寬顯示
+    pdfMount.classList.add('pdf-quiz-left');
+    pdfMount.style.maxWidth = '100%';
+  }
+
+  // 渲染 PDF viewer
+  pdfMount.innerHTML = `
+    <div class="pdf-viewer-header">
+      <span class="pdf-viewer-title">📄 PDF</span>
+      <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
+        <i class="fas fa-external-link-alt"></i> Open in new tab
+      </a>
+    </div>
+    <iframe class="pdf-viewer-iframe"
+      src="${escapeHtml(absolutePdfUrl)}"
+      title="PDF Viewer"
+      loading="lazy"
+      referrerpolicy="no-referrer"></iframe>
+  `;
+}
 // ============ MC 表格掛載 ============
 // ============ MC 表格掛載 ============
 function mountMcQuiz() {
