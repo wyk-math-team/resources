@@ -810,7 +810,82 @@ async function loadDiscussions(problemId) {
     listDiv.innerHTML = '<p>Error loading discussions.</p>';
   }
 }
+// ============ MC 表格掛載 ============
+function mountMcQuiz() {
+  const mount = document.getElementById('mc-quiz-mount');
+  if (!mount) return;
 
+  const TOTAL = 45;
+  const SEP_EVERY = 5;
+
+  let html = `
+    <p style="color:var(--text-secondary);font-size:.9rem;margin:.5rem 0 .8rem 0;">
+      Select one option (A/B/C/D) for each question. Unanswered questions will be submitted as <code>X</code>.
+    </p>
+    <table class="mc-table">
+      <thead>
+        <tr><th>#</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+      </thead>
+      <tbody>
+  `;
+  for (let i = 1; i <= TOTAL; i++) {
+    const sep = (i % SEP_EVERY === 0 && i < TOTAL) ? ' class="mc-sep"' : '';
+    html += `<tr${sep}>
+      <td>${i}</td>
+      <td><input type="radio" name="mcq-${i}" value="A"></td>
+      <td><input type="radio" name="mcq-${i}" value="B"></td>
+      <td><input type="radio" name="mcq-${i}" value="C"></td>
+      <td><input type="radio" name="mcq-${i}" value="D"></td>
+    </tr>`;
+  }
+  html += `
+      </tbody>
+    </table>
+    <button id="mc-submit-btn" class="mc-submit-btn">submit</button>
+  `;
+  mount.innerHTML = html;
+
+  // 允許「再點一次取消選取」：記錄 mousedown 前的狀態
+  mount.querySelectorAll('input[type="radio"]').forEach(r => {
+    r.addEventListener('mousedown', function () {
+      this.dataset.wasChecked = this.checked ? '1' : '0';
+    });
+    r.addEventListener('click', function () {
+      if (this.dataset.wasChecked === '1') {
+        this.checked = false;
+        this.dataset.wasChecked = '0';
+      }
+    });
+  });
+
+  document.getElementById('mc-submit-btn').addEventListener('click', () => {
+    // 組答案字串：未作答 = X
+    let answer = '';
+    for (let i = 1; i <= TOTAL; i++) {
+      const sel = document.querySelector(`input[name="mcq-${i}"]:checked`);
+      answer += sel ? sel.value : 'X';
+    }
+
+    // 強制切到 numeric/text 模式（避免使用者停在 photo/expression）
+    currentMode = 'numeric';
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    const numBtn = document.getElementById('modeNumeric');
+    if (numBtn) numBtn.classList.add('active');
+    document.getElementById('textAnswerGroup').style.display = 'block';
+    document.getElementById('imageAnswerGroup').style.display = 'none';
+    document.getElementById('expressionAnswerGroup').style.display = 'none';
+
+    // 填進答案框
+    const input = document.getElementById('answerInput');
+    if (input) input.value = answer;
+
+    // 觸發既有提交邏輯
+    const submitBtn = document.getElementById('checkAnswerBtn');
+    if (submitBtn && !submitBtn.disabled) {
+      submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+    }
+  });
+}
 initPage();
 window.addEventListener('beforeunload', () => {
   if (document.getElementById('timerRow')) {
