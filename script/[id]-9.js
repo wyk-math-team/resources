@@ -814,7 +814,64 @@ async function loadDiscussions(problemId) {
 function mountMcQuiz() {
   const mount = document.getElementById('mc-quiz-mount');
   if (!mount) return;
-
+    // === 動態注入 CSS（只注入一次）===
+  if (!document.getElementById('mc-quiz-style')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'mc-quiz-style';
+    styleEl.textContent = `
+      .mc-table {
+        width: 100%;
+        max-width: 420px;
+        border-collapse: collapse;
+        margin: 0 auto 1rem;
+        font-size: 0.95rem;
+      }
+      .mc-table th, .mc-table td {
+        border: 1px solid var(--border-color);
+        padding: 0.35rem 0.5rem;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .mc-table th {
+        background: #f0f2f5;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+      [data-theme="dark"] .mc-table th { background: #2d2d2d; }
+      .mc-table td:first-child {
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: #fafafa;
+        width: 3em;
+      }
+      [data-theme="dark"] .mc-table td:first-child { background: #252525; }
+      .mc-table input[type="radio"] {
+        cursor: pointer;
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+      }
+      .mc-table tr.mc-sep td { border-bottom: 2px solid var(--accent); }
+      .mc-submit-btn {
+        display: block;
+        margin: 0.8rem auto 1.5rem;
+        padding: 0.65rem 3rem;
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: background 0.15s;
+      }
+      .mc-submit-btn:hover { background: #218838; }
+      .mc-submit-btn:disabled { background: #6c757d; cursor: not-allowed; }
+    `;
+    document.head.appendChild(styleEl);
+  }
   const TOTAL = 45;
   const SEP_EVERY = 5;
 
