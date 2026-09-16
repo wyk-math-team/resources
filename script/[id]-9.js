@@ -360,6 +360,7 @@ async function initPage() {
         });
       }
     }
+    mountMcQuiz();
 
     await preloadPromise;
 
