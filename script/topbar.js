@@ -294,3 +294,67 @@
   }
   
 })();
+(function () {
+  const bar = document.createElement('div');
+  bar.id = 'top-progress';
+  bar.style.cssText = `
+    position: fixed; top: 0; left: 0; height: 3px; width: 0;
+    background: linear-gradient(90deg, #4a90d9, #58a6ff);
+    z-index: 99999; transition: width 0.2s ease, opacity 0.3s ease;
+    box-shadow: 0 0 8px rgba(88,166,255,0.8); opacity: 0;
+    pointer-events: none;
+  `;
+  document.documentElement.appendChild(bar);
+
+  let timer = null;
+  let width = 0;
+
+  window.__startProgress = () => {
+    clearInterval(timer);
+    width = 0;
+    bar.style.opacity = '1';
+    bar.style.width = '0%';
+    timer = setInterval(() => {
+      // 逐渐减速，最多到 90%
+      const inc = (90 - width) * 0.1;
+      width = Math.min(90, width + inc);
+      bar.style.width = width + '%';
+    }, 200);
+  };
+
+  window.__doneProgress = () => {
+    clearInterval(timer);
+    bar.style.width = '100%';
+    setTimeout(() => {
+      bar.style.opacity = '0';
+      setTimeout(() => { bar.style.width = '0%'; }, 300);
+    }, 200);
+  };
+
+  // 拦截 fetch（包括 PJAX 和 API 调用）
+  const origFetch = window.fetch;
+  window.fetch = function (...args) {
+    // 只对 GET 页面请求显示进度条，API 调用忽略
+    const url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
+    const isPageNav = url && url.startsWith(location.origin) && !url.includes('/api/');
+    if (isPageNav) {
+      window.__startProgress();
+      return origFetch.apply(this, args).finally(() => window.__doneProgress());
+    }
+    return origFetch.apply(this, args);
+  };
+
+  // 普通 <a> 跳转（无 PJAX 时）也要显示
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || a.target === '_blank' || a.hasAttribute('download')) return;
+    try {
+      const url = new URL(href, location.href);
+      if (url.origin === location.origin && url.pathname !== location.pathname) {
+        window.__startProgress();
+      }
+    } catch {}
+  });
+})();
