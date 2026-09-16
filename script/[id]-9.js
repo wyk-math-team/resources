@@ -359,8 +359,9 @@ async function initPage() {
           delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }]
         });
       }
+      mountMcQuiz();
     }
-    mountMcQuiz();
+    
 
     await preloadPromise;
 
