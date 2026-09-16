@@ -1017,7 +1017,7 @@ function mountMcQuiz() {
 }
 
 initPage();
-window.addEventListener('beforeunload', () => {
+window.addEventListener('pagehide', () => {
   if (document.getElementById('timerRow')) {
     pauseTimer();
     saveTimer();
