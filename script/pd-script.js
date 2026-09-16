@@ -34,9 +34,48 @@ function escapeHtml(str) {
   return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]);
 }
 
+// ============ 狀態徽章 CSS（動態注入一次）============
+(function injectFeedbackBoxCSS() {
+  if (document.getElementById('feedback-box-style')) return;
+  const s = document.createElement('style');
+  s.id = 'feedback-box-style';
+  s.textContent = `
+    .feedback-box {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      border-radius: 4px;
+      border: 1px solid;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: filter 0.15s, transform 0.1s;
+    }
+    .feedback-box:hover { filter: brightness(0.94); transform: translateY(-1px); }
+    .feedback-box:active { transform: translateY(0); }
+    .feedback-box.status-accepted { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+    .feedback-box.status-wrong    { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+    .feedback-box.status-partial  { background: #fff3cd; color: #856404; border-color: #ffeeba; }
+    .feedback-box.status-system   { background: #e2e3e5; color: #383d41; border-color: #d6d8db; }
+    .feedback-box.status-pending  { background: #eee;    color: #666;    border-color: #d6d8db; }
+    [data-theme="dark"] .feedback-box.status-accepted { background: #1b4d2e; color: #8fdf8f; border-color: #2e6b3e; }
+    [data-theme="dark"] .feedback-box.status-wrong    { background: #4d1b1b; color: #df8f8f; border-color: #6b2e2e; }
+    [data-theme="dark"] .feedback-box.status-partial  { background: #4d3e1b; color: #dfc88f; border-color: #6b562e; }
+    [data-theme="dark"] .feedback-box.status-system   { background: #2d2d2d; color: #bbb;    border-color: #444; }
+    [data-theme="dark"] .feedback-box.status-pending  { background: #2d2d2d; color: #999;    border-color: #444; }
+  `;
+  document.head.appendChild(s);
+})();
+
+// 生成可點擊的狀態徽章 HTML（若無 subid 就純文字）
+function statusBoxHtml(subid, text, cls) {
+  if (!subid) return text;
+  const url = `/submissions/${encodeURIComponent(subid)}/detail`;
+  return `<a href="${url}" class="feedback-box ${cls}">${escapeHtml(text)}</a>`;
+}
+
 // ============ 題目載入 ============
 async function loadProblem() {
-  // CDN 優先，1 秒超時
   try {
     const cdnUrl = `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`;
     const controller = new AbortController();
@@ -59,7 +98,6 @@ async function loadProblem() {
     }
   } catch (e) { /* 走 API 回退 */ }
 
-  // API 回退
   try {
     const data = await apiCall(`/api/problem?id=${encodeURIComponent(problemId)}`);
     if (data.success && data.problem) {
@@ -81,7 +119,7 @@ async function loadProblem() {
 }
 
 const domPurifyConfig = {
-  ALLOWED_TAGS: ['b', 'i', 'u', 'strong', 'em', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'code', 'pre', 'svg', 'g', 'defs', 'clipPath', 'foreignObject', 'path', 'circle', 'line', 'polyline', 'polygon', 'rect', 'text', 'tspan', 'linearGradient', 'radialGradient', 'stop', 'image', 'use','script', 'img'],
+  ALLOWED_TAGS: ['b', 'i', 'u', 'strong', 'em', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'code', 'pre', 'svg', 'g', 'defs', 'clipPath', 'foreignObject', 'path', 'circle', 'line', 'polyline', 'polygon', 'rect', 'text', 'tspan', 'linearGradient', 'radialGradient', 'stop', 'image', 'use', 'script', 'img'],
   ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id', 'style', 'xmlns', 'viewBox', 'width', 'height', 'd', 'cx', 'cy', 'r', 'x', 'y', 'x1', 'x2', 'y1', 'y2', 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-opacity', 'stroke-opacity', 'opacity', 'font-size', 'text-anchor', 'dominant-baseline', 'transform', 'src']
 };
 
@@ -333,7 +371,6 @@ async function initPage() {
           </div>
         </div>
 
-        <!-- Report modal -->
         <div id="reportModal" class="report-modal-overlay" style="display:none">
           <div class="report-modal">
             <h3>Report Problem</h3>
@@ -349,7 +386,6 @@ async function initPage() {
       </div>
     `;
 
-    // 填充 statement
     const statementContent = document.getElementById('statementContent');
     if (statementContent) {
       const statementHtml = problem.statement ? DOMPurify.sanitize(problem.statement, domPurifyConfig) : '';
@@ -361,7 +397,6 @@ async function initPage() {
       }
       mountMcQuiz();
     }
-    
 
     await preloadPromise;
 
@@ -401,7 +436,6 @@ async function initPage() {
       });
     }
 
-    // Report modal 交互
     document.getElementById('reportBtn').addEventListener('click', function () {
       document.getElementById('reportReason').value = '';
       document.getElementById('reportModal').style.display = 'flex';
@@ -440,7 +474,6 @@ async function initPage() {
       }
     });
 
-    // 收藏切換
     document.getElementById('detailFavorite').addEventListener('click', async function () {
       const icon = this.querySelector('i');
       if (!icon) return;
@@ -473,7 +506,6 @@ function bindStaticEvents() {
     window.location.href = `/submissions/problem/${problemId}`;
   });
 
-  // 模式切換
   const modeButtons = document.querySelectorAll('.mode-btn');
   const textGroup = document.getElementById('textAnswerGroup');
   const imageGroup = document.getElementById('imageAnswerGroup');
@@ -512,7 +544,6 @@ function bindStaticEvents() {
     });
   });
 
-  // 圖片選擇
   const pickBtn = document.getElementById('pickImageBtn');
   const imageInput = document.getElementById('imageFileInput');
   pickBtn.addEventListener('click', () => {
@@ -551,7 +582,6 @@ function bindStaticEvents() {
     imageInput.value = '';
   });
 
-  // 表達式預覽
   const exprPreview = document.getElementById('exprPreview');
   function updateExprPreview() {
     const rawExpr = exprInput.value.trim();
@@ -569,10 +599,8 @@ function bindStaticEvents() {
   }
   exprInput.addEventListener('input', updateExprPreview);
 
-  // Timer 開關
   document.getElementById('timerToggleBtn').addEventListener('click', toggleTimer);
 
-  // 分割條拖拽
   const dividerEl = document.getElementById('splitDivider');
   let splitDragging = false;
   dividerEl.addEventListener('mousedown', (e) => {
@@ -651,7 +679,7 @@ function bindSubmitEvent() {
     cooldown = true;
     checkBtn.disabled = true;
     spinner.style.display = 'inline-block';
-    fb.textContent = '';
+    fb.innerHTML = '';
     fb.className = '';
 
     let remaining = 5;
@@ -673,23 +701,25 @@ function bindSubmitEvent() {
       spinner.style.display = 'none';
       if (!result.success) return;
 
+      // 可點擊的狀態框（無 subid 時退回純文字）
       if (result.message && result.message.includes('Image submitted')) {
-        fb.textContent = 'Image submitted for marking';
-        fb.className = 'feedback pending';
+        fb.innerHTML = statusBoxHtml(result.subid, 'Image submitted for marking', 'status-pending');
         document.getElementById('detailStatusIcon').style.display = 'none';
         document.getElementById('detailSpinner').style.display = 'inline-block';
         document.getElementById('detailStatusText').textContent = 'Pending';
         startImageStatusPoll();
       } else if (result.systemError) {
-        fb.textContent = 'System Error';
-        fb.className = 'feedback system-error';
+        fb.innerHTML = statusBoxHtml(result.subid, 'System Error', 'status-system');
       } else if (result.score !== undefined) {
-        if (result.score === 100) { fb.textContent = 'Accepted'; fb.className = 'feedback correct'; }
-        else if (result.score === 0) { fb.textContent = 'Wrong Answer'; fb.className = 'feedback wrong'; }
-        else { fb.textContent = `Partial Score (${result.score}%)`; fb.className = 'feedback partial'; }
+        let txt, cls;
+        if (result.score === 100) { txt = 'Accepted'; cls = 'status-accepted'; }
+        else if (result.score === 0) { txt = 'Wrong Answer'; cls = 'status-wrong'; }
+        else { txt = `Partial Score (${result.score}%)`; cls = 'status-partial'; }
+        fb.innerHTML = statusBoxHtml(result.subid, txt, cls);
       } else {
-        fb.textContent = result.correct ? 'Accepted' : 'Wrong Answer';
-        fb.className = result.correct ? 'feedback correct' : 'feedback wrong';
+        const txt = result.correct ? 'Accepted' : 'Wrong Answer';
+        const cls = result.correct ? 'status-accepted' : 'status-wrong';
+        fb.innerHTML = statusBoxHtml(result.subid, txt, cls);
         if (result.correct) {
           userStates[problemId] = 'passed';
           if (localStorage.getItem('nekoModeUnlocked') === 'true' &&
@@ -812,11 +842,12 @@ async function loadDiscussions(problemId) {
     listDiv.innerHTML = '<p>Error loading discussions.</p>';
   }
 }
+
 // ============ MC 表格掛載 ============
 function mountMcQuiz() {
   const mount = document.getElementById('mc-quiz-mount');
   if (!mount) return;
-    // === 動態注入 CSS（只注入一次）===
+
   if (!document.getElementById('mc-quiz-style')) {
     const styleEl = document.createElement('style');
     styleEl.id = 'mc-quiz-style';
@@ -904,7 +935,19 @@ function mountMcQuiz() {
   `;
   mount.innerHTML = html;
 
-  // 允許「再點一次取消選取」：記錄 mousedown 前的狀態
+  // ⭐ 自動從 Your Answer 輸入框導入選項
+  // 讀取 answerInput 當前值（例如 "ABCD...X..."），逐位對應到 radio
+  const seed = (document.getElementById('answerInput')?.value || '').trim().toUpperCase();
+  if (seed) {
+    for (let i = 1; i <= TOTAL; i++) {
+      const ch = seed[i - 1];
+      if (!ch || !'ABCD'.includes(ch)) continue;
+      const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
+      if (radio) radio.checked = true;
+    }
+  }
+
+  // 允許「再點一次取消選取」
   mount.querySelectorAll('input[type="radio"]').forEach(r => {
     r.addEventListener('mousedown', function () {
       this.dataset.wasChecked = this.checked ? '1' : '0';
@@ -918,14 +961,12 @@ function mountMcQuiz() {
   });
 
   document.getElementById('mc-submit-btn').addEventListener('click', () => {
-    // 組答案字串：未作答 = X
     let answer = '';
     for (let i = 1; i <= TOTAL; i++) {
       const sel = document.querySelector(`input[name="mcq-${i}"]:checked`);
       answer += sel ? sel.value : 'X';
     }
 
-    // 強制切到 numeric/text 模式（避免使用者停在 photo/expression）
     currentMode = 'numeric';
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
     const numBtn = document.getElementById('modeNumeric');
@@ -934,17 +975,16 @@ function mountMcQuiz() {
     document.getElementById('imageAnswerGroup').style.display = 'none';
     document.getElementById('expressionAnswerGroup').style.display = 'none';
 
-    // 填進答案框
     const input = document.getElementById('answerInput');
     if (input) input.value = answer;
 
-    // 觸發既有提交邏輯
     const submitBtn = document.getElementById('checkAnswerBtn');
     if (submitBtn && !submitBtn.disabled) {
       submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
     }
   });
 }
+
 initPage();
 window.addEventListener('beforeunload', () => {
   if (document.getElementById('timerRow')) {
