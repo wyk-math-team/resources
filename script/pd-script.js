@@ -844,6 +844,7 @@ async function loadDiscussions(problemId) {
 }
 
 // ============ MC 表格掛載 ============
+// ============ MC 表格掛載 ============
 function mountMcQuiz() {
   const mount = document.getElementById('mc-quiz-mount');
   if (!mount) return;
@@ -905,6 +906,7 @@ function mountMcQuiz() {
     `;
     document.head.appendChild(styleEl);
   }
+
   const TOTAL = 45;
   const SEP_EVERY = 5;
 
@@ -935,20 +937,42 @@ function mountMcQuiz() {
   `;
   mount.innerHTML = html;
 
-  // ⭐ 自動從 Your Answer 輸入框導入選項
-  // 讀取 answerInput 當前值（例如 "ABCD...X..."），逐位對應到 radio
-  const seed = (document.getElementById('answerInput')?.value || '').trim().toUpperCase();
-  if (seed) {
+  const answerInputEl = document.getElementById('answerInput');
+
+  // ---- 雙向綁定：input → radio ----
+  function syncRadiosFromInput() {
+    const str = (answerInputEl?.value || '').trim().toUpperCase();
     for (let i = 1; i <= TOTAL; i++) {
-      const ch = seed[i - 1];
-      if (!ch || !'ABCD'.includes(ch)) continue;
-      const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
-      if (radio) radio.checked = true;
+      const ch = str[i - 1];
+      const radios = mount.querySelectorAll(`input[name="mcq-${i}"]`);
+      radios.forEach(r => { r.checked = false; });
+      if (ch && 'ABCD'.includes(ch)) {
+        const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
+        if (radio) radio.checked = true;
+      }
     }
   }
 
-  // 允許「再點一次取消選取」
+  // ---- 雙向綁定：radio → input ----
+  function syncInputFromRadios() {
+    let ans = '';
+    for (let i = 1; i <= TOTAL; i++) {
+      const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
+      ans += sel ? sel.value : 'X';
+    }
+    // 去掉尾部連續的 X，保留中間的 X（代表跳過的題目）
+    ans = ans.replace(/X+$/, '');
+    if (answerInputEl) answerInputEl.value = ans;
+  }
+
+  // 監聽輸入框：使用者打字即時同步到 radio
+  if (answerInputEl) {
+    answerInputEl.addEventListener('input', syncRadiosFromInput);
+  }
+
+  // 監聽 radio：點擊 / 鍵盤操作即時同步到 input
   mount.querySelectorAll('input[type="radio"]').forEach(r => {
+    // 「再點一次取消選取」的功能
     r.addEventListener('mousedown', function () {
       this.dataset.wasChecked = this.checked ? '1' : '0';
     });
@@ -957,9 +981,16 @@ function mountMcQuiz() {
         this.checked = false;
         this.dataset.wasChecked = '0';
       }
+      syncInputFromRadios();
     });
+    // 處理鍵盤操作（Tab + 方向鍵）
+    r.addEventListener('change', syncInputFromRadios);
   });
 
+  // 初始同步：若 input 已有答案（例如使用者從別頁返回），立刻反映到 radio
+  syncRadiosFromInput();
+
+  // MC 提交按鈕
   document.getElementById('mc-submit-btn').addEventListener('click', () => {
     let answer = '';
     for (let i = 1; i <= TOTAL; i++) {
