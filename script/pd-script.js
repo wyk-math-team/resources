@@ -907,7 +907,10 @@ function mountMcQuiz() {
     document.head.appendChild(styleEl);
   }
 
-  const TOTAL = 45;
+    // === 從 HTML 讀取題數（data-total），沒有則默認 45 ===
+  // 用法：<div id="mc-quiz-mount" data-total="30"></div>
+  const rawTotal = parseInt(mount.dataset.total, 10);
+  const TOTAL = (Number.isFinite(rawTotal) && rawTotal >= 1 && rawTotal <= 200) ? rawTotal : 45;
   const SEP_EVERY = 5;
 
   let html = `
