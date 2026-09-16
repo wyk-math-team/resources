@@ -313,23 +313,6 @@ input, textarea, select, [contenteditable="true"] {
 .bg-busy {
   cursor: url('https://cdn.jsdelivr.net/gh/makipom/BlueArchive-Cursors@main/background.ani') 0 0, progress;
 }
-/* 啟用跨文檔 View Transitions */
 @view-transition {
   navigation: auto;
 }
-
-/* 讓 topbar/sidebar 在導航時保持位置不變 */
-#topbarContainer { view-transition-name: app-topbar; }
-#sidebarContainer { view-transition-name: app-sidebar; }
-
-/* main 內容淡入淡出（可選，自訂動畫）*/
-::view-transition-old(main-content) {
-  animation: 120ms ease-out fade-out;
-}
-::view-transition-new(main-content) {
-  animation: 180ms ease-in fade-in;
-}
-
-@keyframes fade-out { to { opacity: 0; } }
-@keyframes fade-in { from { opacity: 0; } }
-#mainContent { view-transition-name: main-content; }
