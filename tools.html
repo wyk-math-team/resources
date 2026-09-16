@@ -1,1 +1,621 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trichlorofluoromethane (CCl₃F) — 3D structure</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --border:#30363d;
+    --fg:#e6edf3; --muted:#8b949e; --accent:#58a6ff;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #scene{position:fixed;inset:0}
+  #scene canvas{display:block}
+
+  #panel{
+    position:fixed;top:14px;left:14px;width:272px;
+    max-height:calc(100vh - 28px);overflow:auto;
+    background:rgba(22,27,34,.93);border:1px solid var(--border);
+    border-radius:10px;padding:14px;font-size:13px;line-height:1.45;
+    backdrop-filter:blur(4px);
+  }
+  #panel h1{font-size:14px;margin:0 0 2px;letter-spacing:.2px}
+  #panel .sub{color:var(--muted);font-size:11.5px;margin-bottom:14px}
+
+  .group{margin-bottom:14px}
+  .group h2{
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--muted);margin:0 0 7px;font-weight:600;
+  }
+  button{
+    display:block;width:100%;text-align:left;margin:0 0 6px;padding:7px 10px;
+    background:#21262d;color:var(--fg);border:1px solid var(--border);
+    border-radius:6px;cursor:pointer;font-size:12.5px;font-family:inherit;
+    transition:background .12s,border-color .12s,color .12s;
+  }
+  button:hover{background:#2b323b}
+  button[aria-pressed="true"]{
+    background:#1f3b5c;border-color:var(--accent);color:#cfe4ff;
+  }
+  button[aria-pressed="true"]::after{content:" ✓";color:var(--accent)}
+
+  .row{display:flex;gap:6px}
+  .row button{margin-bottom:6px}
+
+  #legend{font-size:11.5px;color:var(--muted);line-height:1.6}
+  #legend div{margin-bottom:2px}
+  .swatch{
+    display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;
+    vertical-align:middle;border:1px solid rgba(255,255,255,.22);
+  }
+
+  #note{
+    position:fixed;top:14px;right:14px;width:252px;
+    background:rgba(22,27,34,.93);border:1px solid var(--border);
+    border-radius:10px;padding:13px 15px;font-size:12px;line-height:1.55;
+    color:var(--muted);
+  }
+  #note b{color:var(--fg);font-weight:600}
+  #note .k{color:#cfe4ff}
+
+  #hint{
+    position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+    font-size:11.5px;color:var(--muted);background:rgba(22,27,34,.85);
+    border:1px solid var(--border);border-radius:20px;padding:5px 15px;white-space:nowrap;
+  }
+
+  @media (max-width:820px){
+    #note{display:none}
+    #panel{width:232px;padding:12px}
+    #hint{font-size:10.5px;padding:4px 12px}
+  }
+</style>
+</head>
+<body>
+
+<div id="scene"></div>
+
+<div id="panel">
+  <h1>Trichlorofluoromethane</h1>
+  <div class="sub">CCl₃F · CFC‑11 · sp³ tetrahedral</div>
+
+  <div class="group">
+    <h2>Overlays</h2>
+    <button id="btn-cloud"  aria-pressed="true">Electron cloud &amp; bonding</button>
+    <button id="btn-lone"   aria-pressed="false">Lone pair electrons</button>
+    <button id="btn-bond"   aria-pressed="false">Bond polarity vectors</button>
+    <button id="btn-net"    aria-pressed="false">Net polarity (molecular dipole)</button>
+  </div>
+
+  <div class="group">
+    <h2>Camera</h2>
+    <div class="row">
+      <button id="cam-persp">Perspective</button>
+      <button id="cam-ortho">Orthographic</button>
+    </div>
+    <div class="row">
+      <button id="view-front">Front</button>
+      <button id="view-top">Top</button>
+      <button id="view-reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="group" id="legend">
+    <h2>Legend</h2>
+    <div><span class="swatch" style="background:#ff9f45"></span>Bond dipole (δ⁺ → δ⁻)</div>
+    <div><span class="swatch" style="background:#e05cff"></span>Net molecular dipole</div>
+    <div><span class="swatch" style="background:#ffd54f"></span>Lone pair (2 e⁻)</div>
+    <div><span class="swatch" style="background:#4fc3f7"></span>σ bonding electron cloud</div>
+  </div>
+</div>
+
+<div id="note">
+  <b>Bond lengths</b><br>
+  C–F <span class="k">1.39 Å</span> · C–Cl <span class="k">1.76 Å</span><br>
+  <b>Bond angles</b> ≈ <span class="k">109.5°</span><br><br>
+  <b>Electron cloud</b><br>
+  Electron‑pair geometry: <span class="k">tetrahedral</span>.
+  Molecular shape: <span class="k">tetrahedral</span>.<br>
+  Four <span class="k">σ bonds</span> from sp³ hybrid orbitals on carbon;
+  <span class="k">0 lone pairs</span> on C. Each Cl and the F carries
+  <span class="k">3 lone pairs</span>.<br><br>
+  <b>Polarity</b><br>
+  C–F is far more polar than C–Cl, so the bond dipoles do not cancel —
+  the molecule has a <span class="k">net dipole pointing toward fluorine</span>.
+</div>
+
+<div id="hint">Drag to rotate · scroll to zoom · right‑drag to pan</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+/* =========================================================
+   1.  MOLECULE DATA  (bond lengths in ångström, real values)
+   ========================================================= */
+const L_CF   = 1.39;   // C–F
+const L_CCl  = 1.76;   // C–Cl
+const EN     = { C: 2.55, Cl: 3.16, F: 3.98 };   // Pauling electronegativities
+
+const R_ATOM = { C: 0.34, Cl: 0.55, F: 0.40 };   // display radii (not to scale with bonds)
+const C_ATOM = { C: 0x5b6470, Cl: 0x36c25c, F: 0xa8e05f };
+
+/* Perfect tetrahedral directions.
+   F sits on +Y; the three Cl sit at 109.47° from it (y-component = -1/3). */
+const SQ    = 2 * Math.SQRT2 / 3;                 // sqrt(8)/3 = 0.9428
+const dirF  = new THREE.Vector3(0, 1, 0);
+const dirCl = [0, 1, 2].map(i => {
+  const t = i * 2 * Math.PI / 3;
+  return new THREE.Vector3(SQ * Math.cos(t), -1/3, SQ * Math.sin(t));
+});
+
+const posC  = new THREE.Vector3(0, 0, 0);
+const posF  = dirF.clone().multiplyScalar(L_CF);
+const posCl = dirCl.map(d => d.clone().multiplyScalar(L_CCl));
+
+/* ---- bond dipole moments: |μ| ∝ ΔEN × bond length ---------------- */
+const muCF  = (EN.F  - EN.C) * L_CF;    // ≈ 1.99
+const muCCl = (EN.Cl - EN.C) * L_CCl;   // ≈ 1.07
+
+/* ---- net dipole = vector sum of all bond dipoles ------------------ */
+const netMu = new THREE.Vector3();
+netMu.addScaledVector(dirF, muCF);
+dirCl.forEach(d => netMu.addScaledVector(d, muCCl));
+/* → points along +Y (toward F), magnitude ≈ 0.91 */
+
+const DIP_SCALE = 0.62;   // bond-dipole arrow scale
+const NET_SCALE = 1.85;   // net-dipole arrow scale
+
+/* =========================================================
+   2.  RENDERER / SCENE / LIGHTS
+   ========================================================= */
+const container = document.getElementById('scene');
+const renderer  = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+container.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1117);
+
+scene.add(new THREE.AmbientLight(0xffffff, 1.1));
+
+const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
+keyLight.position.set(4, 8, 6);
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0x9dc4ff, 1.3);
+fillLight.position.set(-6, -2, -5);
+scene.add(fillLight);
+
+const rimLight = new THREE.DirectionalLight(0xffffff, 1.0);
+rimLight.position.set(0, -6, 4);
+scene.add(rimLight);
+
+/* =========================================================
+   3.  CAMERAS
+   ========================================================= */
+const DEFAULT_POS = new THREE.Vector3(3.2, 2.6, 4.8);
+const FRUSTUM     = 3.2;
+
+let aspect = window.innerWidth / window.innerHeight;
+
+const perspCam = new THREE.PerspectiveCamera(42, aspect, 0.1, 500);
+perspCam.position.copy(DEFAULT_POS);
+
+const orthoCam = new THREE.OrthographicCamera(
+  -FRUSTUM * aspect, FRUSTUM * aspect, FRUSTUM, -FRUSTUM, 0.1, 500
+);
+orthoCam.position.copy(DEFAULT_POS);
+
+let camera = perspCam;
+let controls = makeControls();
+
+function makeControls() {
+  const c = new OrbitControls(camera, renderer.domElement);
+  c.enableDamping = true;
+  c.dampingFactor = 0.08;
+  c.minDistance   = 2.5;
+  c.maxDistance   = 30;
+  c.target.set(0, 0, 0);
+  c.update();
+  return c;
+}
+
+function setCamera(type) {
+  const pos    = camera.position.clone();
+  const target = controls.target.clone();
+
+  camera = (type === 'ortho') ? orthoCam : perspCam;
+  camera.position.copy(pos);
+  camera.up.set(0, 1, 0);
+
+  controls.dispose();
+  controls = makeControls();
+  controls.target.copy(target);
+  controls.update();
+
+  document.getElementById('cam-persp').setAttribute('aria-pressed', String(type === 'persp'));
+  document.getElementById('cam-ortho').setAttribute('aria-pressed', String(type === 'ortho'));
+}
+
+/* =========================================================
+   4.  MOLECULE  (atoms + bonds)
+   ========================================================= */
+const molecule = new THREE.Group();
+scene.add(molecule);
+
+const bondMat = new THREE.MeshStandardMaterial({
+  color: 0x7d8590, roughness: 0.55, metalness: 0.1
+});
+
+function addAtom(pos, radius, color) {
+  const mesh = new THREE.Mesh(
+    new THREE.SphereGeometry(radius, 40, 28),
+    new THREE.MeshStandardMaterial({ color, roughness: 0.35, metalness: 0.15 })
+  );
+  mesh.position.copy(pos);
+  molecule.add(mesh);
+  return mesh;
+}
+
+function addBond(a, b, radius = 0.085) {
+  const dir = new THREE.Vector3().subVectors(b, a);
+  const len = dir.length();
+  const mesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(radius, radius, len, 18),
+    bondMat
+  );
+  mesh.position.copy(a).addScaledVector(dir, 0.5);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+  molecule.add(mesh);
+  return mesh;
+}
+
+addAtom(posC, R_ATOM.C, C_ATOM.C);
+addAtom(posF, R_ATOM.F, C_ATOM.F);
+posCl.forEach(p => addAtom(p, R_ATOM.Cl, C_ATOM.Cl));
+
+addBond(posC, posF);
+posCl.forEach(p => addBond(posC, p));
+
+/* =========================================================
+   5.  ARROW HELPER  (cylinder shaft + cone head)
+   ========================================================= */
+function makeArrow(origin, dir, length, color, opts = {}) {
+  const {
+    shaftRadius = 0.032,
+    headLength  = 0.28,
+    headRadius  = 0.085,
+    onTop       = false
+  } = opts;
+
+  const g = new THREE.Group();
+  const d = dir.clone().normalize();
+  const shaftLen = Math.max(0.001, length - headLength);
+
+  const mat = new THREE.MeshStandardMaterial({
+    color,
+    emissive: color,
+    emissiveIntensity: 0.45,
+    roughness: 0.35,
+    metalness: 0.0,
+    depthTest: !onTop,
+    depthWrite: !onTop
+  });
+
+  const shaft = new THREE.Mesh(
+    new THREE.CylinderGeometry(shaftRadius, shaftRadius, shaftLen, 14), mat
+  );
+  shaft.position.y = shaftLen / 2;
+
+  const head = new THREE.Mesh(
+    new THREE.ConeGeometry(headRadius, headLength, 20), mat
+  );
+  head.position.y = shaftLen + headLength / 2;
+
+  g.add(shaft, head);
+  g.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d);
+  g.position.copy(origin);
+  if (onTop) g.renderOrder = 20;
+
+  return g;
+}
+
+/* =========================================================
+   6.  TEXT LABELS (sprites)
+   ========================================================= */
+function makeLabel(text, color = '#e6edf3', scale = 0.55) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 128; canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.font = 'bold 46px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 64, 34);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.anisotropy = 4;
+
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, transparent: true, depthTest: false, depthWrite: false
+  }));
+  sprite.scale.set(scale, scale * 0.5, 1);
+  sprite.renderOrder = 30;
+  return sprite;
+}
+
+/* =========================================================
+   7.  ELECTRON CLOUD  (tetrahedral shape + σ bonding lobes)
+   ========================================================= */
+const cloudGroup = new THREE.Group();
+molecule.add(cloudGroup);
+
+const CLOUD_COLOR = 0x4fc3f7;
+
+/* --- 7a. σ bonding electron density along every bond -------------- */
+function addSigmaLobe(a, b, radius = 0.33) {
+  const dir = new THREE.Vector3().subVectors(b, a);
+  const len = dir.length();
+
+  const mesh = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 28, 20),
+    new THREE.MeshStandardMaterial({
+      color: CLOUD_COLOR,
+      emissive: CLOUD_COLOR,
+      emissiveIntensity: 0.35,
+      transparent: true,
+      opacity: 0.17,
+      depthWrite: false,
+      roughness: 0.6,
+      side: THREE.DoubleSide
+    })
+  );
+  mesh.scale.set(radius, len / 2, radius);
+  mesh.position.copy(a).addScaledVector(dir, 0.5);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize());
+  mesh.renderOrder = 2;
+  cloudGroup.add(mesh);
+}
+
+addSigmaLobe(posC, posF);
+posCl.forEach(p => addSigmaLobe(posC, p));
+
+/* --- 7b. tetrahedral outline (VSEPR electron‑pair geometry) -------- */
+const TET_R = 2.05;
+const tetVerts = [
+  dirF.clone().multiplyScalar(TET_R),
+  dirCl[0].clone().multiplyScalar(TET_R),
+  dirCl[1].clone().multiplyScalar(TET_R),
+  dirCl[2].clone().multiplyScalar(TET_R)
+];
+
+/* faces */
+const faceIdx = [[0,1,2],[0,2,3],[0,3,1],[1,3,2]];
+const facePos = [];
+for (const f of faceIdx) {
+  for (const i of f) facePos.push(tetVerts[i].x, tetVerts[i].y, tetVerts[i].z);
+}
+const tetGeo = new THREE.BufferGeometry();
+tetGeo.setAttribute('position', new THREE.Float32BufferAttribute(facePos, 3));
+tetGeo.computeVertexNormals();
+
+const tetFaces = new THREE.Mesh(tetGeo, new THREE.MeshBasicMaterial({
+  color: CLOUD_COLOR,
+  transparent: true,
+  opacity: 0.055,
+  side: THREE.DoubleSide,
+  depthWrite: false
+}));
+tetFaces.renderOrder = 1;
+cloudGroup.add(tetFaces);
+
+/* edges */
+const edgePairs = [[0,1],[0,2],[0,3],[1,2],[2,3],[3,1]];
+const edgePos = [];
+for (const [i, j] of edgePairs) {
+  edgePos.push(tetVerts[i].x, tetVerts[i].y, tetVerts[i].z);
+  edgePos.push(tetVerts[j].x, tetVerts[j].y, tetVerts[j].z);
+}
+const edgeGeo = new THREE.BufferGeometry();
+edgeGeo.setAttribute('position', new THREE.Float32BufferAttribute(edgePos, 3));
+
+const tetEdges = new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({
+  color: CLOUD_COLOR, transparent: true, opacity: 0.35, depthWrite: false
+}));
+tetEdges.renderOrder = 2;
+cloudGroup.add(tetEdges);
+
+/* =========================================================
+   8.  LONE PAIRS  (3 on every Cl, 3 on F — 24 electrons total)
+   ========================================================= */
+const loneGroup = new THREE.Group();
+molecule.add(loneGroup);
+
+const loneMat = new THREE.MeshStandardMaterial({
+  color: 0xffd54f,
+  emissive: 0xffb300,
+  emissiveIntensity: 0.55,
+  roughness: 0.4,
+  metalness: 0.0
+});
+const DOT_R = 0.072;
+
+/* Three lone-pair directions around a halogen: tetrahedrally arranged
+   with respect to the C–X bond (109.47° away from it). */
+function lonePairDirections(bondDir) {
+  const u = bondDir.clone().normalize();
+  const ref = Math.abs(u.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
+  const a = new THREE.Vector3().crossVectors(u, ref).normalize();
+  const b = new THREE.Vector3().crossVectors(u, a).normalize();
+
+  return [0, 1, 2].map(k => {
+    const t = k * 2 * Math.PI / 3;
+    return u.clone().multiplyScalar(-1/3)
+      .addScaledVector(a, SQ * Math.cos(t))
+      .addScaledVector(b, SQ * Math.sin(t))
+      .normalize();
+  });
+}
+
+function addLonePairs(center, bondDir, dist) {
+  for (const d of lonePairDirections(bondDir)) {
+    const c = center.clone().addScaledVector(d, dist);
+
+    // separation axis perpendicular to d
+    const ref = Math.abs(d.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
+    const sep = new THREE.Vector3().crossVectors(d, ref).normalize().multiplyScalar(0.105);
+
+    for (const s of [1, -1]) {
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(DOT_R, 14, 10), loneMat);
+      dot.position.copy(c).addScaledVector(sep, s);
+      loneGroup.add(dot);
+    }
+  }
+}
+
+addLonePairs(posF, dirF, 0.62);
+posCl.forEach((p, i) => addLonePairs(p, dirCl[i], 0.80));
+
+/* =========================================================
+   9.  BOND POLARITY VECTORS  (+ δ labels)
+   ========================================================= */
+const bondDipGroup = new THREE.Group();
+molecule.add(bondDipGroup);
+
+const BOND_DIP_COLOR = 0xff9f45;
+
+bondDipGroup.add(makeArrow(posC, dirF, muCF * DIP_SCALE, BOND_DIP_COLOR, {
+  shaftRadius: 0.030, headLength: 0.24, headRadius: 0.080
+}));
+posCl.forEach((p, i) => {
+  bondDipGroup.add(makeArrow(posC, dirCl[i], muCCl * DIP_SCALE, BOND_DIP_COLOR, {
+    shaftRadius: 0.026, headLength: 0.20, headRadius: 0.068
+  }));
+});
+
+/* δ⁺ on carbon, δ⁻ on each halogen */
+const dPlus = makeLabel('δ+', '#8fd3ff', 0.52);
+dPlus.position.copy(posC).add(new THREE.Vector3(0, 0.02, 0.42));
+bondDipGroup.add(dPlus);
+
+const dMinusF = makeLabel('δ−', '#ffb37a', 0.52);
+dMinusF.position.copy(posF).addScaledVector(dirF, 0.62);
+bondDipGroup.add(dMinusF);
+
+posCl.forEach((p, i) => {
+  const lbl = makeLabel('δ−', '#ffb37a', 0.52);
+  lbl.position.copy(p).addScaledVector(dirCl[i], 0.90);
+  bondDipGroup.add(lbl);
+});
+
+/* =========================================================
+   10. NET MOLECULAR DIPOLE
+   ========================================================= */
+const netGroup = new THREE.Group();
+molecule.add(netGroup);
+
+const NET_COLOR = 0xe05cff;
+const netLen = netMu.length() * NET_SCALE;
+
+netGroup.add(makeArrow(posC, netMu, netLen, NET_COLOR, {
+  shaftRadius: 0.042,
+  headLength: 0.34,
+  headRadius: 0.115,
+  onTop: true
+}));
+
+const netLabel = makeLabel('net μ', '#f0b6ff', 0.72);
+netLabel.position.copy(posC).addScaledVector(netMu.clone().normalize(), netLen + 0.32);
+netGroup.add(netLabel);
+
+/* =========================================================
+   11. TOGGLE STATE
+   ========================================================= */
+const state = { cloud: true, lone: false, bond: false, net: false };
+
+function bindToggle(buttonId, key, group) {
+  const btn = document.getElementById(buttonId);
+  const sync = () => {
+    btn.setAttribute('aria-pressed', String(state[key]));
+    group.visible = state[key];
+  };
+  btn.addEventListener('click', () => { state[key] = !state[key]; sync(); });
+  sync();
+}
+
+bindToggle('btn-cloud', 'cloud', cloudGroup);
+bindToggle('btn-lone',  'lone',  loneGroup);
+bindToggle('btn-bond',  'bond',  bondDipGroup);
+bindToggle('btn-net',   'net',   netGroup);
+
+/* =========================================================
+   12. CAMERA BUTTONS
+   ========================================================= */
+document.getElementById('cam-persp').addEventListener('click', () => setCamera('persp'));
+document.getElementById('cam-ortho').addEventListener('click', () => setCamera('ortho'));
+document.getElementById('cam-persp').setAttribute('aria-pressed', 'true');
+document.getElementById('cam-ortho').setAttribute('aria-pressed', 'false');
+
+function setViewDirection(dir) {
+  const dist = camera.position.distanceTo(controls.target) || DEFAULT_POS.length();
+  camera.position.copy(controls.target)
+    .addScaledVector(dir.clone().normalize(), dist);
+  controls.update();
+}
+
+document.getElementById('view-front').addEventListener('click', () => setViewDirection(new THREE.Vector3(0, 0, 1)));
+document.getElementById('view-top').addEventListener('click',   () => setViewDirection(new THREE.Vector3(0.001, 1, 0)));
+document.getElementById('view-reset').addEventListener('click', () => {
+  const dist = DEFAULT_POS.length();
+  camera.position.copy(DEFAULT_POS.clone().normalize().multiplyScalar(dist));
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+/* =========================================================
+   13. RESIZE + RENDER LOOP
+   ========================================================= */
+function onResize() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const a = w / h;
+
+  perspCam.aspect = a;
+  perspCam.updateProjectionMatrix();
+
+  orthoCam.left   = -FRUSTUM * a;
+  orthoCam.right  =  FRUSTUM * a;
+  orthoCam.top    =  FRUSTUM;
+  orthoCam.bottom = -FRUSTUM;
+  orthoCam.updateProjectionMatrix();
+
+  renderer.setSize(w, h);
+}
+window.addEventListener('resize', onResize);
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>
