@@ -200,13 +200,13 @@
   }
 
   // 移动端添加汉堡按钮
-  if (isMobile) {
+  
     topbarHTML += `
       <button class="topbar-sidebar-toggle" id="mobileSidebarToggle" style="background:none; border:none; color:var(--topbar-text); font-size:1.6rem; cursor:pointer; padding:0 10px; line-height:1; display:flex; align-items:center; justify-content:center;">
         ☰
       </button>
     `;
-  }
+  
 
   topbarHTML += `
       <div class="clock">
