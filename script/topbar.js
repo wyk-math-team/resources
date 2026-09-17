@@ -213,8 +213,16 @@
       </div>
     `;
   }
-
+  
   // 全屏侧边栏切换按钮（桌面可见）
+    // 移動端漢堡按鈕（桌面端由 CSS 隱藏）
+  topbarHTML += `
+      <button class="topbar-sidebar-toggle" id="mobileSidebarToggle" title="Menu">
+        ☰
+      </button>
+  `;
+
+  // 桌面端全屏側邊欄切換按鈕（移動端由 CSS 隱藏）
   topbarHTML += `
       <button class="topbar-fullscreen-toggle" id="fullscreenToggleBtn" title="Toggle sidebar">
         <i class="fa-solid fa-angles-left"></i>
