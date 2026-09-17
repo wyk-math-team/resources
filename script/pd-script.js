@@ -67,7 +67,6 @@ function escapeHtml(str) {
   document.head.appendChild(s);
 })();
 
-// 生成可點擊的狀態徽章 HTML（若無 subid 就純文字）
 function statusBoxHtml(subid, text, cls) {
   if (!subid) return text;
   const url = `/submissions/${encodeURIComponent(subid)}/detail`;
@@ -269,6 +268,433 @@ async function setupNavigation(currentProblem) {
   } catch (e) {
     console.error('Navigation setup error:', e);
     navContainer.innerHTML = '';
+  }
+}
+
+// ============ PDF.js 動態載入 ============
+let _pdfjsLoadingPromise = null;
+function loadPdfJs() {
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if (_pdfjsLoadingPromise) return _pdfjsLoadingPromise;
+
+  _pdfjsLoadingPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = () => {
+      if (!window.pdfjsLib) return reject(new Error('pdfjsLib not defined'));
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      resolve(window.pdfjsLib);
+    };
+    s.onerror = () => reject(new Error('Failed to load PDF.js'));
+    document.head.appendChild(s);
+  });
+
+  return _pdfjsLoadingPromise;
+}
+
+// ============ PDF.js 渲染 ============
+async function renderPdfWithPdfJs(container, pdfUrl) {
+  container.innerHTML = `
+    <div class="pdf-loading">
+      <span class="spinner"></span> Loading PDF...
+    </div>
+  `;
+
+  let pdfjsLib;
+  try {
+    pdfjsLib = await loadPdfJs();
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = `
+      <div class="pdf-error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Failed to load PDF viewer</p>
+        <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a>
+      </div>`;
+    return;
+  }
+
+  try {
+    const pdf = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
+
+    // 清空 loading，開始逐頁渲染
+    container.innerHTML = '';
+
+    const dpr = window.devicePixelRatio || 1;
+
+    for (let n = 1; n <= pdf.numPages; n++) {
+      const page = await pdf.getPage(n);
+      const unscaledViewport = page.getViewport({ scale: 1 });
+
+      // 依容器寬度縮放；如果容器寬度為 0（尚未 layout），退回到 800
+      const containerWidth = (container.clientWidth || container.offsetWidth || 800) - 8;
+      const scale = containerWidth / unscaledViewport.width;
+      const viewport = page.getViewport({ scale: scale * dpr });
+
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.floor(viewport.width);
+      canvas.height = Math.floor(viewport.height);
+      canvas.style.width = Math.floor(viewport.width / dpr) + 'px';
+      canvas.style.height = Math.floor(viewport.height / dpr) + 'px';
+      canvas.className = 'pdf-page-canvas';
+      container.appendChild(canvas);
+
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+    }
+  } catch (err) {
+    console.error('PDF render error:', err);
+    container.innerHTML = `
+      <div class="pdf-error">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p>Failed to load PDF</p>
+        <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a>
+      </div>`;
+  }
+}
+
+// ============ PDF + Quiz 左右分欄 ============
+function mountPdfQuizSplit() {
+  const pdfMount = document.getElementById('pdf-quiz-split');
+  if (!pdfMount) return;
+
+  const pdfUrl = pdfMount.dataset.pdf;
+  if (!pdfUrl) return;
+
+  let absolutePdfUrl;
+  try {
+    absolutePdfUrl = new URL(pdfUrl, location.href).href;
+  } catch {
+    absolutePdfUrl = pdfUrl;
+  }
+
+  // CSS 只注入一次
+  if (!document.getElementById('pdf-quiz-split-style')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'pdf-quiz-split-style';
+    styleEl.textContent = `
+      .pdf-quiz-split {
+        display: flex;
+        gap: 1rem;
+        align-items: stretch;
+        margin-top: 0.5rem;
+      }
+      .pdf-quiz-split > .pdf-quiz-left,
+      .pdf-quiz-split > .pdf-quiz-right {
+        flex: 1 1 50%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        overflow: hidden;
+        background: var(--card-bg);
+      }
+      .pdf-quiz-split > .pdf-quiz-left {
+        height: 85vh;
+      }
+      .pdf-quiz-split > .pdf-quiz-right {
+        overflow-y: auto;
+        max-height: 85vh;
+        padding: 0.6rem;
+      }
+      .pdf-viewer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 12px;
+        background: #f0f2f5;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.85rem;
+        flex-shrink: 0;
+      }
+      [data-theme="dark"] .pdf-viewer-header { background: #21262d; }
+      .pdf-viewer-title { font-weight: 700; color: var(--text-primary); }
+      .pdf-open-btn {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .pdf-open-btn:hover { text-decoration: underline; }
+      .pdf-pages-scroll {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background: #525659;
+        padding: 6px 0;
+        -webkit-overflow-scrolling: touch;
+        min-height: 0;
+      }
+      .pdf-page-canvas {
+        display: block;
+        margin: 0 auto 8px auto;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        background: #fff;
+      }
+      .pdf-loading, .pdf-error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        padding: 2rem 1rem;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      .pdf-loading .spinner {
+        width: 24px; height: 24px;
+        border: 3px solid rgba(255,255,255,0.25);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: pdfSpin 0.8s linear infinite;
+      }
+      @keyframes pdfSpin { to { transform: rotate(360deg); } }
+      .pdf-error i { font-size: 2rem; color: var(--danger); }
+      .pdf-error a { color: var(--accent); font-weight: 600; }
+
+      @media (max-width: 900px) {
+        .pdf-quiz-split {
+          flex-direction: column;
+        }
+        .pdf-quiz-split > .pdf-quiz-left {
+          height: 60vh;
+        }
+        .pdf-quiz-split > .pdf-quiz-right {
+          max-height: none;
+        }
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+
+  // 把 PDF 與 quiz 包進同一個 flex 容器
+  const quizMount = document.getElementById('mc-quiz-mount');
+  if (quizMount && quizMount.parentNode === pdfMount.parentNode) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'pdf-quiz-split';
+    pdfMount.parentNode.insertBefore(wrapper, pdfMount);
+
+    pdfMount.classList.add('pdf-quiz-left');
+    quizMount.classList.add('pdf-quiz-right');
+
+    wrapper.appendChild(pdfMount);
+    wrapper.appendChild(quizMount);
+  } else {
+    pdfMount.classList.add('pdf-quiz-left');
+    pdfMount.style.maxWidth = '100%';
+  }
+
+  // 渲染 PDF viewer 外殼
+  pdfMount.innerHTML = `
+    <div class="pdf-viewer-header">
+      <span class="pdf-viewer-title">📄 PDF</span>
+      <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
+        <i class="fas fa-external-link-alt"></i> Open in new tab
+      </a>
+    </div>
+    <div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>
+  `;
+
+  const scrollContainer = pdfMount.querySelector('.pdf-pages-scroll');
+  renderPdfWithPdfJs(scrollContainer, absolutePdfUrl);
+
+  // 讓 statementContent 佔滿寬度
+  const stmtContent = document.getElementById('statementContent');
+  if (stmtContent) {
+    stmtContent.style.flex = '1 1 100%';
+    stmtContent.style.maxWidth = '100%';
+  }
+  // 隱藏 drawpad 相關
+  const splitDivider = document.getElementById('splitDivider');
+  if (splitDivider) splitDivider.style.display = 'none';
+  const drawpadWrapper = document.getElementById('drawpadWrapper');
+  if (drawpadWrapper) drawpadWrapper.style.display = 'none';
+
+  // 視窗尺寸變化時重新渲染（讓 canvas 寬度跟著更新）
+  if (!window.__pdfResizeHandler) {
+    let resizeTimer = null;
+    window.__pdfResizeHandler = () => {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const sc = document.getElementById('pdf-pages-scroll');
+        if (sc && sc.dataset.pdfUrl) {
+          renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
+        }
+      }, 300);
+    };
+    window.addEventListener('resize', window.__pdfResizeHandler);
+  }
+  if (scrollContainer) scrollContainer.dataset.pdfUrl = absolutePdfUrl;
+}
+
+// ============ MC 表格掛載 ============
+function mountMcQuiz() {
+  const mount = document.getElementById('mc-quiz-mount');
+  if (!mount) return;
+
+  if (!document.getElementById('mc-quiz-style')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'mc-quiz-style';
+    styleEl.textContent = `
+      .mc-table {
+        width: 100%;
+        max-width: 420px;
+        border-collapse: collapse;
+        margin: 0 auto 1rem;
+        font-size: 0.95rem;
+      }
+      .mc-table th, .mc-table td {
+        border: 1px solid var(--border-color);
+        padding: 0.35rem 0.5rem;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .mc-table th {
+        background: #f0f2f5;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+      [data-theme="dark"] .mc-table th { background: #2d2d2d; }
+      .mc-table td:first-child {
+        font-weight: 600;
+        color: var(--text-secondary);
+        background: #fafafa;
+        width: 3em;
+      }
+      [data-theme="dark"] .mc-table td:first-child { background: #252525; }
+      .mc-table input[type="radio"] {
+        cursor: pointer;
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent);
+      }
+      .mc-table tr.mc-sep td { border-bottom: 2px solid var(--accent); }
+      .mc-submit-btn {
+        display: block;
+        margin: 0.8rem auto 1.5rem;
+        padding: 0.65rem 3rem;
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        letter-spacing: 1px;
+        transition: background 0.15s;
+      }
+      .mc-submit-btn:hover { background: #218838; }
+      .mc-submit-btn:disabled { background: #6c757d; cursor: not-allowed; }
+    `;
+    document.head.appendChild(styleEl);
+  }
+
+  const rawTotal = parseInt(mount.dataset.total, 10);
+  const TOTAL = (Number.isFinite(rawTotal) && rawTotal >= 1 && rawTotal <= 200) ? rawTotal : 45;
+  const SEP_EVERY = 5;
+
+  let html = `
+    <p style="color:var(--text-secondary);font-size:.9rem;margin:.5rem 0 .8rem 0;">
+      Select one option (A/B/C/D) for each question. Unanswered questions will be submitted as <code>X</code>.
+    </p>
+    <table class="mc-table">
+      <thead>
+        <tr><th>#</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+      </thead>
+      <tbody>
+  `;
+  for (let i = 1; i <= TOTAL; i++) {
+    const sep = (i % SEP_EVERY === 0 && i < TOTAL) ? ' class="mc-sep"' : '';
+    html += `<tr${sep}>
+      <td>${i}</td>
+      <td><input type="radio" name="mcq-${i}" value="A"></td>
+      <td><input type="radio" name="mcq-${i}" value="B"></td>
+      <td><input type="radio" name="mcq-${i}" value="C"></td>
+      <td><input type="radio" name="mcq-${i}" value="D"></td>
+    </tr>`;
+  }
+  html += `
+      </tbody>
+    </table>
+    <button id="mc-submit-btn" class="mc-submit-btn">submit</button>
+  `;
+  mount.innerHTML = html;
+
+  const answerInputEl = document.getElementById('answerInput');
+
+  function syncRadiosFromInput() {
+    const str = (answerInputEl?.value || '').trim().toUpperCase();
+    for (let i = 1; i <= TOTAL; i++) {
+      const ch = str[i - 1];
+      const radios = mount.querySelectorAll(`input[name="mcq-${i}"]`);
+      radios.forEach(r => { r.checked = false; });
+      if (ch && 'ABCD'.includes(ch)) {
+        const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
+        if (radio) radio.checked = true;
+      }
+    }
+  }
+
+  function syncInputFromRadios() {
+    let ans = '';
+    for (let i = 1; i <= TOTAL; i++) {
+      const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
+      ans += sel ? sel.value : 'X';
+    }
+    ans = ans.replace(/X+$/, '');
+    if (answerInputEl) answerInputEl.value = ans;
+  }
+
+  if (answerInputEl) {
+    answerInputEl.addEventListener('input', syncRadiosFromInput);
+  }
+
+  mount.querySelectorAll('input[type="radio"]').forEach(r => {
+    r.addEventListener('mousedown', function () {
+      this.dataset.wasChecked = this.checked ? '1' : '0';
+    });
+    r.addEventListener('click', function () {
+      if (this.dataset.wasChecked === '1') {
+        this.checked = false;
+        this.dataset.wasChecked = '0';
+      }
+      syncInputFromRadios();
+    });
+    r.addEventListener('change', syncInputFromRadios);
+  });
+
+  syncRadiosFromInput();
+
+  const submitMcBtn = mount.querySelector('#mc-submit-btn');
+  if (submitMcBtn) {
+    submitMcBtn.addEventListener('click', () => {
+      let answer = '';
+      for (let i = 1; i <= TOTAL; i++) {
+        const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
+        answer += sel ? sel.value : 'X';
+      }
+
+      currentMode = 'numeric';
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      const numBtn = document.getElementById('modeNumeric');
+      if (numBtn) numBtn.classList.add('active');
+      document.getElementById('textAnswerGroup').style.display = 'block';
+      document.getElementById('imageAnswerGroup').style.display = 'none';
+      document.getElementById('expressionAnswerGroup').style.display = 'none';
+
+      const input = document.getElementById('answerInput');
+      if (input) input.value = answer;
+
+      const submitBtn = document.getElementById('checkAnswerBtn');
+      if (submitBtn && !submitBtn.disabled) {
+        submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+      }
+    });
   }
 }
 
@@ -703,7 +1129,6 @@ function bindSubmitEvent() {
       spinner.style.display = 'none';
       if (!result.success) return;
 
-      // 可點擊的狀態框（無 subid 時退回純文字）
       if (result.message && result.message.includes('Image submitted')) {
         fb.innerHTML = statusBoxHtml(result.subid, 'Image submitted for marking', 'status-pending');
         document.getElementById('detailStatusIcon').style.display = 'none';
@@ -842,327 +1267,6 @@ async function loadDiscussions(problemId) {
     });
   } catch (err) {
     listDiv.innerHTML = '<p>Error loading discussions.</p>';
-  }
-}
-
-// ============ PDF + Quiz 左右分欄 ============
-function mountPdfQuizSplit() {
-  const pdfMount = document.getElementById('pdf-quiz-split');
-  if (!pdfMount) return;                    // 沒有標記 → 走原有邏輯
-
-  const pdfUrl = pdfMount.dataset.pdf;
-  if (!pdfUrl) return;
-
-  // 轉成絕對路徑，讓 iframe 與「新分頁」都能正確解析
-  let absolutePdfUrl;
-  try {
-    absolutePdfUrl = new URL(pdfUrl, location.href).href;
-  } catch {
-    absolutePdfUrl = pdfUrl;
-  }
-
-  // CSS 只注入一次
-  if (!document.getElementById('pdf-quiz-split-style')) {
-    const styleEl = document.createElement('style');
-    styleEl.id = 'pdf-quiz-split-style';
-    styleEl.textContent = `
-      .pdf-quiz-split {
-        display: flex;
-        gap: 1rem;
-        align-items: stretch;
-        min-height: 70vh;
-        margin-top: 0.5rem;
-      }
-      .pdf-quiz-split > .pdf-quiz-left,
-      .pdf-quiz-split > .pdf-quiz-right {
-        flex: 1 1 50%;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        overflow: hidden;
-        background: var(--card-bg);
-      }
-      .pdf-quiz-split > .pdf-quiz-right {
-        overflow-y: auto;
-        max-height: 85vh;
-        padding: 0.6rem;
-      }
-      .pdf-viewer-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px 12px;
-        background: #f0f2f5;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 0.85rem;
-        flex-shrink: 0;
-      }
-      [data-theme="dark"] .pdf-viewer-header { background: #21262d; }
-      .pdf-viewer-title { font-weight: 700; color: var(--text-primary); }
-      .pdf-open-btn {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-      }
-      .pdf-open-btn:hover { text-decoration: underline; }
-      .pdf-viewer-iframe {
-        flex: 1;
-        width: 100%;
-        border: none;
-        min-height: 600px;
-        background: #fff;
-      }
-      @media (max-width: 900px) {
-        .pdf-quiz-split {
-          flex-direction: column;
-          min-height: auto;
-        }
-        .pdf-quiz-split > .pdf-quiz-left,
-        .pdf-quiz-split > .pdf-quiz-right {
-          flex: 1 1 auto;
-        }
-        .pdf-quiz-split > .pdf-quiz-right {
-          max-height: none;
-        }
-        .pdf-viewer-iframe {
-          min-height: 60vh;
-        }
-      }
-    `;
-    document.head.appendChild(styleEl);
-  }
-
-  // 把 PDF 與 quiz 包進同一個 flex 容器
-  const quizMount = document.getElementById('mc-quiz-mount');
-  if (quizMount && quizMount.parentNode === pdfMount.parentNode) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'pdf-quiz-split';
-    pdfMount.parentNode.insertBefore(wrapper, pdfMount);
-
-    pdfMount.classList.add('pdf-quiz-left');
-    quizMount.classList.add('pdf-quiz-right');
-
-    wrapper.appendChild(pdfMount);
-    wrapper.appendChild(quizMount);
-  } else {
-    // 只有 PDF、沒有 quiz：全寬顯示
-    pdfMount.classList.add('pdf-quiz-left');
-    pdfMount.style.maxWidth = '100%';
-  }
-
-  // 渲染 PDF viewer
-  
-  // 如果 PDF 是 HTTP 的，用 Google Docs Viewer 代理，避免 Mixed Content 拦截
-  const iframeSrc = absolutePdfUrl.startsWith('http://')
-    ? `https://docs.google.com/viewer?url=${encodeURIComponent(absolutePdfUrl)}&embedded=true`
-    : absolutePdfUrl;
-
-  pdfMount.innerHTML = `
-    <div class="pdf-viewer-header">
-      <span class="pdf-viewer-title">📄 PDF</span>
-      <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
-        <i class="fas fa-external-link-alt"></i> Open in new tab
-      </a>
-    </div>
-    <iframe class="pdf-viewer-iframe"
-      src="${escapeHtml(iframeSrc)}"
-      title="PDF Viewer"
-      referrerpolicy="no-referrer"></iframe>
-  `;
-
-  // ⭐ 讓 statementContent 佔滿寬度（PDF+Quiz 分欄需要更寬）
-  const stmtContent = document.getElementById('statementContent');
-  if (stmtContent) {
-    stmtContent.style.flex = '1 1 100%';
-    stmtContent.style.maxWidth = '100%';
-  }
-  // 隱藏 drawpad 相關（與 PDF+Quiz 分欄衝突）
-  const splitDivider = document.getElementById('splitDivider');
-  if (splitDivider) splitDivider.style.display = 'none';
-  const drawpadWrapper = document.getElementById('drawpadWrapper');
-  if (drawpadWrapper) drawpadWrapper.style.display = 'none';
-}
-
-// ============ MC 表格掛載 ============
-function mountMcQuiz() {
-  const mount = document.getElementById('mc-quiz-mount');
-  if (!mount) return;
-
-  if (!document.getElementById('mc-quiz-style')) {
-    const styleEl = document.createElement('style');
-    styleEl.id = 'mc-quiz-style';
-    styleEl.textContent = `
-      .mc-table {
-        width: 100%;
-        max-width: 420px;
-        border-collapse: collapse;
-        margin: 0 auto 1rem;
-        font-size: 0.95rem;
-      }
-      .mc-table th, .mc-table td {
-        border: 1px solid var(--border-color);
-        padding: 0.35rem 0.5rem;
-        text-align: center;
-        vertical-align: middle;
-      }
-      .mc-table th {
-        background: #f0f2f5;
-        font-weight: 700;
-        font-size: 0.85rem;
-      }
-      [data-theme="dark"] .mc-table th { background: #2d2d2d; }
-      .mc-table td:first-child {
-        font-weight: 600;
-        color: var(--text-secondary);
-        background: #fafafa;
-        width: 3em;
-      }
-      [data-theme="dark"] .mc-table td:first-child { background: #252525; }
-      .mc-table input[type="radio"] {
-        cursor: pointer;
-        margin: 0;
-        width: 16px;
-        height: 16px;
-        accent-color: var(--accent);
-      }
-      .mc-table tr.mc-sep td { border-bottom: 2px solid var(--accent); }
-      .mc-submit-btn {
-        display: block;
-        margin: 0.8rem auto 1.5rem;
-        padding: 0.65rem 3rem;
-        background: #28a745;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
-        letter-spacing: 1px;
-        transition: background 0.15s;
-      }
-      .mc-submit-btn:hover { background: #218838; }
-      .mc-submit-btn:disabled { background: #6c757d; cursor: not-allowed; }
-    `;
-    document.head.appendChild(styleEl);
-  }
-
-  // === 從 HTML 讀取題數（data-total），沒有則默認 45 ===
-  // 用法：<div id="mc-quiz-mount" data-total="30"></div>
-  const rawTotal = parseInt(mount.dataset.total, 10);
-  const TOTAL = (Number.isFinite(rawTotal) && rawTotal >= 1 && rawTotal <= 200) ? rawTotal : 45;
-  const SEP_EVERY = 5;
-
-  let html = `
-    <p style="color:var(--text-secondary);font-size:.9rem;margin:.5rem 0 .8rem 0;">
-      Select one option (A/B/C/D) for each question. Unanswered questions will be submitted as <code>X</code>.
-    </p>
-    <table class="mc-table">
-      <thead>
-        <tr><th>#</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-      </thead>
-      <tbody>
-  `;
-  for (let i = 1; i <= TOTAL; i++) {
-    const sep = (i % SEP_EVERY === 0 && i < TOTAL) ? ' class="mc-sep"' : '';
-    html += `<tr${sep}>
-      <td>${i}</td>
-      <td><input type="radio" name="mcq-${i}" value="A"></td>
-      <td><input type="radio" name="mcq-${i}" value="B"></td>
-      <td><input type="radio" name="mcq-${i}" value="C"></td>
-      <td><input type="radio" name="mcq-${i}" value="D"></td>
-    </tr>`;
-  }
-  html += `
-      </tbody>
-    </table>
-    <button id="mc-submit-btn" class="mc-submit-btn">submit</button>
-  `;
-  mount.innerHTML = html;
-
-  const answerInputEl = document.getElementById('answerInput');
-
-  // ---- 雙向綁定：input → radio ----
-  function syncRadiosFromInput() {
-    const str = (answerInputEl?.value || '').trim().toUpperCase();
-    for (let i = 1; i <= TOTAL; i++) {
-      const ch = str[i - 1];
-      const radios = mount.querySelectorAll(`input[name="mcq-${i}"]`);
-      radios.forEach(r => { r.checked = false; });
-      if (ch && 'ABCD'.includes(ch)) {
-        const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
-        if (radio) radio.checked = true;
-      }
-    }
-  }
-
-  // ---- 雙向綁定：radio → input ----
-  function syncInputFromRadios() {
-    let ans = '';
-    for (let i = 1; i <= TOTAL; i++) {
-      const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
-      ans += sel ? sel.value : 'X';
-    }
-    // 去掉尾部連續的 X，保留中間的 X（代表跳過的題目）
-    ans = ans.replace(/X+$/, '');
-    if (answerInputEl) answerInputEl.value = ans;
-  }
-
-  // 監聽輸入框：使用者打字即時同步到 radio
-  if (answerInputEl) {
-    answerInputEl.addEventListener('input', syncRadiosFromInput);
-  }
-
-  // 監聽 radio：點擊 / 鍵盤操作即時同步到 input
-  mount.querySelectorAll('input[type="radio"]').forEach(r => {
-    // 「再點一次取消選取」的功能
-    r.addEventListener('mousedown', function () {
-      this.dataset.wasChecked = this.checked ? '1' : '0';
-    });
-    r.addEventListener('click', function () {
-      if (this.dataset.wasChecked === '1') {
-        this.checked = false;
-        this.dataset.wasChecked = '0';
-      }
-      syncInputFromRadios();
-    });
-    // 處理鍵盤操作（Tab + 方向鍵）
-    r.addEventListener('change', syncInputFromRadios);
-  });
-
-  // 初始同步：若 input 已有答案（例如使用者從別頁返回），立刻反映到 radio
-  syncRadiosFromInput();
-
-  // MC 提交按鈕
-  const submitMcBtn = mount.querySelector('#mc-submit-btn');
-  if (submitMcBtn) {
-    submitMcBtn.addEventListener('click', () => {
-      let answer = '';
-      for (let i = 1; i <= TOTAL; i++) {
-        const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
-        answer += sel ? sel.value : 'X';
-      }
-
-      currentMode = 'numeric';
-      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-      const numBtn = document.getElementById('modeNumeric');
-      if (numBtn) numBtn.classList.add('active');
-      document.getElementById('textAnswerGroup').style.display = 'block';
-      document.getElementById('imageAnswerGroup').style.display = 'none';
-      document.getElementById('expressionAnswerGroup').style.display = 'none';
-
-      const input = document.getElementById('answerInput');
-      if (input) input.value = answer;
-
-      const submitBtn = document.getElementById('checkAnswerBtn');
-      if (submitBtn && !submitBtn.disabled) {
-        submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
-      }
-    });
   }
 }
 
