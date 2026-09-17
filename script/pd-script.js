@@ -564,37 +564,61 @@ function mountPdfQuizSplit() {
 
       /* === 浮動答題卡 === */
             /* === 浮動答題卡（Windows Aero 風格）=== */
+            /* === 浮動答題卡：水晶質感 === */
       .mcq-floating-window {
         position: fixed;
         top: 100px;
         right: 40px;
         width: 400px;
         max-height: 75vh;
-        background: rgba(214, 232, 252, 0.72);
-        backdrop-filter: blur(5px) saturate(1.2);
-        -webkit-backdrop-filter: blur(5px) saturate(1.2);
-        border: 1px solid rgba(255, 255, 255, 0.75);
-        border-radius: 8px;
+        /* 極低不透明度 + 飽和度提升，做出水晶透光感 */
+        background: rgba(220, 240, 255, 0.18);
+        backdrop-filter: blur(16px) saturate(2) brightness(1.1);
+        -webkit-backdrop-filter: blur(16px) saturate(2) brightness(1.1);
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 12px;
+        /* 三層高光：外陰影 + 上緣亮線 + 內側斜射光 */
         box-shadow:
-          0 10px 32px rgba(0, 40, 100, 0.28),
-          inset 0 1px 0 rgba(255, 255, 255, 0.9),
-          inset 0 -1px 0 rgba(255, 255, 255, 0.25);
+          0 12px 40px rgba(0, 40, 100, 0.22),
+          0 2px 8px rgba(0, 40, 100, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.95),
+          inset 0 -1px 0 rgba(255, 255, 255, 0.35),
+          inset 1px 0 0 rgba(255, 255, 255, 0.55),
+          inset -1px 0 0 rgba(255, 255, 255, 0.55),
+          inset 0 20px 40px -20px rgba(255, 255, 255, 0.6);
         z-index: 9000;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         font-size: 0.9rem;
-        color: #123;
+        color: #0a2a4a;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+        transition: box-shadow 0.25s ease, border-color 0.25s ease;
       }
+      /* 滑鼠 hover 時，水晶表面微微發亮 */
+      .mcq-floating-window:hover {
+        border-color: rgba(255, 255, 255, 0.75);
+        box-shadow:
+          0 16px 50px rgba(0, 40, 100, 0.28),
+          0 2px 8px rgba(0, 40, 100, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 1),
+          inset 0 -1px 0 rgba(255, 255, 255, 0.45),
+          inset 1px 0 0 rgba(255, 255, 255, 0.7),
+          inset -1px 0 0 rgba(255, 255, 255, 0.7),
+          inset 0 24px 50px -20px rgba(255, 255, 255, 0.75);
+      }
+
+      /* Header：頂部一段淡淡的亮面（模擬水晶切面） */
       .mcq-float-header {
         cursor: move;
         padding: 8px 12px;
         background: linear-gradient(
           180deg,
-          rgba(230, 242, 255, 0.55) 0%,
-          rgba(190, 215, 245, 0.45) 100%
+          rgba(255, 255, 255, 0.38) 0%,
+          rgba(200, 225, 255, 0.12) 55%,
+          rgba(180, 210, 245, 0.05) 100%
         );
-        border-bottom: 1px solid rgba(120, 160, 210, 0.45);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -603,98 +627,190 @@ function mountPdfQuizSplit() {
         font-size: 0.85rem;
         flex-shrink: 0;
         touch-action: none;
-        color: #1a3a5c;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+        color: #0a2a4a;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+        position: relative;
+      }
+      /* Header 上一條細細的反光帶 */
+      .mcq-float-header::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 8%; right: 8%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.9) 30%,
+          rgba(255, 255, 255, 1) 50%,
+          rgba(255, 255, 255, 0.9) 70%,
+          transparent 100%
+        );
+        pointer-events: none;
       }
       .mcq-float-header .mcq-drag-icon {
         margin-right: 6px;
         opacity: 0.55;
       }
+
       .mcq-close-btn {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid rgba(120, 160, 210, 0.4);
-        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 6px;
         font-size: 0.85rem;
         cursor: pointer;
-        color: #1a3a5c;
-        padding: 1px 7px;
+        color: #0a2a4a;
+        padding: 1px 8px;
         font-family: inherit;
         line-height: 1.2;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        transition: all 0.15s ease;
       }
       .mcq-close-btn:hover {
-        background: rgba(220, 60, 60, 0.85);
+        background: rgba(220, 60, 60, 0.75);
         color: #fff;
-        border-color: rgba(200, 40, 40, 0.9);
+        border-color: rgba(255, 255, 255, 0.8);
+        text-shadow: none;
       }
+
       .mcq-float-body {
         flex: 1 1 auto;
         overflow-y: auto;
         padding: 0.6rem;
         min-height: 0;
+        /* 內部一點點亮，讓內容浮在玻璃上 */
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.08) 0%,
+          rgba(255, 255, 255, 0.02) 100%
+        );
       }
 
-      /* 表格在玻璃背景上的調整 */
+      /* 表格：內部也走水晶風 */
       .mcq-floating-window .mc-table {
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 4px;
+        background: transparent;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .mcq-floating-window .mc-table th,
+      .mcq-floating-window .mc-table td {
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.06);
+        transition: background 0.15s ease;
       }
       .mcq-floating-window .mc-table th {
-        background: rgba(200, 222, 245, 0.5);
-        color: #1a3a5c;
-        border-color: rgba(120, 160, 210, 0.5);
-      }
-      .mcq-floating-window .mc-table td {
-        border-color: rgba(120, 160, 210, 0.4);
+        background: rgba(255, 255, 255, 0.22);
+        color: #0a2a4a;
+        font-weight: 700;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
       }
       .mcq-floating-window .mc-table td:first-child {
-        background: rgba(220, 235, 250, 0.65);
-        color: #3a5a80;
+        background: rgba(255, 255, 255, 0.12);
+        color: #2a4a6a;
+        font-weight: 600;
       }
-      .mcq-floating-window .mc-submit-btn {
-        box-shadow: 0 2px 6px rgba(0, 100, 40, 0.3);
+      /* 整格 hover 時微微發亮 */
+      .mcq-floating-window .mc-table td:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
+      .mcq-floating-window .mc-table tr.mc-sep td {
+        border-bottom: 2px solid rgba(100, 150, 210, 0.55);
+      }
+      .mcq-floating-window .mc-table input[type="radio"] {
+        accent-color: #4a90d9;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
       }
 
-      /* 深色模式：改成深藍玻璃 */
-      [data-theme="dark"] .mcq-floating-window {
-        background: rgba(20, 35, 60, 0.55);
-        border: 1px solid rgba(120, 170, 230, 0.35);
+      /* 提交按鈕：水晶上的小按鈕 */
+      .mcq-floating-window .mc-submit-btn {
+        background: linear-gradient(
+          180deg,
+          rgba(80, 200, 120, 0.85) 0%,
+          rgba(40, 167, 69, 0.9) 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.5);
         box-shadow:
-          0 10px 32px rgba(0, 0, 0, 0.6),
-          inset 0 1px 0 rgba(160, 200, 255, 0.15);
+          inset 0 1px 0 rgba(255, 255, 255, 0.5),
+          0 2px 6px rgba(0, 100, 40, 0.3);
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+      }
+      .mcq-floating-window .mc-submit-btn:hover {
+        background: linear-gradient(
+          180deg,
+          rgba(90, 210, 130, 0.9) 0%,
+          rgba(50, 180, 80, 0.95) 100%
+        );
+      }
+
+      /* === 深色模式：透明水晶改成深藍色調 === */
+      [data-theme="dark"] .mcq-floating-window {
+        background: rgba(30, 50, 80, 0.32);
+        border-color: rgba(150, 190, 240, 0.45);
         color: #d8e6f5;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+        box-shadow:
+          0 12px 40px rgba(0, 0, 0, 0.55),
+          0 2px 8px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(180, 210, 255, 0.35),
+          inset 0 -1px 0 rgba(120, 170, 230, 0.15),
+          inset 1px 0 0 rgba(180, 210, 255, 0.15),
+          inset -1px 0 0 rgba(180, 210, 255, 0.15);
+      }
+      [data-theme="dark"] .mcq-floating-window:hover {
+        border-color: rgba(180, 215, 255, 0.65);
+        box-shadow:
+          0 16px 50px rgba(0, 0, 0, 0.65),
+          0 2px 8px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(200, 225, 255, 0.5),
+          inset 0 -1px 0 rgba(120, 170, 230, 0.25),
+          inset 1px 0 0 rgba(180, 210, 255, 0.25),
+          inset -1px 0 0 rgba(180, 210, 255, 0.25);
       }
       [data-theme="dark"] .mcq-float-header {
         background: linear-gradient(
           180deg,
-          rgba(40, 60, 95, 0.85) 0%,
-          rgba(25, 40, 70, 0.9) 100%
+          rgba(140, 180, 240, 0.2) 0%,
+          rgba(60, 90, 140, 0.08) 55%,
+          rgba(40, 60, 100, 0.05) 100%
         );
-        border-bottom: 1px solid rgba(120, 170, 230, 0.35);
+        border-bottom: 1px solid rgba(150, 190, 240, 0.3);
         color: #d8e6f5;
-        text-shadow: none;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+      }
+      [data-theme="dark"] .mcq-float-header::before {
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(180, 210, 255, 0.6) 50%,
+          transparent 100%
+        );
       }
       [data-theme="dark"] .mcq-close-btn {
-        background: rgba(60, 90, 130, 0.6);
+        background: rgba(80, 120, 180, 0.25);
         color: #d8e6f5;
-        border-color: rgba(120, 170, 230, 0.4);
+        border-color: rgba(150, 190, 240, 0.4);
       }
       [data-theme="dark"] .mcq-close-btn:hover {
-        background: rgba(200, 60, 60, 0.85);
+        background: rgba(200, 60, 60, 0.8);
         color: #fff;
       }
-      [data-theme="dark"] .mcq-floating-window .mc-table {
-        background: rgba(255, 255, 255, 0.04);
-      }
       [data-theme="dark"] .mcq-floating-window .mc-table th {
-        background: rgba(60, 90, 130, 0.6);
+        background: rgba(120, 170, 230, 0.18);
         color: #d8e6f5;
-        border-color: rgba(120, 170, 230, 0.35);
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
       }
       [data-theme="dark"] .mcq-floating-window .mc-table td {
-        border-color: rgba(120, 170, 230, 0.25);
+        border-color: rgba(150, 190, 240, 0.15);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      [data-theme="dark"] .mcq-floating-window .mc-table td:hover {
+        background: rgba(255, 255, 255, 0.08);
       }
       [data-theme="dark"] .mcq-floating-window .mc-table td:first-child {
-        background: rgba(40, 60, 95, 0.5);
+        background: rgba(120, 170, 230, 0.1);
         color: #a8c8e8;
       }
     `;
