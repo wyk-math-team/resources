@@ -600,274 +600,156 @@ function mountPdfQuizSplit() {
       /* === 浮動答題卡 === */
             /* === 浮動答題卡（Windows Aero 風格）=== */
             /* === 浮動答題卡：水晶質感 === */
-            .mcq-floating-window {
+                  /* === 浮動答題卡：完全透明穿透 === */
+      .mcq-floating-window {
         position: fixed;
         top: 100px;
         right: 40px;
         width: 400px;
         max-height: 75vh;
-        /* 近乎完全透明 */
-        background: rgba(255, 255, 255, 0.02);
-        backdrop-filter: blur(10px) saturate(1.8) brightness(1.05);
-        -webkit-backdrop-filter: blur(10px) saturate(1.8) brightness(1.05);
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        border-radius: 10px;
-        box-shadow:
-          0 6px 24px rgba(0, 40, 100, 0.12),
-          inset 0 1px 0 rgba(255, 255, 255, 0.7),
-          inset 0 -1px 0 rgba(255, 255, 255, 0.2),
-          inset 1px 0 0 rgba(255, 255, 255, 0.35),
-          inset -1px 0 0 rgba(255, 255, 255, 0.35);
+        background: transparent;
+        /* 不用 backdrop-filter，讓 PDF 完全不被模糊 */
+        border: 1px solid rgba(150, 180, 220, 0.35);
+        border-radius: 8px;
+        box-shadow: none;
         z-index: 9000;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         font-size: 0.9rem;
         color: #0a2a4a;
-        /* 文字白暈，讓字在任意背景上都看得清 */
+        /* 文字白暈：避免跟 PDF 文字混在一起 */
         text-shadow:
           0 0 3px rgba(255, 255, 255, 1),
-          0 0 6px rgba(255, 255, 255, 0.9),
+          0 0 6px rgba(255, 255, 255, 0.85),
           0 1px 0 rgba(255, 255, 255, 1);
       }
-            /* 縮放把手（右下角三角形） */
-      .mcq-resize-handle {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 22px;
-        height: 22px;
-        cursor: nwse-resize;
-        touch-action: none;
-        background: linear-gradient(
-          135deg,
-          transparent 45%,
-          rgba(100, 150, 210, 0.35) 45%,
-          rgba(100, 150, 210, 0.55) 100%
-        );
-        border-bottom-right-radius: 10px;
-        z-index: 1;
-      }
-      .mcq-resize-handle:hover {
-        background: linear-gradient(
-          135deg,
-          transparent 45%,
-          rgba(100, 150, 210, 0.6) 45%,
-          rgba(100, 150, 210, 0.85) 100%
-        );
-      }
-      /* 滑鼠 hover 時，水晶表面微微發亮 */
-      .mcq-floating-window:hover {
-        border-color: rgba(255, 255, 255, 0.75);
-        box-shadow:
-          0 16px 50px rgba(0, 40, 100, 0.28),
-          0 2px 8px rgba(0, 40, 100, 0.12),
-          inset 0 1px 0 rgba(255, 255, 255, 1),
-          inset 0 -1px 0 rgba(255, 255, 255, 0.45),
-          inset 1px 0 0 rgba(255, 255, 255, 0.7),
-          inset -1px 0 0 rgba(255, 255, 255, 0.7),
-          inset 0 24px 50px -20px rgba(255, 255, 255, 0.75);
-      }
 
-      /* Header：頂部一段淡淡的亮面（模擬水晶切面） */
+      /* Header：保留極淡底，否則拖動把手會消失 */
       .mcq-float-header {
         cursor: move;
-        padding: 8px 12px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.38) 0%,
-          rgba(200, 225, 255, 0.12) 55%,
-          rgba(180, 210, 245, 0.05) 100%
-        );
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 6px 10px;
+        background: rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(150, 180, 220, 0.35);
         display: flex;
         justify-content: space-between;
         align-items: center;
         user-select: none;
         font-weight: 600;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         flex-shrink: 0;
         touch-action: none;
         color: #0a2a4a;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-        position: relative;
-      }
-      /* Header 上一條細細的反光帶 */
-      .mcq-float-header::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 8%; right: 8%;
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent 0%,
-          rgba(255, 255, 255, 0.9) 30%,
-          rgba(255, 255, 255, 1) 50%,
-          rgba(255, 255, 255, 0.9) 70%,
-          transparent 100%
-        );
-        pointer-events: none;
+        text-shadow:
+          0 0 3px rgba(255, 255, 255, 1),
+          0 0 6px rgba(255, 255, 255, 0.85);
       }
       .mcq-float-header .mcq-drag-icon {
         margin-right: 6px;
-        opacity: 0.55;
+        opacity: 0.5;
       }
 
       .mcq-close-btn {
-        background: rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        border-radius: 6px;
-        font-size: 0.85rem;
+        background: rgba(255, 255, 255, 0.35);
+        border: 1px solid rgba(150, 180, 220, 0.5);
+        border-radius: 4px;
+        font-size: 0.75rem;
         cursor: pointer;
         color: #0a2a4a;
-        padding: 1px 8px;
+        padding: 0 6px;
         font-family: inherit;
-        line-height: 1.2;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        transition: all 0.15s ease;
+        line-height: 1.4;
+        transition: all 0.15s;
       }
       .mcq-close-btn:hover {
-        background: rgba(220, 60, 60, 0.75);
+        background: rgba(220, 60, 60, 0.8);
         color: #fff;
-        border-color: rgba(255, 255, 255, 0.8);
         text-shadow: none;
       }
 
+      /* Body：完全透明 */
       .mcq-float-body {
         flex: 1 1 auto;
         overflow-y: auto;
-        padding: 0.6rem;
+        padding: 0.4rem;
         min-height: 0;
         background: transparent;
       }
 
-      /* 表格：內部也走水晶風 */
+            /* 表格：只有框線和文字可見 */
       .mcq-floating-window .mc-table {
         background: transparent;
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 6px;
-        overflow: hidden;
+        border-collapse: collapse;
+        width: 100%;
+        margin: 0 auto 0.6rem;
+        font-size: 0.85rem;
       }
       .mcq-floating-window .mc-table th,
       .mcq-floating-window .mc-table td {
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        background: rgba(255, 255, 255, 0.06);
-        transition: background 0.15s ease;
+        border: 1px solid rgba(150, 180, 220, 0.35);
+        background: transparent;
+        padding: 0.25rem 0.35rem;
+        text-align: center;
+        vertical-align: middle;
       }
       .mcq-floating-window .mc-table th {
-        background: rgba(255, 255, 255, 0.22);
         color: #0a2a4a;
         font-weight: 700;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+        font-size: 0.78rem;
       }
       .mcq-floating-window .mc-table td:first-child {
-        background: rgba(255, 255, 255, 0.12);
         color: #2a4a6a;
         font-weight: 600;
+        width: 2.6em;
       }
-      /* 整格 hover 時微微發亮 */
+      /* hover 時整格微微發亮，讓用戶知道可點 */
       .mcq-floating-window .mc-table td:hover {
-        background: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.15);
       }
       .mcq-floating-window .mc-table tr.mc-sep td {
-        border-bottom: 2px solid rgba(100, 150, 210, 0.55);
+        border-bottom: 2px solid rgba(100, 150, 210, 0.5);
       }
       .mcq-floating-window .mc-table input[type="radio"] {
+        cursor: pointer;
+        margin: 0;
+        width: 15px;
+        height: 15px;
         accent-color: #4a90d9;
-        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
       }
 
-      /* 提交按鈕：水晶上的小按鈕 */
+      /* 提交按鈕：浮在半透明上，保持實色才看得清 */
       .mcq-floating-window .mc-submit-btn {
-        background: linear-gradient(
-          180deg,
-          rgba(80, 200, 120, 0.85) 0%,
-          rgba(40, 167, 69, 0.9) 100%
-        );
+        background: rgba(40, 167, 69, 0.9);
+        color: #fff;
         border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.5),
-          0 2px 6px rgba(0, 100, 40, 0.3);
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 6px rgba(0, 40, 20, 0.3);
+        padding: 0.5rem 2.5rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: block;
+        margin: 0.4rem auto 0.4rem;
       }
       .mcq-floating-window .mc-submit-btn:hover {
-        background: linear-gradient(
-          180deg,
-          rgba(90, 210, 130, 0.9) 0%,
-          rgba(50, 180, 80, 0.95) 100%
-        );
+        background: rgba(50, 180, 80, 0.95);
       }
 
-      /* === 深色模式：透明水晶改成深藍色調 === */
-      [data-theme="dark"] .mcq-floating-window {
-        background: rgba(30, 50, 80, 0.32);
-        border-color: rgba(150, 190, 240, 0.45);
-        color: #d8e6f5;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-        box-shadow:
-          0 12px 40px rgba(0, 0, 0, 0.55),
-          0 2px 8px rgba(0, 0, 0, 0.35),
-          inset 0 1px 0 rgba(180, 210, 255, 0.35),
-          inset 0 -1px 0 rgba(120, 170, 230, 0.15),
-          inset 1px 0 0 rgba(180, 210, 255, 0.15),
-          inset -1px 0 0 rgba(180, 210, 255, 0.15);
-      }
-      [data-theme="dark"] .mcq-floating-window:hover {
-        border-color: rgba(180, 215, 255, 0.65);
-        box-shadow:
-          0 16px 50px rgba(0, 0, 0, 0.65),
-          0 2px 8px rgba(0, 0, 0, 0.4),
-          inset 0 1px 0 rgba(200, 225, 255, 0.5),
-          inset 0 -1px 0 rgba(120, 170, 230, 0.25),
-          inset 1px 0 0 rgba(180, 210, 255, 0.25),
-          inset -1px 0 0 rgba(180, 210, 255, 0.25);
-      }
+            [data-theme="dark"] .mcq-floating-window,
       [data-theme="dark"] .mcq-float-header {
-        background: linear-gradient(
-          180deg,
-          rgba(140, 180, 240, 0.2) 0%,
-          rgba(60, 90, 140, 0.08) 55%,
-          rgba(40, 60, 100, 0.05) 100%
-        );
-        border-bottom: 1px solid rgba(150, 190, 240, 0.3);
-        color: #d8e6f5;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+        color: #ffffff;
+        text-shadow:
+          0 0 3px rgba(0, 0, 0, 0.9),
+          0 0 6px rgba(0, 0, 0, 0.7);
       }
-      [data-theme="dark"] .mcq-float-header::before {
-        background: linear-gradient(
-          90deg,
-          transparent 0%,
-          rgba(180, 210, 255, 0.6) 50%,
-          transparent 100%
-        );
-      }
-      [data-theme="dark"] .mcq-close-btn {
-        background: rgba(80, 120, 180, 0.25);
-        color: #d8e6f5;
-        border-color: rgba(150, 190, 240, 0.4);
-      }
-      [data-theme="dark"] .mcq-close-btn:hover {
-        background: rgba(200, 60, 60, 0.8);
-        color: #fff;
-      }
-      [data-theme="dark"] .mcq-floating-window .mc-table th {
-        background: rgba(120, 170, 230, 0.18);
-        color: #d8e6f5;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-      }
-      [data-theme="dark"] .mcq-floating-window .mc-table td {
-        border-color: rgba(150, 190, 240, 0.15);
-        background: rgba(255, 255, 255, 0.03);
-      }
-      [data-theme="dark"] .mcq-floating-window .mc-table td:hover {
-        background: rgba(255, 255, 255, 0.08);
-      }
+      [data-theme="dark"] .mcq-floating-window .mc-table th,
       [data-theme="dark"] .mcq-floating-window .mc-table td:first-child {
-        background: rgba(120, 170, 230, 0.1);
-        color: #a8c8e8;
+        color: #ffffff;
+      }
+      [data-theme="dark"] .mcq-floating-window .mc-table th,
+      [data-theme="dark"] .mcq-floating-window .mc-table td {
+        border-color: rgba(200, 220, 255, 0.4);
       }
     `;
     document.head.appendChild(styleEl);
