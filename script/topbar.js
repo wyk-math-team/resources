@@ -88,9 +88,9 @@
     }
   }
 
-  // ---------- 下拉切换函数 ----------
+  // ---------- 下拉切换 ----------
   function toggleDropdown(e) {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     if (!loggedIn) {
       const currentPath = window.location.pathname + window.location.search;
       window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
@@ -102,7 +102,6 @@
     dropdown.style.display = isVisible ? 'none' : 'block';
   }
 
-  // 点击页面其他地方关闭下拉
   function closeDropdown(e) {
     const dropdown = document.getElementById('userDropdown');
     const menu = document.getElementById('userMenu');
@@ -111,38 +110,23 @@
     dropdown.style.display = 'none';
   }
 
-  // ---------- 用户名点击事件 ----------
-  function handleUsernameClick(e) {
-    if (!loggedIn) {
-      const currentPath = window.location.pathname + window.location.search;
-      window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
-      return;
-    }
-    window.location.href = `/users/${encodeURIComponent(realUsername)}`;
-  }
-
-  // ---------- 登出函数 ----------
+  // ---------- 登出 ----------
   function performLogout() {
-    if (typeof logout === 'function') {
-      logout();
-    }
+    if (typeof logout === 'function') logout();
     localStorage.removeItem('sidebarOpen');
     window.location.href = '/index.html';
   }
 
-  // ---------- 侧边栏切换（移动端） ----------
+  // ---------- 移动端侧边栏切换 ----------
   function toggleSidebarMobile(e) {
     e.stopPropagation();
-    // 调用 sidebar.js 暴露的全局切换函数
     if (typeof window.toggleSidebar === 'function') {
       window.toggleSidebar();
     } else {
-      // 备用：直接操作 sidebar
       const sidebar = document.getElementById('sidebarContainer');
       if (!sidebar) return;
       sidebar.classList.toggle('open');
       const isOpen = sidebar.classList.contains('open');
-      // 移动端控制 transform
       if (isOpen) {
         sidebar.style.transform = 'translateY(0)';
         document.body.classList.remove('sidebar-closed');
@@ -153,6 +137,33 @@
         if (window.innerWidth <= 768) localStorage.setItem('sidebarOpen', 'false');
       }
     }
+  }
+
+  // ---------- 桌面端侧边栏隐藏/显示 ----------
+  const SIDEBAR_HIDDEN_KEY = 'sidebarHiddenDesktop';
+
+  function applyDesktopSidebarState(hidden) {
+    if (hidden) {
+      document.body.classList.add('sidebar-hidden-desktop');
+    } else {
+      document.body.classList.remove('sidebar-hidden-desktop');
+    }
+    // 更新按钮图标
+    const iconEl = document.querySelector('#fullscreenToggleBtn i');
+    if (iconEl) {
+      iconEl.className = hidden
+        ? 'fa-solid fa-angles-right'
+        : 'fa-solid fa-angles-left';
+    }
+  }
+
+  function toggleDesktopSidebar(e) {
+    if (e) e.stopPropagation();
+    if (window.innerWidth <= 768) return; // 移动端不处理
+    const isHidden = document.body.classList.contains('sidebar-hidden-desktop');
+    const newHidden = !isHidden;
+    applyDesktopSidebarState(newHidden);
+    try { localStorage.setItem(SIDEBAR_HIDDEN_KEY, newHidden ? '1' : '0'); } catch (e) {}
   }
 
   // ---------- 构建 Topbar HTML ----------
@@ -170,20 +181,24 @@
 
   if (loggedIn) {
     topbarHTML += `
-      <div class="user-menu" id="userMenu" style="cursor: default; position: relative; z-index: 9999;">
-        <span class="username-display" style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 20px; transition: background 0.2s; cursor: default;">
-          <img id="userAvatar" src="" alt="avatar" style="width:28px; height:28px; border-radius:50%; object-fit:cover; display:none; margin-right:4px;">
-          <span class="user-icon"></span>
-          <span id="currentUsername" onclick="handleUsernameClick(event);" style="cursor: pointer; font-weight: 500;">${escapeHtml(displayUsername)}</span>
-          <span class="dropdown-arrow" onclick="toggleDropdown(event);" style="cursor: pointer; font-size: 0.7rem; margin-left: 4px; transition: transform 0.2s;">
+      <div class="user-menu" id="userMenu">
+        <div class="user-box" id="userBox">
+          <div class="user-box-left">
+            <img id="userAvatar" src="" alt="avatar" class="user-box-avatar">
+            <span id="currentUsername" class="user-box-name">${escapeHtml(displayUsername)}</span>
+          </div>
+          <div class="user-box-right" id="userBoxArrow">
             <i class="fa fa-caret-down"></i>
-          </span>
-        </span>
-        <div id="userDropdown" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:#fff; border-radius:var(--radius-sm, 4px); box-shadow:var(--shadow-md, 0 4px 12px rgba(0,0,0,0.15)); min-width:140px; overflow:hidden; z-index:99999;">
-          <a href="/settings" class="dropdown-item" style="display:block; padding:11px 18px; background:#fff; color:var(--text-primary, #212529); text-decoration:none; font-size:0.9rem; font-weight:500;">
+          </div>
+        </div>
+        <div id="userDropdown" class="user-dropdown">
+          <a href="/users/${encodeURIComponent(realUsername)}" class="dropdown-item">
+            <i class="fa fa-user fa-fw"></i> Profile
+          </a>
+          <a href="/settings" class="dropdown-item">
             <i class="fa fa-pencil fa-fw"></i> Settings
           </a>
-          <button class="logout-btn" onclick="performLogout(); event.stopPropagation();" style="display:block; width:100%; padding:11px 18px; background:#fff; border:none; cursor:pointer; font-size:0.9rem; font-weight:500; text-align:left; color:var(--danger, #dc3545);">
+          <button class="logout-btn" id="logoutBtnHeader">
             <i class="fa fa-sign-out fa-fw"></i> Logout
           </button>
         </div>
@@ -191,24 +206,19 @@
     `;
   } else {
     topbarHTML += `
-      <div class="user-menu" id="userMenu" style="position: relative;">
-        <a href="/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}" class="login-btn-header" style="display:inline-block; padding:6px 16px; background:var(--accent, #4a90d9); color:#fff; border-radius:20px; text-decoration:none; font-weight:600; font-size:0.9rem; transition:background 0.2s;">
+      <div class="user-menu" id="userMenu">
+        <a href="/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}" class="login-btn-header">
           <i class="fa fa-sign-in-alt fa-fw"></i> Login
         </a>
       </div>
     `;
   }
 
-  // 移动端添加汉堡按钮
-  
-    topbarHTML += `
-      <button class="topbar-sidebar-toggle" id="mobileSidebarToggle" style="background:none; border:none; color:var(--topbar-text); font-size:1.6rem; cursor:pointer; padding:0 10px; line-height:1; display:flex; align-items:center; justify-content:center;">
-        ☰
-      </button>
-    `;
-  
-
+  // 全屏侧边栏切换按钮（桌面可见）
   topbarHTML += `
+      <button class="topbar-fullscreen-toggle" id="fullscreenToggleBtn" title="Toggle sidebar">
+        <i class="fa-solid fa-angles-left"></i>
+      </button>
       <div class="clock">
         <span class="clock-time" id="clockTime">00:00:00</span>
       </div>
@@ -217,17 +227,39 @@
 
   container.innerHTML = topbarHTML;
 
-  // 绑定移动端汉堡按钮事件
-  if (isMobile) {
-    const mobileToggle = document.getElementById('mobileSidebarToggle');
-    if (mobileToggle) {
-      mobileToggle.addEventListener('click', toggleSidebarMobile);
-    }
+  // ---------- 绑定事件 ----------
+  // 移动端汉堡按钮
+  const mobileToggle = document.getElementById('mobileSidebarToggle');
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', toggleSidebarMobile);
   }
 
-  // 暴露全局函数
+  // 桌面端全屏按钮
+  const fullscreenBtn = document.getElementById('fullscreenToggleBtn');
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', toggleDesktopSidebar);
+  }
+
+  // 用户框：点击整块（左+右）都触发 dropdown
+  const userBox = document.getElementById('userBox');
+  if (userBox) {
+    userBox.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown(e);
+    });
+  }
+
+  // 登出按钮
+  const logoutBtn = document.getElementById('logoutBtnHeader');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      performLogout();
+    });
+  }
+
+  // 暴露全局（保留向后兼容）
   window.toggleDropdown = toggleDropdown;
-  window.handleUsernameClick = handleUsernameClick;
   window.performLogout = performLogout;
 
   // 点击页面其他区域关闭下拉
@@ -238,12 +270,18 @@
     setTimeout(loadUserAvatar, 100);
   }
 
+  // 恢复桌面端侧边栏状态
+  try {
+    if (window.innerWidth > 768 && localStorage.getItem(SIDEBAR_HIDDEN_KEY) === '1') {
+      applyDesktopSidebarState(true);
+    }
+  } catch (e) { /* ignore */ }
+
   // 时钟
   function updateClock() {
-    const d=new Date();
-    const pad=n=>String(n).padStart(2,'0');
-    const timeStr=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-    
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const timeStr = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
     const el = document.getElementById('clockTime');
     if (el) el.textContent = timeStr;
   }
@@ -254,34 +292,190 @@
     return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
   }
 
-  // 样式
+  // ---------- 样式 ----------
   const style = document.createElement('style');
   style.textContent = `
-    .topbar { overflow-y: visible !important; z-index: 9998 !important; }
-    .user-menu { position: relative; z-index: 9999 !important; }
-    #userDropdown { z-index: 99999 !important; }
-    .username-display { background: rgba(255,255,255,0.08); padding: 6px 14px; border-radius: 20px; transition: background 0.2s; }
-    .username-display:hover { background: rgba(255,255,255,0.16); }
-    .user-menu.open .dropdown-arrow i { transform: rotate(180deg); }
-    .login-btn-header:hover { background: var(--accent-hover, #3a7bc8) !important; }
-    [data-theme="dark"] #userDropdown { background: #1e1e1e; border: 1px solid #444; }
-    [data-theme="dark"] .dropdown-item, [data-theme="dark"] .logout-btn { background: #1e1e1e; color: #e0e0e0; }
-    [data-theme="dark"] .dropdown-item:hover, [data-theme="dark"] .logout-btn:hover { background: #2a2a2a; }
-    [data-theme="dark"] .logout-btn { color: #f85149; }
-    [data-theme="dark"] .logout-btn:hover { background: #3a1a1a; }
-
-    .brand-name a { font-size: 1.6rem; }
-    @media (max-width: 768px) {
-      .clock { display: none !important; }
-      .brand-name a { font-size: 14px !important; }
-      #userAvatar { width: 22px !important; height: 22px !important; }
-      .username-display { padding: 4px 10px; font-size: 0.82rem; }
-      #userDropdown { right: 0; left: auto; min-width: 120px; }
-      .login-btn-header { font-size: 0.8rem; padding: 4px 12px; }
-      .topbar-sidebar-toggle { display: flex !important; align-items: center; justify-content: center; font-size: 1.6rem; padding: 0 10px; }
+    /* ===== 基础布局：topbar 高度满格 ===== */
+    .topbar { overflow-y: visible !important; z-index: 9998 !important; padding: 0 0 0 24px !important; }
+    .topbar-right {
+      display: flex;
+      align-items: stretch;
+      gap: 12px;
+      height: 100%;
+      padding-right: 24px;
     }
+    .topbar-right > .clock,
+    .topbar-right > .topbar-fullscreen-toggle,
+    .topbar-right > .login-btn-header {
+      align-self: center;
+    }
+
+    /* ===== 用户框：两个长方形 ===== */
+    .user-menu {
+      position: relative;
+      z-index: 9999 !important;
+      align-self: stretch;
+      display: flex;
+      align-items: stretch;
+      height: 100%;
+    }
+    .user-box {
+      display: flex;
+      align-items: stretch;
+      height: 100%;
+      cursor: pointer;
+      background: rgba(255,255,255,0.06);
+      overflow: hidden;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .user-box:hover { background: rgba(255,255,255,0.1); }
+    .user-box-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      transition: background 0.15s ease;
+      min-width: 0;
+    }
+    .user-box-left:hover { background: rgba(255,255,255,0.08); }
+    .user-box-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: none;
+      flex-shrink: 0;
+    }
+    .user-box-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+    .user-box-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      background: rgba(255,255,255,0.08);
+      border-left: 1px solid rgba(255,255,255,0.12);
+      transition: background 0.15s ease;
+      color: #ffffff;
+      font-size: 0.8rem;
+    }
+    .user-box-right:hover { background: rgba(255,255,255,0.18); }
+    .user-box.open .user-box-right i,
+    .user-menu.open .user-box-right i { transform: rotate(180deg); }
+    .user-box-right i { transition: transform 0.2s ease; }
+
+    /* ===== 下拉菜单 ===== */
+    .user-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: #fff;
+      border-radius: var(--radius-sm, 6px);
+      box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.15));
+      min-width: 160px;
+      overflow: hidden;
+      z-index: 99999;
+    }
+    .user-dropdown .dropdown-item,
+    .user-dropdown .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 18px;
+      background: #fff;
+      color: var(--text-primary, #212529);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .user-dropdown .dropdown-item:hover { background: #f0f2f5; }
+    .user-dropdown .logout-btn { color: var(--danger, #dc3545); }
+    .user-dropdown .logout-btn:hover { background: #fef2f2; }
+
+    /* ===== 全屏按钮 ===== */
+    .topbar-fullscreen-toggle {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: var(--topbar-text, #e0e0e0);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .topbar-fullscreen-toggle:hover {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+    }
+
+    /* ===== 登录按钮 ===== */
+    .login-btn-header {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--accent, #4a90d9);
+      color: #fff;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .login-btn-header:hover { background: var(--accent-hover, #3a7bc8) !important; }
+
+    /* ===== 深色模式 ===== */
+    [data-theme="dark"] .user-dropdown { background: #1e1e1e; border: 1px solid #444; }
+    [data-theme="dark"] .user-dropdown .dropdown-item,
+    [data-theme="dark"] .user-dropdown .logout-btn { background: #1e1e1e; color: #e0e0e0; }
+    [data-theme="dark"] .user-dropdown .dropdown-item:hover,
+    [data-theme="dark"] .user-dropdown .logout-btn:hover { background: #2a2a2a; }
+    [data-theme="dark"] .user-dropdown .logout-btn { color: #f85149; }
+    [data-theme="dark"] .user-dropdown .logout-btn:hover { background: #3a1a1a; }
+
+    /* ===== 桌面端侧边栏隐藏状态 ===== */
     @media (min-width: 769px) {
-      .topbar-sidebar-toggle { display: none !important; }
+      .sidebar {
+        transition: transform 0.3s ease !important;
+      }
+      body.sidebar-hidden-desktop .sidebar {
+        transform: translateX(-100%) !important;
+      }
+      body.sidebar-hidden-desktop {
+        padding-left: 0 !important;
+      }
+    }
+
+    /* ===== 移动端 ===== */
+    @media (max-width: 768px) {
+      .topbar { padding: 0 12px !important; }
+      .topbar-right { padding-right: 0; gap: 8px; align-items: center; }
+      .clock { display: none !important; }
+      .topbar-fullscreen-toggle { display: none !important; }
+      .brand-name a { font-size: 14px !important; }
+      .brand-text { font-size: 14px !important; }
+      .user-box-avatar { width: 22px !important; height: 22px !important; }
+      .user-box-name { font-size: 0.8rem; max-width: 90px; }
+      .user-box-left { padding: 0 10px; }
+      .user-box-right { width: 32px; font-size: 0.7rem; }
+      .login-btn-header { font-size: 0.8rem; padding: 4px 12px; }
+      .user-dropdown { right: 0; left: auto; min-width: 130px; }
     }
   `;
   document.head.appendChild(style);
@@ -292,8 +486,9 @@
     faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
     document.head.appendChild(faLink);
   }
-  
 })();
+
+// ============ 顶部进度条 ============
 (function () {
   const bar = document.createElement('div');
   bar.id = 'top-progress';
@@ -315,7 +510,6 @@
     bar.style.opacity = '1';
     bar.style.width = '0%';
     timer = setInterval(() => {
-      // 逐渐减速，最多到 90%
       const inc = (90 - width) * 0.1;
       width = Math.min(90, width + inc);
       bar.style.width = width + '%';
@@ -331,10 +525,8 @@
     }, 200);
   };
 
-  // 拦截 fetch（包括 PJAX 和 API 调用）
   const origFetch = window.fetch;
   window.fetch = function (...args) {
-    // 只对 GET 页面请求显示进度条，API 调用忽略
     const url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
     const isPageNav = url && url.startsWith(location.origin) && !url.includes('/api/');
     if (isPageNav) {
@@ -344,7 +536,6 @@
     return origFetch.apply(this, args);
   };
 
-  // 普通 <a> 跳转（无 PJAX 时）也要显示
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
