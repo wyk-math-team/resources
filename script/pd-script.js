@@ -385,13 +385,11 @@ function toGooglePreviewUrl(url) {
   if (!url) return null;
   if (!/^https:\/\/(docs|drive)\.google\.com\//.test(url)) return null;
 
-  // Drive: /file/d/FILE_ID/view... → /file/d/FILE_ID/preview
   const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
   if (driveMatch) {
     return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
   }
 
-  // Docs / Sheets / Slides: /document/d/FILE_ID/edit... → /document/d/FILE_ID/preview
   const docsMatch = url.match(/docs\.google\.com\/(document|spreadsheets|presentation)\/d\/([^/?#]+)/);
   if (docsMatch) {
     return `https://docs.google.com/${docsMatch[1]}/d/${docsMatch[2]}/preview`;
@@ -400,7 +398,52 @@ function toGooglePreviewUrl(url) {
   return null;
 }
 
-// ============ PDF + Quiz 左右分欄 ============
+// ============ 讓元素可拖動（用 pointer 事件，兼容滑鼠/觸控）============
+function makeDraggable(el, handle) {
+  let startX = 0, startY = 0, origX = 0, origY = 0;
+  let dragging = false;
+
+  handle.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('button')) return;
+    dragging = true;
+    const rect = el.getBoundingClientRect();
+    startX = e.clientX;
+    startY = e.clientY;
+    origX = rect.left;
+    origY = rect.top;
+    el.style.left = rect.left + 'px';
+    el.style.top = rect.top + 'px';
+    el.style.right = 'auto';
+    el.style.bottom = 'auto';
+    handle.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+
+  handle.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    let newLeft = origX + dx;
+    let newTop = origY + dy;
+    // 邊界限制（不超出視口）
+    const maxLeft = window.innerWidth - el.offsetWidth;
+    const maxTop = window.innerHeight - el.offsetHeight;
+    newLeft = Math.max(0, Math.min(maxLeft, newLeft));
+    newTop = Math.max(0, Math.min(maxTop, newTop));
+    el.style.left = newLeft + 'px';
+    el.style.top = newTop + 'px';
+  });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    dragging = false;
+    try { handle.releasePointerCapture(e.pointerId); } catch (err) {}
+  }
+  handle.addEventListener('pointerup', endDrag);
+  handle.addEventListener('pointercancel', endDrag);
+}
+
+// ============ PDF + Quiz（PDF 全屏 + 浮動答题卡）============
 function mountPdfQuizSplit() {
   const pdfMount = document.getElementById('pdf-quiz-split');
   if (!pdfMount) return;
@@ -415,7 +458,6 @@ function mountPdfQuizSplit() {
     absolutePdfUrl = pdfUrl;
   }
 
-  // ⭐ 判斷是否為 Google Drive / Docs 連結
   const googlePreviewUrl = toGooglePreviewUrl(absolutePdfUrl);
 
   // CSS 只注入一次
@@ -423,30 +465,19 @@ function mountPdfQuizSplit() {
     const styleEl = document.createElement('style');
     styleEl.id = 'pdf-quiz-split-style';
     styleEl.textContent = `
-      .pdf-quiz-split {
-        display: flex;
-        gap: 1rem;
-        align-items: stretch;
-        margin-top: 0.5rem;
+      .pdf-quiz-stage {
+        position: relative;
+        width: 100%;
       }
-      .pdf-quiz-split > .pdf-quiz-left,
-      .pdf-quiz-split > .pdf-quiz-right {
-        flex: 1 1 50%;
-        min-width: 0;
+      .pdf-quiz-left {
+        width: 100%;
+        height: 88vh;
         display: flex;
         flex-direction: column;
         border: 1px solid var(--border-color);
         border-radius: 6px;
         overflow: hidden;
         background: var(--card-bg);
-      }
-      .pdf-quiz-split > .pdf-quiz-left {
-        height: 85vh;
-      }
-      .pdf-quiz-split > .pdf-quiz-right {
-        overflow-y: auto;
-        max-height: 85vh;
-        padding: 0.6rem;
       }
       .pdf-viewer-header {
         display: flex;
@@ -457,9 +488,15 @@ function mountPdfQuizSplit() {
         border-bottom: 1px solid var(--border-color);
         font-size: 0.85rem;
         flex-shrink: 0;
+        gap: 8px;
       }
       [data-theme="dark"] .pdf-viewer-header { background: #21262d; }
       .pdf-viewer-title { font-weight: 700; color: var(--text-primary); }
+      .pdf-viewer-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
       .pdf-open-btn {
         color: var(--accent);
         text-decoration: none;
@@ -467,8 +504,21 @@ function mountPdfQuizSplit() {
         display: inline-flex;
         align-items: center;
         gap: 5px;
+        font-size: 0.8rem;
       }
       .pdf-open-btn:hover { text-decoration: underline; }
+      .mcq-toggle-btn {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .mcq-toggle-btn:hover { background: var(--accent-hover); }
       .pdf-pages-scroll {
         flex: 1 1 auto;
         overflow-y: auto;
@@ -512,68 +562,111 @@ function mountPdfQuizSplit() {
       .pdf-error i { font-size: 2rem; color: var(--danger); }
       .pdf-error a { color: var(--accent); font-weight: 600; }
 
-      @media (max-width: 900px) {
-        .pdf-quiz-split {
-          flex-direction: column;
-        }
-        .pdf-quiz-split > .pdf-quiz-left {
-          height: 60vh;
-        }
-        .pdf-quiz-split > .pdf-quiz-right {
-          max-height: none;
+      /* === 浮動答題卡 === */
+      .mcq-floating-window {
+        position: fixed;
+        top: 100px;
+        right: 40px;
+        width: 400px;
+        max-height: 75vh;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+        z-index: 9000;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        font-size: 0.9rem;
+      }
+      .mcq-float-header {
+        cursor: move;
+        padding: 8px 12px;
+        background: #f0f2f5;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        touch-action: none;
+      }
+      [data-theme="dark"] .mcq-float-header { background: #21262d; }
+      .mcq-float-header .mcq-drag-icon {
+        margin-right: 6px;
+        opacity: 0.5;
+      }
+      .mcq-close-btn {
+        background: none;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        color: var(--text-secondary);
+        padding: 0 4px;
+        font-family: inherit;
+        line-height: 1;
+      }
+      .mcq-close-btn:hover { color: var(--danger); }
+      .mcq-float-body {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        padding: 0.6rem;
+        min-height: 0;
+      }
+
+      @media (max-width: 768px) {
+        .pdf-quiz-left { height: 70vh; }
+        .mcq-floating-window {
+          width: calc(100vw - 24px);
+          right: 12px;
+          left: auto !important;
+          top: auto !important;
+          bottom: 12px;
+          max-height: 60vh;
         }
       }
     `;
     document.head.appendChild(styleEl);
   }
 
-  // 把 PDF 與 quiz 包進同一個 flex 容器
+  // ⭐ PDF 全屏：把 pdfMount 包進 stage
+  const stage = document.createElement('div');
+  stage.className = 'pdf-quiz-stage';
+  pdfMount.parentNode.insertBefore(stage, pdfMount);
+  stage.appendChild(pdfMount);
+
+  pdfMount.classList.add('pdf-quiz-left');
+
+  // 檢查有沒有 quiz
   const quizMount = document.getElementById('mc-quiz-mount');
-  if (quizMount && quizMount.parentNode === pdfMount.parentNode) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'pdf-quiz-split';
-    pdfMount.parentNode.insertBefore(wrapper, pdfMount);
+  const hasQuiz = quizMount && quizMount.parentNode === pdfMount.parentNode;
 
-    pdfMount.classList.add('pdf-quiz-left');
-    quizMount.classList.add('pdf-quiz-right');
+  // 渲染 PDF viewer
+  pdfMount.innerHTML = `
+    <div class="pdf-viewer-header">
+      <span class="pdf-viewer-title">📄 ${googlePreviewUrl ? 'Google Drive' : 'PDF'}</span>
+      <div class="pdf-viewer-actions">
+        ${hasQuiz ? '<button class="mcq-toggle-btn" id="toggleMcqBtn"><i class="fas fa-clipboard-list"></i> Answer Sheet</button>' : ''}
+        <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
+          <i class="fas fa-external-link-alt"></i> Open
+        </a>
+      </div>
+    </div>
+    ${googlePreviewUrl
+      ? `<iframe class="pdf-google-frame" src="${escapeHtml(googlePreviewUrl)}" allow="autoplay" referrerpolicy="no-referrer"></iframe>`
+      : `<div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>`
+    }
+  `;
 
-    wrapper.appendChild(pdfMount);
-    wrapper.appendChild(quizMount);
-  } else {
-    pdfMount.classList.add('pdf-quiz-left');
-    pdfMount.style.maxWidth = '100%';
-  }
-
-  // ⭐ 渲染 PDF viewer 外殼（Google 走 iframe，其他走 PDF.js）
   if (googlePreviewUrl) {
-    pdfMount.innerHTML = `
-      <div class="pdf-viewer-header">
-        <span class="pdf-viewer-title">📄 Google Drive</span>
-        <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
-          <i class="fas fa-external-link-alt"></i> Open in new tab
-        </a>
-      </div>
-      <iframe class="pdf-google-frame"
-        src="${escapeHtml(googlePreviewUrl)}"
-        allow="autoplay"
-        referrerpolicy="no-referrer"></iframe>
-    `;
+    // Google 分支：iframe，不需 ResizeObserver
   } else {
-    pdfMount.innerHTML = `
-      <div class="pdf-viewer-header">
-        <span class="pdf-viewer-title">📄 PDF</span>
-        <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
-          <i class="fas fa-external-link-alt"></i> Open in new tab
-        </a>
-      </div>
-      <div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>
-    `;
-
     const scrollContainer = pdfMount.querySelector('.pdf-pages-scroll');
     renderPdfWithPdfJs(scrollContainer, absolutePdfUrl);
     if (scrollContainer) scrollContainer.dataset.pdfUrl = absolutePdfUrl;
 
-    // ResizeObserver（僅 PDF.js 路徑需要）
     if (window.ResizeObserver && scrollContainer) {
       if (window.__pdfResizeObserver) {
         try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
@@ -599,13 +692,65 @@ function mountPdfQuizSplit() {
     }
   }
 
+  // ⭐ 浮動答題卡：把 quizMount 從 statement 移出，包成浮動窗口
+  if (hasQuiz) {
+    const floating = document.createElement('div');
+    floating.className = 'mcq-floating-window';
+    floating.id = 'mcqFloatingWindow';
+    floating.style.display = 'none';
+
+    // header（可拖動）
+    const header = document.createElement('div');
+    header.className = 'mcq-float-header';
+    header.id = 'mcqDragHandle';
+    header.innerHTML = `
+      <span><i class="fas fa-grip-vertical mcq-drag-icon"></i><i class="fas fa-clipboard-list"></i> Answer Sheet</span>
+      <button class="mcq-close-btn" id="closeMcqBtn" title="Close">✕</button>
+    `;
+
+    // body
+    const body = document.createElement('div');
+    body.className = 'mcq-float-body';
+
+    // 把 quizMount 移進 body
+    quizMount.parentNode.removeChild(quizMount);
+    body.appendChild(quizMount);
+
+    floating.appendChild(header);
+    floating.appendChild(body);
+    document.body.appendChild(floating);
+
+    // 拖動
+    makeDraggable(floating, header);
+
+    // 切換
+    const toggleBtn = document.getElementById('toggleMcqBtn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const isHidden = floating.style.display === 'none';
+        floating.style.display = isHidden ? 'flex' : 'none';
+        toggleBtn.innerHTML = isHidden
+          ? '<i class="fas fa-times"></i> Hide Answer'
+          : '<i class="fas fa-clipboard-list"></i> Answer Sheet';
+      });
+    }
+
+    // 關閉
+    const closeBtn = document.getElementById('closeMcqBtn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        floating.style.display = 'none';
+        if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-clipboard-list"></i> Answer Sheet';
+      });
+    }
+  }
+
   // 讓 statementContent 佔滿寬度
   const stmtContent = document.getElementById('statementContent');
   if (stmtContent) {
     stmtContent.style.flex = '1 1 100%';
     stmtContent.style.maxWidth = '100%';
   }
-  // 隱藏 drawpad 相關
   const splitDivider = document.getElementById('splitDivider');
   if (splitDivider) splitDivider.style.display = 'none';
   const drawpadWrapper = document.getElementById('drawpadWrapper');
@@ -623,21 +768,20 @@ function mountMcQuiz() {
     styleEl.textContent = `
       .mc-table {
         width: 100%;
-        max-width: 420px;
         border-collapse: collapse;
         margin: 0 auto 1rem;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
       }
       .mc-table th, .mc-table td {
         border: 1px solid var(--border-color);
-        padding: 0.35rem 0.5rem;
+        padding: 0.3rem 0.4rem;
         text-align: center;
         vertical-align: middle;
       }
       .mc-table th {
         background: #f0f2f5;
         font-weight: 700;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
       }
       [data-theme="dark"] .mc-table th { background: #2d2d2d; }
       .mc-table td:first-child {
@@ -680,7 +824,7 @@ function mountMcQuiz() {
   const SEP_EVERY = 5;
 
   let html = `
-    <p style="color:var(--text-secondary);font-size:.9rem;margin:.5rem 0 .8rem 0;">
+    <p style="color:var(--text-secondary);font-size:.85rem;margin:.3rem 0 .6rem 0;">
       Select one option (A/B/C/D) for each question. Unanswered questions will be submitted as <code>X</code>.
     </p>
     <table class="mc-table">
