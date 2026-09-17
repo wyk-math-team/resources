@@ -17,40 +17,40 @@
 
   // ---- 管理員共用項目（admin + root）----
   const adminMenuCommon = `
-    <li><a href="/admin/problems" class="sidebar-link require-login" data-page="admin-problems">Add Problems</a></li>
-    <li><a href="/admin/ssubmissions" class="sidebar-link require-login" data-page="admin-ssubmissions">All Submissions</a></li>
-    <li><a href="/admin/users" class="sidebar-link require-login" data-page="admin-users">Manage Users</a></li>
-    <li><a href="/admin/updates" class="sidebar-link require-login" data-page="admin-updates">Manage Updates</a></li>
-    <li><a href="/admin/contest" class="sidebar-link require-login" data-page="admin-contest">Manage Contests</a></li>
-    <li><a href="/admin/reports" class="sidebar-link require-login" data-page="admin-reports">Reports</a></li>
-    <li><a href="/admin/log" class="sidebar-link require-login" data-page="admin-log">Server Log</a></li>
+    <li><a href="/admin/problems" class="sidebar-link require-login" data-page="admin-problems"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Problems</a></li>
+    <li><a href="/admin/ssubmissions" class="sidebar-link require-login" data-page="admin-ssubmissions"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Submissions</a></li>
+    <li><a href="/admin/users" class="sidebar-link require-login" data-page="admin-users"><i class="fa-solid fa-users-gear fa-fw"></i> Manage Users</a></li>
+    <li><a href="/admin/updates" class="sidebar-link require-login" data-page="admin-updates"><i class="fa-solid fa-bullhorn fa-fw"></i> Manage Updates</a></li>
+    <li><a href="/admin/contest" class="sidebar-link require-login" data-page="admin-contest"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Contests</a></li>
+    <li><a href="/admin/reports" class="sidebar-link require-login" data-page="admin-reports"><i class="fa-solid fa-pen-to-square fa-fw"></i> Bug Reports</a></li>
+    <li><a href="/admin/log" class="sidebar-link require-login" data-page="admin-log"><i class="fa-solid fa-scroll fa-fw"></i> Server Log</a></li>
   `;
 
   // ---- root 專屬（兩個終端）----
   const adminMenuRootOnly = isRoot ? `
-    <li><a href="/admin/terminal" class="sidebar-link require-login" data-page="admin-terminal">SQL Terminal</a></li>
-    <li><a href="/admin/cmd" class="sidebar-link require-login" data-page="admin-cmd">CMD</a></li>
+    <li><a href="/admin/terminal" class="sidebar-link require-login" data-page="admin-terminal"><i class="fa-solid fa-terminal fa-fw"></i> SQL Terminal</a></li>
+    <li><a href="/admin/cmd" class="sidebar-link require-login" data-page="admin-cmd"><i class="fa-solid fa-code fa-fw"></i> CMD</a></li>
   ` : '';
 
   const sidebarHTML = `
     <nav class="sidebar-nav">
       <ul>
-        <li><a href="/problems" class="sidebar-link require-login" data-page="problems">Problems</a></li>
-        <li><a href="${ownSubmissionsUrl}" class="sidebar-link require-login" data-page="submissions">Your submissions</a></li>
-        <li><a href="/submissions" class="sidebar-link require-login" data-page="all-submissions">All submissions</a></li>
-        <li><a href="/ranklist.html" class="sidebar-link require-login" data-page="ranklist">Leaderboard</a></li>
-        <li><a href="/resources" class="sidebar-link require-login" data-page="resources">Resources</a></li>
-        <li><a href="/contest" class="sidebar-link require-login" data-page="contest">Contests</a></li>
+        <li><a href="/problems" class="sidebar-link require-login" data-page="problems"><i class="fa-solid fa-list-check fa-fw"></i> Problems</a></li>
+        <li><a href="${ownSubmissionsUrl}" class="sidebar-link require-login" data-page="submissions"><i class="fa-solid fa-paper-plane fa-fw"></i> Your Submissions</a></li>
+        <li><a href="/submissions" class="sidebar-link require-login" data-page="all-submissions"><i class="fa-solid fa-pen-to-square fa-fw"></i> All Submissions</a></li>
+        <li><a href="/ranklist.html" class="sidebar-link require-login" data-page="ranklist"><i class="fa-solid fa-ranking-star fa-fw"></i> Leaderboard</a></li>
+        <li><a href="/resources" class="sidebar-link require-login" data-page="resources"><i class="fa-solid fa-folder-open fa-fw"></i> Resources</a></li>
+        <li><a href="/contest" class="sidebar-link require-login" data-page="contest"><i class="fa-solid fa-trophy fa-fw"></i> Contests</a></li>
         ${isAdmin ? `
           <li><hr style="margin:8px 0; border-color:rgba(255,255,255,0.2);"></li>
           ${adminMenuCommon}
           ${adminMenuRootOnly}
           <li><hr style="margin:8px 0; border-color:rgba(255,255,255,0.2);"></li>
         ` : ''}
-        <li><a href="/status" class="sidebar-link require-login" data-page="status">Judge Status</a></li>
-        <li><a href="/settings" class="sidebar-link require-login" data-page="template">Settings</a></li>
-        <li><a href="/credits" class="sidebar-link" data-page="credits">Credits</a></li>
-        <li><a href="/guide" class="sidebar-link" data-page="guide">Guides</a></li>
+        <li><a href="/status" class="sidebar-link require-login" data-page="status"><i class="fa-solid fa-heart-pulse fa-fw"></i> Judge Status</a></li>
+        <li><a href="/settings" class="sidebar-link require-login" data-page="template"><i class="fa-solid fa-gear fa-fw"></i> Settings</a></li>
+        <li><a href="/credits" class="sidebar-link" data-page="credits"><i class="fa-solid fa-heart fa-fw"></i> Credits</a></li>
+        <li><a href="/guide" class="sidebar-link" data-page="guide"><i class="fa-solid fa-book-open fa-fw"></i> Guides</a></li>
       </ul>
     </nav>
   `;
@@ -248,6 +248,7 @@
     }
   });
 })();
+
 // sidebar.js 末尾，IIFE 之外
 (function () {
   const prefetched = new Set();
