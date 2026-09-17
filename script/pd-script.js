@@ -300,7 +300,6 @@ let _pdfCurrentDoc = null;
 async function renderPdfWithPdfJs(container, pdfUrl) {
   const token = ++_pdfRenderToken;
 
-  // 取消上一次渲染
   if (_pdfCurrentDoc) {
     try { _pdfCurrentDoc.destroy(); } catch (e) { /* ignore */ }
     _pdfCurrentDoc = null;
@@ -345,7 +344,7 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
     const containerWidth = (container.clientWidth || container.offsetWidth || 800) - 8;
 
     for (let n = 1; n <= pdf.numPages; n++) {
-      if (token !== _pdfRenderToken) return;    // 已被新的渲染任務取代
+      if (token !== _pdfRenderToken) return;
 
       const page = await pdf.getPage(n);
       if (token !== _pdfRenderToken) return;
@@ -366,7 +365,6 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
       await page.render({ canvasContext: ctx, viewport }).promise;
     }
 
-    // 恢復滾動位置
     if (token === _pdfRenderToken && oldScrollTop > 0) {
       requestAnimationFrame(() => { container.scrollTop = oldScrollTop; });
     }
@@ -380,6 +378,26 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
         <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a>
       </div>`;
   }
+}
+
+// ============ Google Drive / Docs URL 轉換 ============
+function toGooglePreviewUrl(url) {
+  if (!url) return null;
+  if (!/^https:\/\/(docs|drive)\.google\.com\//.test(url)) return null;
+
+  // Drive: /file/d/FILE_ID/view... → /file/d/FILE_ID/preview
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
+  if (driveMatch) {
+    return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+  }
+
+  // Docs / Sheets / Slides: /document/d/FILE_ID/edit... → /document/d/FILE_ID/preview
+  const docsMatch = url.match(/docs\.google\.com\/(document|spreadsheets|presentation)\/d\/([^/?#]+)/);
+  if (docsMatch) {
+    return `https://docs.google.com/${docsMatch[1]}/d/${docsMatch[2]}/preview`;
+  }
+
+  return null;
 }
 
 // ============ PDF + Quiz 左右分欄 ============
@@ -396,6 +414,9 @@ function mountPdfQuizSplit() {
   } catch (e) {
     absolutePdfUrl = pdfUrl;
   }
+
+  // ⭐ 判斷是否為 Google Drive / Docs 連結
+  const googlePreviewUrl = toGooglePreviewUrl(absolutePdfUrl);
 
   // CSS 只注入一次
   if (!document.getElementById('pdf-quiz-split-style')) {
@@ -463,6 +484,13 @@ function mountPdfQuizSplit() {
         box-shadow: 0 1px 4px rgba(0,0,0,0.3);
         background: #fff;
       }
+      .pdf-google-frame {
+        flex: 1 1 auto;
+        width: 100%;
+        border: none;
+        background: #fff;
+        min-height: 0;
+      }
       .pdf-loading, .pdf-error {
         display: flex;
         flex-direction: column;
@@ -516,19 +544,60 @@ function mountPdfQuizSplit() {
     pdfMount.style.maxWidth = '100%';
   }
 
-  // 渲染 PDF viewer 外殼
-  pdfMount.innerHTML = `
-    <div class="pdf-viewer-header">
-      <span class="pdf-viewer-title">📄 PDF</span>
-      <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
-        <i class="fas fa-external-link-alt"></i> Open in new tab
-      </a>
-    </div>
-    <div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>
-  `;
+  // ⭐ 渲染 PDF viewer 外殼（Google 走 iframe，其他走 PDF.js）
+  if (googlePreviewUrl) {
+    pdfMount.innerHTML = `
+      <div class="pdf-viewer-header">
+        <span class="pdf-viewer-title">📄 Google Drive</span>
+        <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
+          <i class="fas fa-external-link-alt"></i> Open in new tab
+        </a>
+      </div>
+      <iframe class="pdf-google-frame"
+        src="${escapeHtml(googlePreviewUrl)}"
+        allow="autoplay"
+        referrerpolicy="no-referrer"></iframe>
+    `;
+  } else {
+    pdfMount.innerHTML = `
+      <div class="pdf-viewer-header">
+        <span class="pdf-viewer-title">📄 PDF</span>
+        <a href="${escapeHtml(absolutePdfUrl)}" target="_blank" rel="noopener" class="pdf-open-btn">
+          <i class="fas fa-external-link-alt"></i> Open in new tab
+        </a>
+      </div>
+      <div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>
+    `;
 
-  const scrollContainer = pdfMount.querySelector('.pdf-pages-scroll');
-  renderPdfWithPdfJs(scrollContainer, absolutePdfUrl);
+    const scrollContainer = pdfMount.querySelector('.pdf-pages-scroll');
+    renderPdfWithPdfJs(scrollContainer, absolutePdfUrl);
+    if (scrollContainer) scrollContainer.dataset.pdfUrl = absolutePdfUrl;
+
+    // ResizeObserver（僅 PDF.js 路徑需要）
+    if (window.ResizeObserver && scrollContainer) {
+      if (window.__pdfResizeObserver) {
+        try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
+      }
+      let lastWidth = Math.floor(scrollContainer.clientWidth);
+      let resizeTimer = null;
+
+      window.__pdfResizeObserver = new ResizeObserver(entries => {
+        for (const entry of entries) {
+          const newWidth = Math.floor(entry.contentRect.width);
+          if (Math.abs(newWidth - lastWidth) < 100) continue;
+          lastWidth = newWidth;
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            const sc = document.getElementById('pdf-pages-scroll');
+            if (sc && sc.dataset.pdfUrl) {
+              renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
+            }
+          }, 500);
+        }
+      });
+      window.__pdfResizeObserver.observe(scrollContainer);
+    }
+  }
 
   // 讓 statementContent 佔滿寬度
   const stmtContent = document.getElementById('statementContent');
@@ -541,36 +610,6 @@ function mountPdfQuizSplit() {
   if (splitDivider) splitDivider.style.display = 'none';
   const drawpadWrapper = document.getElementById('drawpadWrapper');
   if (drawpadWrapper) drawpadWrapper.style.display = 'none';
-
-  // 記錄 PDF URL，供後續重渲染使用
-  if (scrollContainer) scrollContainer.dataset.pdfUrl = absolutePdfUrl;
-
-  // ⭐ 只在容器寬度變化超過 100px 才重新渲染（手機地址欄隱藏/顯示不會觸發）
-  if (window.ResizeObserver && scrollContainer) {
-    if (window.__pdfResizeObserver) {
-      try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
-    }
-    let lastWidth = Math.floor(scrollContainer.clientWidth);
-    let resizeTimer = null;
-
-    window.__pdfResizeObserver = new ResizeObserver(entries => {
-      for (const entry of entries) {
-        const newWidth = Math.floor(entry.contentRect.width);
-        // 寬度變化小於 100px → 忽略（手機地址欄、鍵盤彈出、微調都不會觸發）
-        if (Math.abs(newWidth - lastWidth) < 100) continue;
-        lastWidth = newWidth;
-
-        if (resizeTimer) clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          const sc = document.getElementById('pdf-pages-scroll');
-          if (sc && sc.dataset.pdfUrl) {
-            renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
-          }
-        }, 500);
-      }
-    });
-    window.__pdfResizeObserver.observe(scrollContainer);
-  }
 }
 
 // ============ MC 表格掛載 ============
