@@ -956,6 +956,12 @@ function mountPdfQuizSplit() {
   }
 
   // 渲染 PDF viewer
+  
+  // 如果 PDF 是 HTTP 的，用 Google Docs Viewer 代理，避免 Mixed Content 拦截
+  const iframeSrc = absolutePdfUrl.startsWith('http://')
+    ? `https://docs.google.com/viewer?url=${encodeURIComponent(absolutePdfUrl)}&embedded=true`
+    : absolutePdfUrl;
+
   pdfMount.innerHTML = `
     <div class="pdf-viewer-header">
       <span class="pdf-viewer-title">📄 PDF</span>
@@ -964,7 +970,7 @@ function mountPdfQuizSplit() {
       </a>
     </div>
     <iframe class="pdf-viewer-iframe"
-      src="${escapeHtml(absolutePdfUrl)}"
+      src="${escapeHtml(iframeSrc)}"
       title="PDF Viewer"
       referrerpolicy="no-referrer"></iframe>
   `;
