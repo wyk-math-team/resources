@@ -632,16 +632,17 @@ function mountPdfQuizSplit() {
   }
 
   // ⭐ PDF 全屏：把 pdfMount 包進 stage
+   // ⭐ 先檢查 quiz 是否存在（必須在移動 pdfMount 前）
+  const quizMount = document.getElementById('mc-quiz-mount');
+  const hasQuiz = !!quizMount;
+
+  // ⭐ PDF 全屏：把 pdfMount 包進 stage
   const stage = document.createElement('div');
   stage.className = 'pdf-quiz-stage';
   pdfMount.parentNode.insertBefore(stage, pdfMount);
   stage.appendChild(pdfMount);
 
   pdfMount.classList.add('pdf-quiz-left');
-
-  // 檢查有沒有 quiz
-  const quizMount = document.getElementById('mc-quiz-mount');
-  const hasQuiz = quizMount && quizMount.parentNode === pdfMount.parentNode;
 
   // 渲染 PDF viewer
   pdfMount.innerHTML = `
