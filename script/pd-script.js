@@ -571,8 +571,8 @@ function mountPdfQuizSplit() {
         width: 400px;
         max-height: 75vh;
         background: rgba(214, 232, 252, 0.72);
-        backdrop-filter: blur(12px) saturate(1.6);
-        -webkit-backdrop-filter: blur(12px) saturate(1.6);
+        backdrop-filter: blur(5px) saturate(1.2);
+        -webkit-backdrop-filter: blur(5px) saturate(1.2);
         border: 1px solid rgba(255, 255, 255, 0.75);
         border-radius: 8px;
         box-shadow:
@@ -591,8 +591,8 @@ function mountPdfQuizSplit() {
         padding: 8px 12px;
         background: linear-gradient(
           180deg,
-          rgba(230, 242, 255, 0.85) 0%,
-          rgba(190, 215, 245, 0.78) 100%
+          rgba(230, 242, 255, 0.55) 0%,
+          rgba(190, 215, 245, 0.45) 100%
         );
         border-bottom: 1px solid rgba(120, 160, 210, 0.45);
         display: flex;
@@ -635,11 +635,11 @@ function mountPdfQuizSplit() {
 
       /* 表格在玻璃背景上的調整 */
       .mcq-floating-window .mc-table {
-        background: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 4px;
       }
       .mcq-floating-window .mc-table th {
-        background: rgba(200, 222, 245, 0.75);
+        background: rgba(200, 222, 245, 0.5);
         color: #1a3a5c;
         border-color: rgba(120, 160, 210, 0.5);
       }
@@ -656,7 +656,7 @@ function mountPdfQuizSplit() {
 
       /* 深色模式：改成深藍玻璃 */
       [data-theme="dark"] .mcq-floating-window {
-        background: rgba(20, 35, 60, 0.78);
+        background: rgba(20, 35, 60, 0.55);
         border: 1px solid rgba(120, 170, 230, 0.35);
         box-shadow:
           0 10px 32px rgba(0, 0, 0, 0.6),
@@ -950,21 +950,18 @@ function mountMcQuiz() {
     answerInputEl.addEventListener('input', syncRadiosFromInput);
   }
 
-  mount.querySelectorAll('input[type="radio"]').forEach(r => {
-    r.addEventListener('mousedown', function () {
-      this.dataset.wasChecked = this.checked ? '1' : '0';
-    });
-    r.addEventListener('click', function () {
-      if (this.dataset.wasChecked === '1') {
-        this.checked = false;
-        this.dataset.wasChecked = '0';
-      }
+    // 點擊整個格子（td）都能選中對應的 radio
+  mount.querySelectorAll('.mc-table td').forEach(td => {
+    const radio = td.querySelector('input[type="radio"]');
+    if (!radio) return;                     // 跳過 "#" 列
+    td.style.cursor = 'pointer';
+    td.addEventListener('click', function (e) {
+      if (e.target === radio) return;       // 點到 radio 本身 → 走它自己的邏輯
+      // 手動切換 checked（同組會自動取消其他選項）
+      radio.checked = !radio.checked;
       syncInputFromRadios();
     });
-    r.addEventListener('change', syncInputFromRadios);
   });
-
-  syncRadiosFromInput();
 
   const submitMcBtn = mount.querySelector('#mc-submit-btn');
   if (submitMcBtn) {
