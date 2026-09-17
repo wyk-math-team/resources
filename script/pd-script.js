@@ -618,6 +618,7 @@ function mountPdfQuizSplit() {
         overflow: hidden;
         font-size: 0.9rem;
         color: #0a2a4a;
+        background: rgba(255,255,255,0.03)
         /* 文字白暈：避免跟 PDF 文字混在一起 */
         text-shadow:
           0 0 3px rgba(255, 255, 255, 1),
@@ -734,6 +735,29 @@ function mountPdfQuizSplit() {
       }
       .mcq-floating-window .mc-submit-btn:hover {
         background: rgba(50, 180, 80, 0.95);
+      }
+            .mcq-resize-handle {
+        position: absolute;
+        right: 0; bottom: 0;
+        width: 22px; height: 22px;
+        cursor: nwse-resize;
+        touch-action: none;
+        background: linear-gradient(
+          135deg,
+          transparent 45%,
+          rgba(100, 150, 210, 0.35) 45%,
+          rgba(100, 150, 210, 0.55) 100%
+        );
+        border-bottom-right-radius: 8px;
+        z-index: 2;
+      }
+      .mcq-resize-handle:hover {
+        background: linear-gradient(
+          135deg,
+          transparent 45%,
+          rgba(100, 150, 210, 0.7) 45%,
+          rgba(100, 150, 210, 0.95) 100%
+        );
       }
 
             [data-theme="dark"] .mcq-floating-window,
