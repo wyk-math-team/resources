@@ -442,6 +442,41 @@ function makeDraggable(el, handle) {
   handle.addEventListener('pointerup', endDrag);
   handle.addEventListener('pointercancel', endDrag);
 }
+// ============ 讓元素可縮放（右下角手柄）============
+function makeResizable(el, handle, minW = 260, minH = 200) {
+  let startX = 0, startY = 0, startW = 0, startH = 0;
+  let resizing = false;
+
+  handle.addEventListener('pointerdown', (e) => {
+    resizing = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    startW = el.offsetWidth;
+    startH = el.offsetHeight;
+    handle.setPointerCapture(e.pointerId);
+    e.preventDefault();
+    e.stopPropagation();
+  });
+
+  handle.addEventListener('pointermove', (e) => {
+    if (!resizing) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const newW = Math.max(minW, startW + dx);
+    const newH = Math.max(minH, startH + dy);
+    el.style.width = newW + 'px';
+    el.style.height = newH + 'px';
+    el.style.maxHeight = 'none';   // 放開原本的 max-height
+  });
+
+  function endResize(e) {
+    if (!resizing) return;
+    resizing = false;
+    try { handle.releasePointerCapture(e.pointerId); } catch (err) {}
+  }
+  handle.addEventListener('pointerup', endResize);
+  handle.addEventListener('pointercancel', endResize);
+}
 
 // ============ PDF + Quiz（PDF 全屏 + 浮動答题卡）============
 function mountPdfQuizSplit() {
@@ -565,35 +600,61 @@ function mountPdfQuizSplit() {
       /* === 浮動答題卡 === */
             /* === 浮動答題卡（Windows Aero 風格）=== */
             /* === 浮動答題卡：水晶質感 === */
-      .mcq-floating-window {
+            .mcq-floating-window {
         position: fixed;
         top: 100px;
         right: 40px;
         width: 400px;
         max-height: 75vh;
-        /* 極低不透明度 + 飽和度提升，做出水晶透光感 */
-        background: rgba(220, 240, 255, 0.18);
-        backdrop-filter: blur(16px) saturate(2) brightness(1.1);
-        -webkit-backdrop-filter: blur(16px) saturate(2) brightness(1.1);
-        border: 1px solid rgba(255, 255, 255, 0.55);
-        border-radius: 12px;
-        /* 三層高光：外陰影 + 上緣亮線 + 內側斜射光 */
+        /* 近乎完全透明 */
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px) saturate(1.8) brightness(1.05);
+        -webkit-backdrop-filter: blur(10px) saturate(1.8) brightness(1.05);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 10px;
         box-shadow:
-          0 12px 40px rgba(0, 40, 100, 0.22),
-          0 2px 8px rgba(0, 40, 100, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.95),
-          inset 0 -1px 0 rgba(255, 255, 255, 0.35),
-          inset 1px 0 0 rgba(255, 255, 255, 0.55),
-          inset -1px 0 0 rgba(255, 255, 255, 0.55),
-          inset 0 20px 40px -20px rgba(255, 255, 255, 0.6);
+          0 6px 24px rgba(0, 40, 100, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7),
+          inset 0 -1px 0 rgba(255, 255, 255, 0.2),
+          inset 1px 0 0 rgba(255, 255, 255, 0.35),
+          inset -1px 0 0 rgba(255, 255, 255, 0.35);
         z-index: 9000;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         font-size: 0.9rem;
         color: #0a2a4a;
-        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-        transition: box-shadow 0.25s ease, border-color 0.25s ease;
+        /* 文字白暈，讓字在任意背景上都看得清 */
+        text-shadow:
+          0 0 3px rgba(255, 255, 255, 1),
+          0 0 6px rgba(255, 255, 255, 0.9),
+          0 1px 0 rgba(255, 255, 255, 1);
+      }
+            /* 縮放把手（右下角三角形） */
+      .mcq-resize-handle {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 22px;
+        height: 22px;
+        cursor: nwse-resize;
+        touch-action: none;
+        background: linear-gradient(
+          135deg,
+          transparent 45%,
+          rgba(100, 150, 210, 0.35) 45%,
+          rgba(100, 150, 210, 0.55) 100%
+        );
+        border-bottom-right-radius: 10px;
+        z-index: 1;
+      }
+      .mcq-resize-handle:hover {
+        background: linear-gradient(
+          135deg,
+          transparent 45%,
+          rgba(100, 150, 210, 0.6) 45%,
+          rgba(100, 150, 210, 0.85) 100%
+        );
       }
       /* 滑鼠 hover 時，水晶表面微微發亮 */
       .mcq-floating-window:hover {
@@ -679,12 +740,7 @@ function mountPdfQuizSplit() {
         overflow-y: auto;
         padding: 0.6rem;
         min-height: 0;
-        /* 內部一點點亮，讓內容浮在玻璃上 */
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.08) 0%,
-          rgba(255, 255, 255, 0.02) 100%
-        );
+        background: transparent;
       }
 
       /* 表格：內部也走水晶風 */
@@ -905,10 +961,16 @@ function mountPdfQuizSplit() {
 
     floating.appendChild(header);
     floating.appendChild(body);
+        // ⭐ 縮放把手
+    const resizeHandle = document.createElement('div');
+    resizeHandle.className = 'mcq-resize-handle';
+    resizeHandle.title = 'Drag to resize';
+    floating.appendChild(resizeHandle);
     document.body.appendChild(floating);
 
     // 拖動
     makeDraggable(floating, header);
+    makeResizable(floating, resizeHandle, 260, 200);
 
     // 切換
     const toggleBtn = document.getElementById('toggleMcqBtn');
