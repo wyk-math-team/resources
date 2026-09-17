@@ -293,8 +293,21 @@ function loadPdfJs() {
   return _pdfjsLoadingPromise;
 }
 
-// ============ PDF.js 渲染 ============
+// ============ PDF.js 渲染（帶並發保護 + 滾動位置保留）============
+let _pdfRenderToken = 0;
+let _pdfCurrentDoc = null;
+
 async function renderPdfWithPdfJs(container, pdfUrl) {
+  const token = ++_pdfRenderToken;
+
+  // 取消上一次渲染
+  if (_pdfCurrentDoc) {
+    try { _pdfCurrentDoc.destroy(); } catch (e) { /* ignore */ }
+    _pdfCurrentDoc = null;
+  }
+
+  const oldScrollTop = container.scrollTop || 0;
+
   container.innerHTML = `
     <div class="pdf-loading">
       <span class="spinner"></span> Loading PDF...
@@ -305,6 +318,7 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
   try {
     pdfjsLib = await loadPdfJs();
   } catch (err) {
+    if (token !== _pdfRenderToken) return;
     console.error(err);
     container.innerHTML = `
       <div class="pdf-error">
@@ -315,20 +329,28 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
     return;
   }
 
+  if (token !== _pdfRenderToken) return;
+
   try {
     const pdf = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
+    if (token !== _pdfRenderToken) {
+      try { pdf.destroy(); } catch (e) { /* ignore */ }
+      return;
+    }
+    _pdfCurrentDoc = pdf;
 
-    // 清空 loading，開始逐頁渲染
     container.innerHTML = '';
 
     const dpr = window.devicePixelRatio || 1;
+    const containerWidth = (container.clientWidth || container.offsetWidth || 800) - 8;
 
     for (let n = 1; n <= pdf.numPages; n++) {
-      const page = await pdf.getPage(n);
-      const unscaledViewport = page.getViewport({ scale: 1 });
+      if (token !== _pdfRenderToken) return;    // 已被新的渲染任務取代
 
-      // 依容器寬度縮放；如果容器寬度為 0（尚未 layout），退回到 800
-      const containerWidth = (container.clientWidth || container.offsetWidth || 800) - 8;
+      const page = await pdf.getPage(n);
+      if (token !== _pdfRenderToken) return;
+
+      const unscaledViewport = page.getViewport({ scale: 1 });
       const scale = containerWidth / unscaledViewport.width;
       const viewport = page.getViewport({ scale: scale * dpr });
 
@@ -343,7 +365,13 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
       const ctx = canvas.getContext('2d');
       await page.render({ canvasContext: ctx, viewport }).promise;
     }
+
+    // 恢復滾動位置
+    if (token === _pdfRenderToken && oldScrollTop > 0) {
+      requestAnimationFrame(() => { container.scrollTop = oldScrollTop; });
+    }
   } catch (err) {
+    if (token !== _pdfRenderToken) return;
     console.error('PDF render error:', err);
     container.innerHTML = `
       <div class="pdf-error">
@@ -365,7 +393,7 @@ function mountPdfQuizSplit() {
   let absolutePdfUrl;
   try {
     absolutePdfUrl = new URL(pdfUrl, location.href).href;
-  } catch {
+  } catch (e) {
     absolutePdfUrl = pdfUrl;
   }
 
@@ -514,21 +542,35 @@ function mountPdfQuizSplit() {
   const drawpadWrapper = document.getElementById('drawpadWrapper');
   if (drawpadWrapper) drawpadWrapper.style.display = 'none';
 
-  // 視窗尺寸變化時重新渲染（讓 canvas 寬度跟著更新）
-  if (!window.__pdfResizeHandler) {
-    let resizeTimer = null;
-    window.__pdfResizeHandler = () => {
-      if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const sc = document.getElementById('pdf-pages-scroll');
-        if (sc && sc.dataset.pdfUrl) {
-          renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
-        }
-      }, 300);
-    };
-    window.addEventListener('resize', window.__pdfResizeHandler);
-  }
+  // 記錄 PDF URL，供後續重渲染使用
   if (scrollContainer) scrollContainer.dataset.pdfUrl = absolutePdfUrl;
+
+  // ⭐ 只在容器寬度變化超過 100px 才重新渲染（手機地址欄隱藏/顯示不會觸發）
+  if (window.ResizeObserver && scrollContainer) {
+    if (window.__pdfResizeObserver) {
+      try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
+    }
+    let lastWidth = Math.floor(scrollContainer.clientWidth);
+    let resizeTimer = null;
+
+    window.__pdfResizeObserver = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const newWidth = Math.floor(entry.contentRect.width);
+        // 寬度變化小於 100px → 忽略（手機地址欄、鍵盤彈出、微調都不會觸發）
+        if (Math.abs(newWidth - lastWidth) < 100) continue;
+        lastWidth = newWidth;
+
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          const sc = document.getElementById('pdf-pages-scroll');
+          if (sc && sc.dataset.pdfUrl) {
+            renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
+          }
+        }, 500);
+      }
+    });
+    window.__pdfResizeObserver.observe(scrollContainer);
+  }
 }
 
 // ============ MC 表格掛載 ============
@@ -1277,5 +1319,9 @@ window.addEventListener('pagehide', () => {
     saveTimer();
   }
   if (pollTimer) clearInterval(pollTimer);
+  if (window.__pdfResizeObserver) {
+    try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
+    window.__pdfResizeObserver = null;
+  }
   cooldown = false;
 });
