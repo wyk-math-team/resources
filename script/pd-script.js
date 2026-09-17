@@ -563,27 +563,38 @@ function mountPdfQuizSplit() {
       .pdf-error a { color: var(--accent); font-weight: 600; }
 
       /* === 浮動答題卡 === */
+            /* === 浮動答題卡（Windows Aero 風格）=== */
       .mcq-floating-window {
         position: fixed;
         top: 100px;
         right: 40px;
         width: 400px;
         max-height: 75vh;
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
+        background: rgba(214, 232, 252, 0.72);
+        backdrop-filter: blur(12px) saturate(1.6);
+        -webkit-backdrop-filter: blur(12px) saturate(1.6);
+        border: 1px solid rgba(255, 255, 255, 0.75);
         border-radius: 8px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+        box-shadow:
+          0 10px 32px rgba(0, 40, 100, 0.28),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9),
+          inset 0 -1px 0 rgba(255, 255, 255, 0.25);
         z-index: 9000;
         display: flex;
         flex-direction: column;
         overflow: hidden;
         font-size: 0.9rem;
+        color: #123;
       }
       .mcq-float-header {
         cursor: move;
         padding: 8px 12px;
-        background: #f0f2f5;
-        border-bottom: 1px solid var(--border-color);
+        background: linear-gradient(
+          180deg,
+          rgba(230, 242, 255, 0.85) 0%,
+          rgba(190, 215, 245, 0.78) 100%
+        );
+        border-bottom: 1px solid rgba(120, 160, 210, 0.45);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -592,23 +603,29 @@ function mountPdfQuizSplit() {
         font-size: 0.85rem;
         flex-shrink: 0;
         touch-action: none;
+        color: #1a3a5c;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
       }
-      [data-theme="dark"] .mcq-float-header { background: #21262d; }
       .mcq-float-header .mcq-drag-icon {
         margin-right: 6px;
-        opacity: 0.5;
+        opacity: 0.55;
       }
       .mcq-close-btn {
-        background: none;
-        border: none;
-        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(120, 160, 210, 0.4);
+        border-radius: 3px;
+        font-size: 0.85rem;
         cursor: pointer;
-        color: var(--text-secondary);
-        padding: 0 4px;
+        color: #1a3a5c;
+        padding: 1px 7px;
         font-family: inherit;
-        line-height: 1;
+        line-height: 1.2;
       }
-      .mcq-close-btn:hover { color: var(--danger); }
+      .mcq-close-btn:hover {
+        background: rgba(220, 60, 60, 0.85);
+        color: #fff;
+        border-color: rgba(200, 40, 40, 0.9);
+      }
       .mcq-float-body {
         flex: 1 1 auto;
         overflow-y: auto;
@@ -616,16 +633,69 @@ function mountPdfQuizSplit() {
         min-height: 0;
       }
 
-      @media (max-width: 768px) {
-        .pdf-quiz-left { height: 70vh; }
-        .mcq-floating-window {
-          width: calc(100vw - 24px);
-          right: 12px;
-          left: auto !important;
-          top: auto !important;
-          bottom: 12px;
-          max-height: 60vh;
-        }
+      /* 表格在玻璃背景上的調整 */
+      .mcq-floating-window .mc-table {
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 4px;
+      }
+      .mcq-floating-window .mc-table th {
+        background: rgba(200, 222, 245, 0.75);
+        color: #1a3a5c;
+        border-color: rgba(120, 160, 210, 0.5);
+      }
+      .mcq-floating-window .mc-table td {
+        border-color: rgba(120, 160, 210, 0.4);
+      }
+      .mcq-floating-window .mc-table td:first-child {
+        background: rgba(220, 235, 250, 0.65);
+        color: #3a5a80;
+      }
+      .mcq-floating-window .mc-submit-btn {
+        box-shadow: 0 2px 6px rgba(0, 100, 40, 0.3);
+      }
+
+      /* 深色模式：改成深藍玻璃 */
+      [data-theme="dark"] .mcq-floating-window {
+        background: rgba(20, 35, 60, 0.78);
+        border: 1px solid rgba(120, 170, 230, 0.35);
+        box-shadow:
+          0 10px 32px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(160, 200, 255, 0.15);
+        color: #d8e6f5;
+      }
+      [data-theme="dark"] .mcq-float-header {
+        background: linear-gradient(
+          180deg,
+          rgba(40, 60, 95, 0.85) 0%,
+          rgba(25, 40, 70, 0.9) 100%
+        );
+        border-bottom: 1px solid rgba(120, 170, 230, 0.35);
+        color: #d8e6f5;
+        text-shadow: none;
+      }
+      [data-theme="dark"] .mcq-close-btn {
+        background: rgba(60, 90, 130, 0.6);
+        color: #d8e6f5;
+        border-color: rgba(120, 170, 230, 0.4);
+      }
+      [data-theme="dark"] .mcq-close-btn:hover {
+        background: rgba(200, 60, 60, 0.85);
+        color: #fff;
+      }
+      [data-theme="dark"] .mcq-floating-window .mc-table {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      [data-theme="dark"] .mcq-floating-window .mc-table th {
+        background: rgba(60, 90, 130, 0.6);
+        color: #d8e6f5;
+        border-color: rgba(120, 170, 230, 0.35);
+      }
+      [data-theme="dark"] .mcq-floating-window .mc-table td {
+        border-color: rgba(120, 170, 230, 0.25);
+      }
+      [data-theme="dark"] .mcq-floating-window .mc-table td:first-child {
+        background: rgba(40, 60, 95, 0.5);
+        color: #a8c8e8;
       }
     `;
     document.head.appendChild(styleEl);
