@@ -398,7 +398,6 @@ async function initPage() {
       }
       mountPdfQuizSplit();
       mountMcQuiz();
-      
     }
 
     await preloadPromise;
@@ -845,6 +844,7 @@ async function loadDiscussions(problemId) {
     listDiv.innerHTML = '<p>Error loading discussions.</p>';
   }
 }
+
 // ============ PDF + Quiz 左右分欄 ============
 function mountPdfQuizSplit() {
   const pdfMount = document.getElementById('pdf-quiz-split');
@@ -966,11 +966,22 @@ function mountPdfQuizSplit() {
     <iframe class="pdf-viewer-iframe"
       src="${escapeHtml(absolutePdfUrl)}"
       title="PDF Viewer"
-      loading="lazy"
       referrerpolicy="no-referrer"></iframe>
   `;
+
+  // ⭐ 讓 statementContent 佔滿寬度（PDF+Quiz 分欄需要更寬）
+  const stmtContent = document.getElementById('statementContent');
+  if (stmtContent) {
+    stmtContent.style.flex = '1 1 100%';
+    stmtContent.style.maxWidth = '100%';
+  }
+  // 隱藏 drawpad 相關（與 PDF+Quiz 分欄衝突）
+  const splitDivider = document.getElementById('splitDivider');
+  if (splitDivider) splitDivider.style.display = 'none';
+  const drawpadWrapper = document.getElementById('drawpadWrapper');
+  if (drawpadWrapper) drawpadWrapper.style.display = 'none';
 }
-// ============ MC 表格掛載 ============
+
 // ============ MC 表格掛載 ============
 function mountMcQuiz() {
   const mount = document.getElementById('mc-quiz-mount');
@@ -1034,7 +1045,7 @@ function mountMcQuiz() {
     document.head.appendChild(styleEl);
   }
 
-    // === 從 HTML 讀取題數（data-total），沒有則默認 45 ===
+  // === 從 HTML 讀取題數（data-total），沒有則默認 45 ===
   // 用法：<div id="mc-quiz-mount" data-total="30"></div>
   const rawTotal = parseInt(mount.dataset.total, 10);
   const TOTAL = (Number.isFinite(rawTotal) && rawTotal >= 1 && rawTotal <= 200) ? rawTotal : 45;
@@ -1121,29 +1132,32 @@ function mountMcQuiz() {
   syncRadiosFromInput();
 
   // MC 提交按鈕
-  document.getElementById('mc-submit-btn').addEventListener('click', () => {
-    let answer = '';
-    for (let i = 1; i <= TOTAL; i++) {
-      const sel = document.querySelector(`input[name="mcq-${i}"]:checked`);
-      answer += sel ? sel.value : 'X';
-    }
+  const submitMcBtn = mount.querySelector('#mc-submit-btn');
+  if (submitMcBtn) {
+    submitMcBtn.addEventListener('click', () => {
+      let answer = '';
+      for (let i = 1; i <= TOTAL; i++) {
+        const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
+        answer += sel ? sel.value : 'X';
+      }
 
-    currentMode = 'numeric';
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    const numBtn = document.getElementById('modeNumeric');
-    if (numBtn) numBtn.classList.add('active');
-    document.getElementById('textAnswerGroup').style.display = 'block';
-    document.getElementById('imageAnswerGroup').style.display = 'none';
-    document.getElementById('expressionAnswerGroup').style.display = 'none';
+      currentMode = 'numeric';
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      const numBtn = document.getElementById('modeNumeric');
+      if (numBtn) numBtn.classList.add('active');
+      document.getElementById('textAnswerGroup').style.display = 'block';
+      document.getElementById('imageAnswerGroup').style.display = 'none';
+      document.getElementById('expressionAnswerGroup').style.display = 'none';
 
-    const input = document.getElementById('answerInput');
-    if (input) input.value = answer;
+      const input = document.getElementById('answerInput');
+      if (input) input.value = answer;
 
-    const submitBtn = document.getElementById('checkAnswerBtn');
-    if (submitBtn && !submitBtn.disabled) {
-      submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
-    }
-  });
+      const submitBtn = document.getElementById('checkAnswerBtn');
+      if (submitBtn && !submitBtn.disabled) {
+        submitBtn.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+      }
+    });
+  }
 }
 
 initPage();
@@ -1152,4 +1166,6 @@ window.addEventListener('pagehide', () => {
     pauseTimer();
     saveTimer();
   }
+  if (pollTimer) clearInterval(pollTimer);
+  cooldown = false;
 });
