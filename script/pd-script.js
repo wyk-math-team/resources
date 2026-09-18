@@ -1,3 +1,4 @@
+// pd_script.js — problem detail page
 if (!isLoggedIn()) window.location.href = '/index.html';
 
 const pathMatch = window.location.pathname.match(/^\/problems\/([^/]+)$/);
@@ -19,98 +20,72 @@ let timerSeconds = 0;
 let timerRunning = false;
 let currentProblemName = '';
 
-// ============ Timer 持久化 ============
+// ============ Timer ============
 const TIMER_KEY = `timer_${problemId}`;
-const saveTimer = () => localStorage.setItem(TIMER_KEY, timerSeconds.toString());
+const saveTimer  = () => localStorage.setItem(TIMER_KEY, String(timerSeconds));
 const clearTimer = () => localStorage.removeItem(TIMER_KEY);
 function loadTimer() {
-  const saved = localStorage.getItem(TIMER_KEY);
-  const val = saved !== null ? parseInt(saved, 10) : 0;
-  timerSeconds = (!isNaN(val) && val >= 0) ? val : 0;
+  const v = parseInt(localStorage.getItem(TIMER_KEY) ?? '0', 10);
+  timerSeconds = (!isNaN(v) && v >= 0) ? v : 0;
 }
 
-function escapeHtml(str) {
-  if (str === null || str === undefined) return '';
-  return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]);
-}
+// ============ 工具 ============
+const escapeHtml = s => (s ?? '').toString().replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+const getTopbarHeight = () => {
+  const n = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-height'), 10);
+  return Number.isFinite(n) ? n : 60;
+};
 
-// ============ 狀態徽章 CSS（動態注入一次）============
+// ============ 狀態徽章 CSS（只注入一次）============
 (function injectFeedbackBoxCSS() {
   if (document.getElementById('feedback-box-style')) return;
   const s = document.createElement('style');
   s.id = 'feedback-box-style';
   s.textContent = `
-    .feedback-box {
-      display: inline-block;
-      padding: 0.3rem 0.9rem;
-      border-radius: 4px;
-      border: 1px solid;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: filter 0.15s, transform 0.1s;
-    }
-    .feedback-box:hover { filter: brightness(0.94); transform: translateY(-1px); }
-    .feedback-box:active { transform: translateY(0); }
-    .feedback-box.status-accepted { background: #d4edda; color: #155724; border-color: #c3e6cb; }
-    .feedback-box.status-wrong    { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
-    .feedback-box.status-partial  { background: #fff3cd; color: #856404; border-color: #ffeeba; }
-    .feedback-box.status-system   { background: #e2e3e5; color: #383d41; border-color: #d6d8db; }
-    .feedback-box.status-pending  { background: #eee;    color: #666;    border-color: #d6d8db; }
-    [data-theme="dark"] .feedback-box.status-accepted { background: #1b4d2e; color: #8fdf8f; border-color: #2e6b3e; }
-    [data-theme="dark"] .feedback-box.status-wrong    { background: #4d1b1b; color: #df8f8f; border-color: #6b2e2e; }
-    [data-theme="dark"] .feedback-box.status-partial  { background: #4d3e1b; color: #dfc88f; border-color: #6b562e; }
-    [data-theme="dark"] .feedback-box.status-system   { background: #2d2d2d; color: #bbb;    border-color: #444; }
-    [data-theme="dark"] .feedback-box.status-pending  { background: #2d2d2d; color: #999;    border-color: #444; }
-  `;
+.feedback-box{display:inline-block;padding:.3rem .9rem;border-radius:4px;border:1px solid;font-weight:600;text-decoration:none;cursor:pointer;font-size:.9rem;transition:filter .15s,transform .1s}
+.feedback-box:hover{filter:brightness(.94);transform:translateY(-1px)}
+.feedback-box:active{transform:translateY(0)}
+.feedback-box.status-accepted{background:#d4edda;color:#155724;border-color:#c3e6cb}
+.feedback-box.status-wrong{background:#f8d7da;color:#721c24;border-color:#f5c6cb}
+.feedback-box.status-partial{background:#fff3cd;color:#856404;border-color:#ffeeba}
+.feedback-box.status-system{background:#e2e3e5;color:#383d41;border-color:#d6d8db}
+.feedback-box.status-pending{background:#eee;color:#666;border-color:#d6d8db}
+[data-theme="dark"] .feedback-box.status-accepted{background:#1b4d2e;color:#8fdf8f;border-color:#2e6b3e}
+[data-theme="dark"] .feedback-box.status-wrong{background:#4d1b1b;color:#df8f8f;border-color:#6b2e2e}
+[data-theme="dark"] .feedback-box.status-partial{background:#4d3e1b;color:#dfc88f;border-color:#6b562e}
+[data-theme="dark"] .feedback-box.status-system{background:#2d2d2d;color:#bbb;border-color:#444}
+[data-theme="dark"] .feedback-box.status-pending{background:#2d2d2d;color:#999;border-color:#444}`;
   document.head.appendChild(s);
 })();
 
 function statusBoxHtml(subid, text, cls) {
   if (!subid) return text;
-  const url = `/submissions/${encodeURIComponent(subid)}/detail`;
-  return `<a href="${url}" class="feedback-box ${cls}">${escapeHtml(text)}</a>`;
+  return `<a href="/submissions/${encodeURIComponent(subid)}/detail" class="feedback-box ${cls}">${escapeHtml(text)}</a>`;
 }
 
-// ============ 題目載入 ============
+// ============ 題目載入（CDN 優先，失敗回退 API）============
 async function loadProblem() {
   try {
-    const cdnUrl = `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1000);
-    const res = await fetch(cdnUrl, { signal: controller.signal });
-    clearTimeout(timeoutId);
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 1000);
+    const res = await fetch(`https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`, { signal: ctrl.signal });
+    clearTimeout(t);
     if (res.ok) {
       const data = await res.json();
-      return {
-        success: true,
-        problem: {
-          id: problemId,
-          name: data.name || problemId,
-          statement: data.statement || '',
-          difficulty: data.difficulty ?? 0,
-          tags: data.tags || [],
-          ...data
-        }
-      };
+      return { success: true, problem: {
+        id: problemId, name: data.name || problemId, statement: data.statement || '',
+        difficulty: data.difficulty ?? 0, tags: data.tags || [], ...data
+      }};
     }
-  } catch (e) { /* 走 API 回退 */ }
+  } catch (e) { /* fallthrough */ }
 
   try {
     const data = await apiCall(`/api/problem?id=${encodeURIComponent(problemId)}`);
     if (data.success && data.problem) {
-      return {
-        success: true,
-        problem: {
-          id: problemId,
-          name: data.problem.name || problemId,
-          statement: data.problem.statement || '',
-          difficulty: data.problem.difficulty ?? 0,
-          tags: data.problem.tags || [],
-          ...data.problem
-        }
-      };
+      return { success: true, problem: {
+        id: problemId, name: data.problem.name || problemId, statement: data.problem.statement || '',
+        difficulty: data.problem.difficulty ?? 0, tags: data.problem.tags || [], ...data.problem
+      }};
     }
   } catch (e) { /* ignore */ }
 
@@ -118,19 +93,19 @@ async function loadProblem() {
 }
 
 const domPurifyConfig = {
-  ALLOWED_TAGS: ['b', 'i', 'u', 'strong', 'em', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'code', 'pre', 'svg', 'g', 'defs', 'clipPath', 'foreignObject', 'path', 'circle', 'line', 'polyline', 'polygon', 'rect', 'text', 'tspan', 'linearGradient', 'radialGradient', 'stop', 'image', 'use', 'img'],
-  ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id', 'style', 'xmlns', 'viewBox', 'width', 'height', 'd', 'cx', 'cy', 'r', 'x', 'y', 'x1', 'x2', 'y1', 'y2', 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-opacity', 'stroke-opacity', 'opacity', 'font-size', 'text-anchor', 'dominant-baseline', 'transform', 'src'],
+  ALLOWED_TAGS: ['b','i','u','strong','em','a','p','br','ul','ol','li','span','div','code','pre','svg','g','defs','clipPath','foreignObject','path','circle','line','polyline','polygon','rect','text','tspan','linearGradient','radialGradient','stop','image','use','img'],
+  ALLOWED_ATTR: ['href','target','rel','class','id','style','xmlns','viewBox','width','height','d','cx','cy','r','x','y','x1','x2','y1','y2','points','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','fill-opacity','stroke-opacity','opacity','font-size','text-anchor','dominant-baseline','transform','src'],
   ALLOW_DATA_ATTR: true
 };
 
 // ============ 狀態圖標 ============
 function updateProblemDetailIcon(pid, pname) {
   const state = userStates[pid] || 'not_started';
-  const iconEl = document.getElementById('detailStatusIcon');
-  if (iconEl) {
-    if (state === 'passed') iconEl.innerHTML = '<i class="fa fa-check-circle fa-green"></i>';
-    else if (state === 'failed') iconEl.innerHTML = '<i class="fa fa-times-circle fa-red"></i>';
-    else iconEl.innerHTML = '';
+  const el = document.getElementById('detailStatusIcon');
+  if (el) {
+    el.innerHTML = state === 'passed' ? '<i class="fa fa-check-circle fa-green"></i>'
+                 : state === 'failed' ? '<i class="fa fa-times-circle fa-red"></i>'
+                 : '';
   }
   if (pname) document.title = pname + ' - WYK Maths Team';
 }
@@ -140,8 +115,7 @@ function startImageStatusPoll() {
   clearInterval(pollTimer);
   let attempts = 0;
   pollTimer = setInterval(async () => {
-    attempts++;
-    if (attempts > 120) {
+    if (++attempts > 120) {
       clearInterval(pollTimer);
       document.getElementById('detailSpinner').style.display = 'none';
       document.getElementById('detailStatusIcon').style.display = '';
@@ -177,14 +151,14 @@ function startImageStatusPoll() {
   }, 5000);
 }
 
-// ============ Timer ============
+// ============ Timer 控制 ============
 function updateTimerDisplay() {
-  const display = document.getElementById('timerDisplay');
-  if (!display) return;
-  const hrs = Math.floor(timerSeconds / 3600);
-  const mins = Math.floor((timerSeconds % 3600) / 60);
-  const secs = timerSeconds % 60;
-  display.textContent = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  const el = document.getElementById('timerDisplay');
+  if (!el) return;
+  const h = Math.floor(timerSeconds / 3600);
+  const m = Math.floor((timerSeconds % 3600) / 60);
+  const s = timerSeconds % 60;
+  el.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
 function startTimer() {
   if (timerRunning) return;
@@ -204,15 +178,10 @@ function resetTimer() {
 }
 function toggleTimer() {
   const existing = document.getElementById('timerRow');
-  if (existing) {
-    pauseTimer();
-    saveTimer();
-    existing.remove();
-    return;
-  }
+  if (existing) { pauseTimer(); saveTimer(); existing.remove(); return; }
+
   const container = document.getElementById('splitContainer');
   if (!container) return;
-
   loadTimer();
   timerRunning = false;
 
@@ -224,50 +193,44 @@ function toggleTimer() {
     <button class="timer-btn" id="timerStartBtn">Start</button>
     <button class="timer-btn" id="timerPauseBtn">Pause</button>
     <button class="timer-btn" id="timerResetBtn">Reset</button>
-    <button class="timer-btn" id="timerCloseBtn">✕</button>
-  `;
+    <button class="timer-btn" id="timerCloseBtn">✕</button>`;
   container.parentNode.insertBefore(div, container);
   updateTimerDisplay();
 
   document.getElementById('timerStartBtn').addEventListener('click', startTimer);
   document.getElementById('timerPauseBtn').addEventListener('click', pauseTimer);
   document.getElementById('timerResetBtn').addEventListener('click', resetTimer);
-  document.getElementById('timerCloseBtn').addEventListener('click', () => {
-    pauseTimer();
-    saveTimer();
-    div.remove();
-  });
+  document.getElementById('timerCloseBtn').addEventListener('click', () => { pauseTimer(); saveTimer(); div.remove(); });
 }
 
 // ============ 導航 ============
 async function setupNavigation(currentProblem) {
-  const navContainer = document.getElementById('navButtons');
-  if (!navContainer) return;
+  const nav = document.getElementById('navButtons');
+  if (!nav) return;
   let ids = [];
   try {
     const cached = localStorage.getItem('problemListCache_full');
     if (cached) {
       const data = JSON.parse(cached);
-      if (data.timestamp && (Date.now() - data.timestamp < 24 * 60 * 60 * 1000)) {
-        if (data.problems && data.problems.length) ids = data.problems.map(p => p.id);
+      if (data.timestamp && (Date.now() - data.timestamp < 864e5) && data.problems?.length) {
+        ids = data.problems.map(p => p.id);
       }
     }
     if (!ids.length) {
       const res = await apiCall('/api/problem?ids=1');
       if (res.success && res.ids) ids = res.ids;
-      else { navContainer.innerHTML = ''; return; }
+      else { nav.innerHTML = ''; return; }
     }
     ids.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     const idx = ids.indexOf(currentProblem.id);
-    if (idx === -1) { navContainer.innerHTML = ''; return; }
-
+    if (idx === -1) { nav.innerHTML = ''; return; }
     let html = '';
     if (idx > 0) html += `<a href="/problems/${encodeURIComponent(ids[idx - 1])}" class="back-btn" title="Previous Problem">← Prev</a>`;
     if (idx < ids.length - 1) html += `<a href="/problems/${encodeURIComponent(ids[idx + 1])}" class="back-btn" title="Next Problem">Next →</a>`;
-    navContainer.innerHTML = html;
+    nav.innerHTML = html;
   } catch (e) {
     console.error('Navigation setup error:', e);
-    navContainer.innerHTML = '';
+    nav.innerHTML = '';
   }
 }
 
@@ -276,42 +239,30 @@ let _pdfjsLoadingPromise = null;
 function loadPdfJs() {
   if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
   if (_pdfjsLoadingPromise) return _pdfjsLoadingPromise;
-
   _pdfjsLoadingPromise = new Promise((resolve, reject) => {
     const s = document.createElement('script');
     s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
     s.onload = () => {
       if (!window.pdfjsLib) return reject(new Error('pdfjsLib not defined'));
-      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       resolve(window.pdfjsLib);
     };
     s.onerror = () => reject(new Error('Failed to load PDF.js'));
     document.head.appendChild(s);
   });
-
   return _pdfjsLoadingPromise;
 }
 
-// ============ PDF.js 渲染（帶並發保護 + 滾動位置保留）============
+// ============ PDF 渲染（含並發保護 + 滾動位置保留）============
 let _pdfRenderToken = 0;
 let _pdfCurrentDoc = null;
 
 async function renderPdfWithPdfJs(container, pdfUrl) {
   const token = ++_pdfRenderToken;
-
-  if (_pdfCurrentDoc) {
-    try { _pdfCurrentDoc.destroy(); } catch (e) { /* ignore */ }
-    _pdfCurrentDoc = null;
-  }
+  if (_pdfCurrentDoc) { try { _pdfCurrentDoc.destroy(); } catch (e) {} _pdfCurrentDoc = null; }
 
   const oldScrollTop = container.scrollTop || 0;
-
-  container.innerHTML = `
-    <div class="pdf-loading">
-      <span class="spinner"></span> Loading PDF...
-    </div>
-  `;
+  container.innerHTML = '<div class="pdf-loading"><span class="spinner"></span> Loading PDF...</div>';
 
   let pdfjsLib;
   try {
@@ -319,25 +270,15 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
   } catch (err) {
     if (token !== _pdfRenderToken) return;
     console.error(err);
-    container.innerHTML = `
-      <div class="pdf-error">
-        <i class="fas fa-exclamation-triangle"></i>
-        <p>Failed to load PDF viewer</p>
-        <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a>
-      </div>`;
+    container.innerHTML = `<div class="pdf-error"><i class="fas fa-exclamation-triangle"></i><p>Failed to load PDF viewer</p><a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a></div>`;
     return;
   }
-
   if (token !== _pdfRenderToken) return;
 
   try {
     const pdf = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
-    if (token !== _pdfRenderToken) {
-      try { pdf.destroy(); } catch (e) { /* ignore */ }
-      return;
-    }
+    if (token !== _pdfRenderToken) { try { pdf.destroy(); } catch (e) {} return; }
     _pdfCurrentDoc = pdf;
-
     container.innerHTML = '';
 
     const dpr = window.devicePixelRatio || 1;
@@ -345,14 +286,10 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
 
     for (let n = 1; n <= pdf.numPages; n++) {
       if (token !== _pdfRenderToken) return;
-
       const page = await pdf.getPage(n);
       if (token !== _pdfRenderToken) return;
-
-      const unscaledViewport = page.getViewport({ scale: 1 });
-      const scale = containerWidth / unscaledViewport.width;
-      const viewport = page.getViewport({ scale: scale * dpr });
-
+      const unscaled = page.getViewport({ scale: 1 });
+      const viewport = page.getViewport({ scale: (containerWidth / unscaled.width) * dpr });
       const canvas = document.createElement('canvas');
       canvas.width = Math.floor(viewport.width);
       canvas.height = Math.floor(viewport.height);
@@ -360,57 +297,38 @@ async function renderPdfWithPdfJs(container, pdfUrl) {
       canvas.style.height = Math.floor(viewport.height / dpr) + 'px';
       canvas.className = 'pdf-page-canvas';
       container.appendChild(canvas);
-
-      const ctx = canvas.getContext('2d');
-      await page.render({ canvasContext: ctx, viewport }).promise;
+      await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
     }
-
     if (token === _pdfRenderToken && oldScrollTop > 0) {
       requestAnimationFrame(() => { container.scrollTop = oldScrollTop; });
     }
   } catch (err) {
     if (token !== _pdfRenderToken) return;
     console.error('PDF render error:', err);
-    container.innerHTML = `
-      <div class="pdf-error">
-        <i class="fas fa-exclamation-triangle"></i>
-        <p>Failed to load PDF</p>
-        <a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a>
-      </div>`;
+    container.innerHTML = `<div class="pdf-error"><i class="fas fa-exclamation-triangle"></i><p>Failed to load PDF</p><a href="${escapeHtml(pdfUrl)}" target="_blank" rel="noopener">Open in new tab</a></div>`;
   }
 }
 
 // ============ Google Drive / Docs URL 轉換 ============
 function toGooglePreviewUrl(url) {
-  if (!url) return null;
-  if (!/^https:\/\/(docs|drive)\.google\.com\//.test(url)) return null;
-
+  if (!url || !/^https:\/\/(docs|drive)\.google\.com\//.test(url)) return null;
   const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
-  if (driveMatch) {
-    return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
-  }
-
+  if (driveMatch) return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
   const docsMatch = url.match(/docs\.google\.com\/(document|spreadsheets|presentation)\/d\/([^/?#]+)/);
-  if (docsMatch) {
-    return `https://docs.google.com/${docsMatch[1]}/d/${docsMatch[2]}/preview`;
-  }
-
+  if (docsMatch) return `https://docs.google.com/${docsMatch[1]}/d/${docsMatch[2]}/preview`;
   return null;
 }
 
-// ============ 讓元素可拖動（用 pointer 事件，兼容滑鼠/觸控）============
+// ============ 可拖動 / 可縮放（pointer 事件，兼容滑鼠與觸控）============
 function makeDraggable(el, handle) {
-  let startX = 0, startY = 0, origX = 0, origY = 0;
-  let dragging = false;
+  let startX = 0, startY = 0, origX = 0, origY = 0, dragging = false;
 
   handle.addEventListener('pointerdown', (e) => {
     if (e.target.closest('button')) return;
     dragging = true;
     const rect = el.getBoundingClientRect();
-    startX = e.clientX;
-    startY = e.clientY;
-    origX = rect.left;
-    origY = rect.top;
+    startX = e.clientX; startY = e.clientY;
+    origX = rect.left; origY = rect.top;
     el.style.left = rect.left + 'px';
     el.style.top = rect.top + 'px';
     el.style.right = 'auto';
@@ -423,36 +341,30 @@ function makeDraggable(el, handle) {
     if (!dragging) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    let newLeft = origX + dx;
-    let newTop = origY + dy;
-    // 邊界限制（不超出視口）
+    // ⭐ 下限使用 topbar 高度，避免遮擋頂欄
+    const minTop = getTopbarHeight();
     const maxLeft = window.innerWidth - el.offsetWidth;
     const maxTop = window.innerHeight - el.offsetHeight;
-    newLeft = Math.max(0, Math.min(maxLeft, newLeft));
-    newTop = Math.max(0, Math.min(maxTop, newTop));
-    el.style.left = newLeft + 'px';
-    el.style.top = newTop + 'px';
+    el.style.left = Math.max(0, Math.min(maxLeft, origX + dx)) + 'px';
+    el.style.top  = Math.max(minTop, Math.min(maxTop, origY + dy)) + 'px';
   });
 
   function endDrag(e) {
     if (!dragging) return;
     dragging = false;
-    try { handle.releasePointerCapture(e.pointerId); } catch (err) {}
+    try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
   }
   handle.addEventListener('pointerup', endDrag);
   handle.addEventListener('pointercancel', endDrag);
 }
-// ============ 讓元素可縮放（右下角手柄）============
+
 function makeResizable(el, handle, minW = 260, minH = 200) {
-  let startX = 0, startY = 0, startW = 0, startH = 0;
-  let resizing = false;
+  let startX = 0, startY = 0, startW = 0, startH = 0, resizing = false;
 
   handle.addEventListener('pointerdown', (e) => {
     resizing = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    startW = el.offsetWidth;
-    startH = el.offsetHeight;
+    startX = e.clientX; startY = e.clientY;
+    startW = el.offsetWidth; startH = el.offsetHeight;
     handle.setPointerCapture(e.pointerId);
     e.preventDefault();
     e.stopPropagation();
@@ -462,37 +374,49 @@ function makeResizable(el, handle, minW = 260, minH = 200) {
     if (!resizing) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    const newW = Math.max(minW, startW + dx);
-    const newH = Math.max(minH, startH + dy);
-    el.style.width = newW + 'px';
-    el.style.height = newH + 'px';
-    el.style.maxHeight = 'none';   // 放開原本的 max-height
+    el.style.width = Math.max(minW, startW + dx) + 'px';
+    el.style.height = Math.max(minH, startH + dy) + 'px';
+    el.style.maxHeight = 'none';
   });
 
   function endResize(e) {
     if (!resizing) return;
     resizing = false;
-    try { handle.releasePointerCapture(e.pointerId); } catch (err) {}
+    try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
   }
   handle.addEventListener('pointerup', endResize);
   handle.addEventListener('pointercancel', endResize);
 }
 
-// ============ PDF + Quiz（PDF 全屏 + 浮動答题卡）============
+// ⭐ 依屏幕尺寸設定浮動窗口初始佈局（手機縮小；桌面維持原樣）
+function applyFloatingInitialLayout(el) {
+  const topbarH = getTopbarHeight();
+  const isMobile = window.innerWidth <= 768;
+  el.style.left = 'auto';
+  el.style.right = 'auto';
+  if (isMobile) {
+    el.style.width = Math.min(window.innerWidth - 16, 320) + 'px';
+    el.style.right = '8px';
+    el.style.top = (topbarH + 8) + 'px';
+    el.style.maxHeight = '55vh';
+  } else {
+    el.style.width = '400px';
+    el.style.right = '40px';
+    el.style.top = Math.max(topbarH + 20, 100) + 'px';
+    el.style.maxHeight = '75vh';
+  }
+}
+
+// ============ PDF + Quiz 掛載（全屏 PDF + 浮動答題卡）============
 function mountPdfQuizSplit() {
   const pdfMount = document.getElementById('pdf-quiz-split');
   if (!pdfMount) return;
-
   const pdfUrl = pdfMount.dataset.pdf;
   if (!pdfUrl) return;
 
   let absolutePdfUrl;
-  try {
-    absolutePdfUrl = new URL(pdfUrl, location.href).href;
-  } catch (e) {
-    absolutePdfUrl = pdfUrl;
-  }
-
+  try { absolutePdfUrl = new URL(pdfUrl, location.href).href; }
+  catch (e) { absolutePdfUrl = pdfUrl; }
   const googlePreviewUrl = toGooglePreviewUrl(absolutePdfUrl);
 
   // CSS 只注入一次
@@ -500,299 +424,58 @@ function mountPdfQuizSplit() {
     const styleEl = document.createElement('style');
     styleEl.id = 'pdf-quiz-split-style';
     styleEl.textContent = `
-      .pdf-quiz-stage {
-        position: relative;
-        width: 100%;
-      }
-      .pdf-quiz-left {
-        width: 100%;
-        height: 88vh;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        overflow: hidden;
-        background: var(--card-bg);
-      }
-      .pdf-viewer-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px 12px;
-        background: #f0f2f5;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 0.85rem;
-        flex-shrink: 0;
-        gap: 8px;
-      }
-      [data-theme="dark"] .pdf-viewer-header { background: #21262d; }
-      .pdf-viewer-title { font-weight: 700; color: var(--text-primary); }
-      .pdf-viewer-actions {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-      .pdf-open-btn {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 0.8rem;
-      }
-      .pdf-open-btn:hover { text-decoration: underline; }
-      .mcq-toggle-btn {
-        background: var(--accent);
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        padding: 4px 12px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        font-family: inherit;
-      }
-      .mcq-toggle-btn:hover { background: var(--accent-hover); }
-      .pdf-pages-scroll {
-        flex: 1 1 auto;
-        overflow-y: auto;
-        overflow-x: hidden;
-        background: #525659;
-        padding: 6px 0;
-        -webkit-overflow-scrolling: touch;
-        min-height: 0;
-      }
-      .pdf-page-canvas {
-        display: block;
-        margin: 0 auto 8px auto;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-        background: #fff;
-      }
-      .pdf-google-frame {
-        flex: 1 1 auto;
-        width: 100%;
-        border: none;
-        background: #fff;
-        min-height: 0;
-      }
-      .pdf-loading, .pdf-error {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-secondary);
-        padding: 2rem 1rem;
-        text-align: center;
-        gap: 0.5rem;
-      }
-      .pdf-loading .spinner {
-        width: 24px; height: 24px;
-        border: 3px solid rgba(255,255,255,0.25);
-        border-top-color: #fff;
-        border-radius: 50%;
-        animation: pdfSpin 0.8s linear infinite;
-      }
-      @keyframes pdfSpin { to { transform: rotate(360deg); } }
-      .pdf-error i { font-size: 2rem; color: var(--danger); }
-      .pdf-error a { color: var(--accent); font-weight: 600; }
-
-      /* === 浮動答題卡 === */
-            /* === 浮動答題卡（Windows Aero 風格）=== */
-            /* === 浮動答題卡：水晶質感 === */
-                  /* === 浮動答題卡：完全透明穿透 === */
-      .mcq-floating-window {
-        position: fixed;
-        top: 100px;
-        right: 40px;
-        width: 400px;
-        max-height: 75vh;
-        background: transparent;
-        /* 不用 backdrop-filter，讓 PDF 完全不被模糊 */
-        border: 1px solid rgba(150, 180, 220, 0.35);
-        border-radius: 8px;
-        box-shadow: none;
-        z-index: 9000;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        font-size: 0.9rem;
-        color: #0a2a4a;
-        background: rgba(255,255,255,0.03)
-        /* 文字白暈：避免跟 PDF 文字混在一起 */
-        text-shadow:
-          0 0 3px rgba(255, 255, 255, 1),
-          0 0 6px rgba(255, 255, 255, 0.85),
-          0 1px 0 rgba(255, 255, 255, 1);
-      }
-
-      /* Header：保留極淡底，否則拖動把手會消失 */
-      .mcq-float-header {
-        cursor: move;
-        padding: 6px 10px;
-        background: rgba(255, 255, 255, 0.12);
-        border-bottom: 1px solid rgba(150, 180, 220, 0.35);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        user-select: none;
-        font-weight: 600;
-        font-size: 0.8rem;
-        flex-shrink: 0;
-        touch-action: none;
-        color: #0a2a4a;
-        text-shadow:
-          0 0 3px rgba(255, 255, 255, 1),
-          0 0 6px rgba(255, 255, 255, 0.85);
-      }
-      .mcq-float-header .mcq-drag-icon {
-        margin-right: 6px;
-        opacity: 0.5;
-      }
-
-      .mcq-close-btn {
-        background: rgba(255, 255, 255, 0.35);
-        border: 1px solid rgba(150, 180, 220, 0.5);
-        border-radius: 4px;
-        font-size: 0.75rem;
-        cursor: pointer;
-        color: #0a2a4a;
-        padding: 0 6px;
-        font-family: inherit;
-        line-height: 1.4;
-        transition: all 0.15s;
-      }
-      .mcq-close-btn:hover {
-        background: rgba(220, 60, 60, 0.8);
-        color: #fff;
-        text-shadow: none;
-      }
-
-      /* Body：完全透明 */
-      .mcq-float-body {
-        flex: 1 1 auto;
-        overflow-y: auto;
-        padding: 0.4rem;
-        min-height: 0;
-        background: transparent;
-      }
-
-            /* 表格：只有框線和文字可見 */
-      .mcq-floating-window .mc-table {
-        background: transparent;
-        border-collapse: collapse;
-        width: 100%;
-        margin: 0 auto 0.6rem;
-        font-size: 0.85rem;
-      }
-      .mcq-floating-window .mc-table th,
-      .mcq-floating-window .mc-table td {
-        border: 1px solid rgba(150, 180, 220, 0.35);
-        background: transparent;
-        padding: 0.25rem 0.35rem;
-        text-align: center;
-        vertical-align: middle;
-      }
-      .mcq-floating-window .mc-table th {
-        color: #0a2a4a;
-        font-weight: 700;
-        font-size: 0.78rem;
-      }
-      .mcq-floating-window .mc-table td:first-child {
-        color: #2a4a6a;
-        font-weight: 600;
-        width: 2.6em;
-      }
-      /* hover 時整格微微發亮，讓用戶知道可點 */
-      .mcq-floating-window .mc-table td:hover {
-        background: rgba(255, 255, 255, 0.15);
-      }
-      .mcq-floating-window .mc-table tr.mc-sep td {
-        border-bottom: 2px solid rgba(100, 150, 210, 0.5);
-      }
-      .mcq-floating-window .mc-table input[type="radio"] {
-        cursor: pointer;
-        margin: 0;
-        width: 15px;
-        height: 15px;
-        accent-color: #4a90d9;
-        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
-      }
-
-      /* 提交按鈕：浮在半透明上，保持實色才看得清 */
-      .mcq-floating-window .mc-submit-btn {
-        background: rgba(40, 167, 69, 0.9);
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 2px 6px rgba(0, 40, 20, 0.3);
-        padding: 0.5rem 2.5rem;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        font-weight: 700;
-        cursor: pointer;
-        display: block;
-        margin: 0.4rem auto 0.4rem;
-      }
-      .mcq-floating-window .mc-submit-btn:hover {
-        background: rgba(50, 180, 80, 0.95);
-      }
-            .mcq-resize-handle {
-        position: absolute;
-        right: 0; bottom: 0;
-        width: 22px; height: 22px;
-        cursor: nwse-resize;
-        touch-action: none;
-        background: linear-gradient(
-          135deg,
-          transparent 45%,
-          rgba(100, 150, 210, 0.35) 45%,
-          rgba(100, 150, 210, 0.55) 100%
-        );
-        border-bottom-right-radius: 8px;
-        z-index: 2;
-      }
-      .mcq-resize-handle:hover {
-        background: linear-gradient(
-          135deg,
-          transparent 45%,
-          rgba(100, 150, 210, 0.7) 45%,
-          rgba(100, 150, 210, 0.95) 100%
-        );
-      }
-
-            [data-theme="dark"] .mcq-floating-window,
-      [data-theme="dark"] .mcq-float-header {
-        color: #ffffff;
-        text-shadow:
-          0 0 3px rgba(0, 0, 0, 0.9),
-          0 0 6px rgba(0, 0, 0, 0.7);
-      }
-      [data-theme="dark"] .mcq-floating-window .mc-table th,
-      [data-theme="dark"] .mcq-floating-window .mc-table td:first-child {
-        color: #ffffff;
-      }
-      [data-theme="dark"] .mcq-floating-window .mc-table th,
-      [data-theme="dark"] .mcq-floating-window .mc-table td {
-        border-color: rgba(200, 220, 255, 0.4);
-      }
-    `;
+.pdf-quiz-stage{position:relative;width:100%}
+.pdf-quiz-left{width:100%;height:88vh;display:flex;flex-direction:column;border:1px solid var(--border-color);border-radius:6px;overflow:hidden;background:var(--card-bg)}
+.pdf-viewer-header{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:#f0f2f5;border-bottom:1px solid var(--border-color);font-size:.85rem;flex-shrink:0;gap:8px}
+[data-theme="dark"] .pdf-viewer-header{background:#21262d}
+.pdf-viewer-title{font-weight:700;color:var(--text-primary)}
+.pdf-viewer-actions{display:flex;gap:8px;align-items:center}
+.pdf-open-btn{color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:5px;font-size:.8rem}
+.pdf-open-btn:hover{text-decoration:underline}
+.mcq-toggle-btn{background:var(--accent);color:#fff;border:none;border-radius:4px;padding:4px 12px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit}
+.mcq-toggle-btn:hover{background:var(--accent-hover)}
+.pdf-pages-scroll{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;background:#525659;padding:6px 0;-webkit-overflow-scrolling:touch;min-height:0}
+.pdf-page-canvas{display:block;margin:0 auto 8px;box-shadow:0 1px 4px rgba(0,0,0,.3);background:#fff}
+.pdf-google-frame{flex:1 1 auto;width:100%;border:none;background:#fff;min-height:0}
+.pdf-loading,.pdf-error{display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text-secondary);padding:2rem 1rem;text-align:center;gap:.5rem}
+.pdf-loading .spinner{width:24px;height:24px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:pdfSpin .8s linear infinite}
+@keyframes pdfSpin{to{transform:rotate(360deg)}}
+.pdf-error i{font-size:2rem;color:var(--danger)}
+.pdf-error a{color:var(--accent);font-weight:600}
+.mcq-floating-window{position:fixed;top:100px;right:40px;width:400px;max-height:75vh;background:rgba(255,255,255,.03);border:1px solid rgba(150,180,220,.35);border-radius:8px;z-index:9000;display:flex;flex-direction:column;overflow:hidden;font-size:.9rem;color:#0a2a4a;text-shadow:0 0 3px rgba(255,255,255,1),0 0 6px rgba(255,255,255,.85),0 1px 0 rgba(255,255,255,1)}
+.mcq-float-header{cursor:move;padding:6px 10px;background:rgba(255,255,255,.12);border-bottom:1px solid rgba(150,180,220,.35);display:flex;justify-content:space-between;align-items:center;user-select:none;font-weight:600;font-size:.8rem;flex-shrink:0;touch-action:none;color:#0a2a4a;text-shadow:0 0 3px rgba(255,255,255,1),0 0 6px rgba(255,255,255,.85)}
+.mcq-float-header .mcq-drag-icon{margin-right:6px;opacity:.5}
+.mcq-close-btn{background:rgba(255,255,255,.35);border:1px solid rgba(150,180,220,.5);border-radius:4px;font-size:.75rem;cursor:pointer;color:#0a2a4a;padding:0 6px;font-family:inherit;line-height:1.4;transition:all .15s}
+.mcq-close-btn:hover{background:rgba(220,60,60,.8);color:#fff;text-shadow:none}
+.mcq-float-body{flex:1 1 auto;overflow-y:auto;padding:.4rem;min-height:0;background:transparent}
+.mcq-floating-window .mc-table{background:transparent;border-collapse:collapse;width:100%;margin:0 auto .6rem;font-size:.85rem}
+.mcq-floating-window .mc-table th,.mcq-floating-window .mc-table td{border:1px solid rgba(150,180,220,.35);background:transparent;padding:.25rem .35rem;text-align:center;vertical-align:middle}
+.mcq-floating-window .mc-table th{color:#0a2a4a;font-weight:700;font-size:.78rem}
+.mcq-floating-window .mc-table td:first-child{color:#2a4a6a;font-weight:600;width:2.6em}
+.mcq-floating-window .mc-table td:hover{background:rgba(255,255,255,.15)}
+.mcq-floating-window .mc-table tr.mc-sep td{border-bottom:2px solid rgba(100,150,210,.5)}
+.mcq-floating-window .mc-table input[type="radio"]{cursor:pointer;margin:0;width:15px;height:15px;accent-color:#4a90d9;filter:drop-shadow(0 0 2px rgba(255,255,255,.9))}
+.mcq-floating-window .mc-submit-btn{background:rgba(40,167,69,.9);color:#fff;border:1px solid rgba(255,255,255,.5);box-shadow:0 2px 6px rgba(0,40,20,.3);padding:.5rem 2.5rem;border-radius:6px;font-size:.9rem;font-weight:700;cursor:pointer;display:block;margin:.4rem auto}
+.mcq-floating-window .mc-submit-btn:hover{background:rgba(50,180,80,.95)}
+.mcq-resize-handle{position:absolute;right:0;bottom:0;width:22px;height:22px;cursor:nwse-resize;touch-action:none;background:linear-gradient(135deg,transparent 45%,rgba(100,150,210,.35) 45%,rgba(100,150,210,.55) 100%);border-bottom-right-radius:8px;z-index:2}
+.mcq-resize-handle:hover{background:linear-gradient(135deg,transparent 45%,rgba(100,150,210,.7) 45%,rgba(100,150,210,.95) 100%)}
+[data-theme="dark"] .mcq-floating-window,[data-theme="dark"] .mcq-float-header{color:#fff;text-shadow:0 0 3px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.7)}
+[data-theme="dark"] .mcq-floating-window .mc-table th,[data-theme="dark"] .mcq-floating-window .mc-table td:first-child{color:#fff}
+[data-theme="dark"] .mcq-floating-window .mc-table th,[data-theme="dark"] .mcq-floating-window .mc-table td{border-color:rgba(200,220,255,.4)}
+@media (max-width:768px){.mcq-floating-window{width:calc(100vw - 16px)!important;max-width:320px;right:8px!important;left:auto!important;max-height:55vh}}`;
     document.head.appendChild(styleEl);
   }
 
-  // ⭐ PDF 全屏：把 pdfMount 包進 stage
-   // ⭐ 先檢查 quiz 是否存在（必須在移動 pdfMount 前）
   const quizMount = document.getElementById('mc-quiz-mount');
   const hasQuiz = !!quizMount;
 
-  // ⭐ PDF 全屏：把 pdfMount 包進 stage
+  // 把 PDF 全屏包進 stage
   const stage = document.createElement('div');
   stage.className = 'pdf-quiz-stage';
   pdfMount.parentNode.insertBefore(stage, pdfMount);
   stage.appendChild(pdfMount);
-
   pdfMount.classList.add('pdf-quiz-left');
 
-  // 渲染 PDF viewer
   pdfMount.innerHTML = `
     <div class="pdf-viewer-header">
       <span class="pdf-viewer-title">📄 ${googlePreviewUrl ? 'Google Drive' : 'PDF'}</span>
@@ -805,24 +488,19 @@ function mountPdfQuizSplit() {
     </div>
     ${googlePreviewUrl
       ? `<iframe class="pdf-google-frame" src="${escapeHtml(googlePreviewUrl)}" allow="autoplay" referrerpolicy="no-referrer"></iframe>`
-      : `<div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>`
-    }
-  `;
+      : `<div class="pdf-pages-scroll" id="pdf-pages-scroll"></div>`}`;
 
   if (googlePreviewUrl) {
-    // Google 分支：iframe，不需 ResizeObserver
+    // Google Drive 分支：iframe，不需 ResizeObserver
   } else {
     const scrollContainer = pdfMount.querySelector('.pdf-pages-scroll');
     renderPdfWithPdfJs(scrollContainer, absolutePdfUrl);
-    if (scrollContainer) scrollContainer.dataset.pdfUrl = absolutePdfUrl;
+    scrollContainer.dataset.pdfUrl = absolutePdfUrl;
 
     if (window.ResizeObserver && scrollContainer) {
-      if (window.__pdfResizeObserver) {
-        try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
-      }
+      if (window.__pdfResizeObserver) { try { window.__pdfResizeObserver.disconnect(); } catch (e) {} }
       let lastWidth = Math.floor(scrollContainer.clientWidth);
       let resizeTimer = null;
-
       window.__pdfResizeObserver = new ResizeObserver(entries => {
         for (const entry of entries) {
           const newWidth = Math.floor(entry.contentRect.width);
@@ -831,9 +509,7 @@ function mountPdfQuizSplit() {
           if (resizeTimer) clearTimeout(resizeTimer);
           resizeTimer = setTimeout(() => {
             const sc = document.getElementById('pdf-pages-scroll');
-            if (sc && sc.dataset.pdfUrl) {
-              renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
-            }
+            if (sc && sc.dataset.pdfUrl) renderPdfWithPdfJs(sc, sc.dataset.pdfUrl);
           }, 500);
         }
       });
@@ -841,44 +517,48 @@ function mountPdfQuizSplit() {
     }
   }
 
-  // ⭐ 浮動答題卡：把 quizMount 從 statement 移出，包成浮動窗口
+  // ⭐ 浮動答題卡
   if (hasQuiz) {
     const floating = document.createElement('div');
     floating.className = 'mcq-floating-window';
     floating.id = 'mcqFloatingWindow';
     floating.style.display = 'none';
 
-    // header（可拖動）
     const header = document.createElement('div');
     header.className = 'mcq-float-header';
     header.id = 'mcqDragHandle';
     header.innerHTML = `
       <span><i class="fas fa-grip-vertical mcq-drag-icon"></i><i class="fas fa-clipboard-list"></i> Answer Sheet</span>
-      <button class="mcq-close-btn" id="closeMcqBtn" title="Close">✕</button>
-    `;
+      <button class="mcq-close-btn" id="closeMcqBtn" title="Close">✕</button>`;
 
-    // body
     const body = document.createElement('div');
     body.className = 'mcq-float-body';
-
-    // 把 quizMount 移進 body
     quizMount.parentNode.removeChild(quizMount);
     body.appendChild(quizMount);
 
     floating.appendChild(header);
     floating.appendChild(body);
-        // ⭐ 縮放把手
+
     const resizeHandle = document.createElement('div');
     resizeHandle.className = 'mcq-resize-handle';
     resizeHandle.title = 'Drag to resize';
     floating.appendChild(resizeHandle);
     document.body.appendChild(floating);
 
-    // 拖動
+    // ⭐ 初始佈局（依屏幕尺寸）
+    applyFloatingInitialLayout(floating);
+
     makeDraggable(floating, header);
     makeResizable(floating, resizeHandle, 260, 200);
 
-    // 切換
+    // ⭐ 窗口尺寸變化時重排（僅在用戶尚未手動拖動時）
+    let _lastW = window.innerWidth;
+    window.addEventListener('resize', () => {
+      if (Math.abs(window.innerWidth - _lastW) < 100) return;
+      _lastW = window.innerWidth;
+      if (!floating.style.left || floating.style.left === 'auto') applyFloatingInitialLayout(floating);
+    });
+
     const toggleBtn = document.getElementById('toggleMcqBtn');
     if (toggleBtn) {
       toggleBtn.addEventListener('click', () => {
@@ -889,8 +569,6 @@ function mountPdfQuizSplit() {
           : '<i class="fas fa-clipboard-list"></i> Answer Sheet';
       });
     }
-
-    // 關閉
     const closeBtn = document.getElementById('closeMcqBtn');
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
@@ -900,12 +578,9 @@ function mountPdfQuizSplit() {
     }
   }
 
-  // 讓 statementContent 佔滿寬度
+  // 讓 statementContent 佔滿寬度（PDF 模式下 split 已無意義）
   const stmtContent = document.getElementById('statementContent');
-  if (stmtContent) {
-    stmtContent.style.flex = '1 1 100%';
-    stmtContent.style.maxWidth = '100%';
-  }
+  if (stmtContent) { stmtContent.style.flex = '1 1 100%'; stmtContent.style.maxWidth = '100%'; }
   const splitDivider = document.getElementById('splitDivider');
   if (splitDivider) splitDivider.style.display = 'none';
   const drawpadWrapper = document.getElementById('drawpadWrapper');
@@ -921,56 +596,17 @@ function mountMcQuiz() {
     const styleEl = document.createElement('style');
     styleEl.id = 'mc-quiz-style';
     styleEl.textContent = `
-      .mc-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 0 auto 1rem;
-        font-size: 0.9rem;
-      }
-      .mc-table th, .mc-table td {
-        border: 1px solid var(--border-color);
-        padding: 0.3rem 0.4rem;
-        text-align: center;
-        vertical-align: middle;
-      }
-      .mc-table th {
-        background: #f0f2f5;
-        font-weight: 700;
-        font-size: 0.8rem;
-      }
-      [data-theme="dark"] .mc-table th { background: #2d2d2d; }
-      .mc-table td:first-child {
-        font-weight: 600;
-        color: var(--text-secondary);
-        background: #fafafa;
-        width: 3em;
-      }
-      [data-theme="dark"] .mc-table td:first-child { background: #252525; }
-      .mc-table input[type="radio"] {
-        cursor: pointer;
-        margin: 0;
-        width: 16px;
-        height: 16px;
-        accent-color: var(--accent);
-      }
-      .mc-table tr.mc-sep td { border-bottom: 2px solid var(--accent); }
-      .mc-submit-btn {
-        display: block;
-        margin: 0.8rem auto 1.5rem;
-        padding: 0.65rem 3rem;
-        background: #28a745;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
-        letter-spacing: 1px;
-        transition: background 0.15s;
-      }
-      .mc-submit-btn:hover { background: #218838; }
-      .mc-submit-btn:disabled { background: #6c757d; cursor: not-allowed; }
-    `;
+.mc-table{width:100%;border-collapse:collapse;margin:0 auto 1rem;font-size:.9rem}
+.mc-table th,.mc-table td{border:1px solid var(--border-color);padding:.3rem .4rem;text-align:center;vertical-align:middle}
+.mc-table th{background:#f0f2f5;font-weight:700;font-size:.8rem}
+[data-theme="dark"] .mc-table th{background:#2d2d2d}
+.mc-table td:first-child{font-weight:600;color:var(--text-secondary);background:#fafafa;width:3em}
+[data-theme="dark"] .mc-table td:first-child{background:#252525}
+.mc-table input[type="radio"]{cursor:pointer;margin:0;width:16px;height:16px;accent-color:var(--accent)}
+.mc-table tr.mc-sep td{border-bottom:2px solid var(--accent)}
+.mc-submit-btn{display:block;margin:.8rem auto 1.5rem;padding:.65rem 3rem;background:#28a745;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:1px;transition:background .15s}
+.mc-submit-btn:hover{background:#218838}
+.mc-submit-btn:disabled{background:#6c757d;cursor:not-allowed}`;
     document.head.appendChild(styleEl);
   }
 
@@ -983,43 +619,34 @@ function mountMcQuiz() {
       Select one option (A/B/C/D) for each question. Unanswered questions will be submitted as <code>X</code>.
     </p>
     <table class="mc-table">
-      <thead>
-        <tr><th>#</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
-      </thead>
-      <tbody>
-  `;
+      <thead><tr><th>#</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+      <tbody>`;
   for (let i = 1; i <= TOTAL; i++) {
     const sep = (i % SEP_EVERY === 0 && i < TOTAL) ? ' class="mc-sep"' : '';
-    html += `<tr${sep}>
-      <td>${i}</td>
+    html += `<tr${sep}><td>${i}</td>
       <td><input type="radio" name="mcq-${i}" value="A"></td>
       <td><input type="radio" name="mcq-${i}" value="B"></td>
       <td><input type="radio" name="mcq-${i}" value="C"></td>
-      <td><input type="radio" name="mcq-${i}" value="D"></td>
-    </tr>`;
+      <td><input type="radio" name="mcq-${i}" value="D"></td></tr>`;
   }
-  html += `
-      </tbody>
-    </table>
-    <button id="mc-submit-btn" class="mc-submit-btn">submit</button>
-  `;
+  html += `</tbody></table><button id="mc-submit-btn" class="mc-submit-btn">submit</button>`;
   mount.innerHTML = html;
 
   const answerInputEl = document.getElementById('answerInput');
 
+  // ---- 雙向綁定：input → radio ----
   function syncRadiosFromInput() {
     const str = (answerInputEl?.value || '').trim().toUpperCase();
     for (let i = 1; i <= TOTAL; i++) {
       const ch = str[i - 1];
-      const radios = mount.querySelectorAll(`input[name="mcq-${i}"]`);
-      radios.forEach(r => { r.checked = false; });
+      mount.querySelectorAll(`input[name="mcq-${i}"]`).forEach(r => { r.checked = false; });
       if (ch && 'ABCD'.includes(ch)) {
         const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
         if (radio) radio.checked = true;
       }
     }
   }
-
+  // ---- 雙向綁定：radio → input ----
   function syncInputFromRadios() {
     let ans = '';
     for (let i = 1; i <= TOTAL; i++) {
@@ -1030,22 +657,45 @@ function mountMcQuiz() {
     if (answerInputEl) answerInputEl.value = ans;
   }
 
-  if (answerInputEl) {
-    answerInputEl.addEventListener('input', syncRadiosFromInput);
-  }
+  if (answerInputEl) answerInputEl.addEventListener('input', syncRadiosFromInput);
 
-    // 點擊整個格子（td）都能選中對應的 radio
+  // ⭐ 為 radio 補回點擊 / 取消 / 同步邏輯
+  mount.querySelectorAll('input[type="radio"]').forEach(r => {
+    // 記住點擊前狀態（原生 radio 一旦選中就無法取消）
+    r.addEventListener('mousedown', function () {
+      this.dataset.wasChecked = this.checked ? '1' : '0';
+    });
+    // 已選中 → 取消；否則沿用原生選中行為
+    r.addEventListener('click', function () {
+      if (this.dataset.wasChecked === '1') {
+        this.checked = false;
+        this.dataset.wasChecked = '0';
+      }
+      syncInputFromRadios();
+    });
+    // 鍵盤操作（Tab + 方向鍵）走 change
+    r.addEventListener('change', syncInputFromRadios);
+  });
+
+  // ⭐ 點整格也能選中；已選中時點整格可取消
   mount.querySelectorAll('.mc-table td').forEach(td => {
     const radio = td.querySelector('input[type="radio"]');
-    if (!radio) return;                     // 跳過 "#" 列
+    if (!radio) return;                       // 跳過 "#" 列
     td.style.cursor = 'pointer';
     td.addEventListener('click', function (e) {
-      if (e.target === radio) return;       // 點到 radio 本身 → 走它自己的邏輯
-      // 手動切換 checked（同組會自動取消其他選項）
-      radio.checked = !radio.checked;
+      if (e.target === radio) return;         // 點 radio 本身 → 走它自己的邏輯
+      if (radio.checked) {
+        radio.checked = false;
+      } else {
+        mount.querySelectorAll(`input[name="${radio.name}"]`).forEach(r => { r.checked = false; });
+        radio.checked = true;
+      }
       syncInputFromRadios();
     });
   });
+
+  // ⭐ 初始同步（從別頁返回時 answerInput 可能已有值）
+  syncRadiosFromInput();
 
   const submitMcBtn = mount.querySelector('#mc-submit-btn');
   if (submitMcBtn) {
@@ -1055,11 +705,10 @@ function mountMcQuiz() {
         const sel = mount.querySelector(`input[name="mcq-${i}"]:checked`);
         answer += sel ? sel.value : 'X';
       }
-
+      // 切回 numeric 模式
       currentMode = 'numeric';
       document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-      const numBtn = document.getElementById('modeNumeric');
-      if (numBtn) numBtn.classList.add('active');
+      document.getElementById('modeNumeric')?.classList.add('active');
       document.getElementById('textAnswerGroup').style.display = 'block';
       document.getElementById('imageAnswerGroup').style.display = 'none';
       document.getElementById('expressionAnswerGroup').style.display = 'none';
@@ -1159,9 +808,9 @@ async function initPage() {
           <div class="split-divider" id="splitDivider" style="display:none"></div>
           <div class="drawpad-wrapper" id="drawpadWrapper" style="display:none"></div>
         </div>
-        <div id="nekoContainer" style="display:none; margin: 1rem 0; text-align: center;">
-          <div id="nekoStatus" style="font-size: 0.9rem; color: var(--text-secondary); padding: 0.5rem;">Loading...</div>
-          <img id="nekoImage" src="" alt="Neko" style="max-width: 100%; max-height: 300px; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.2); display: none;">
+        <div id="nekoContainer" style="display:none;margin:1rem 0;text-align:center;">
+          <div id="nekoStatus" style="font-size:.9rem;color:var(--text-secondary);padding:.5rem;">Loading...</div>
+          <img id="nekoImage" src="" alt="Neko" style="max-width:100%;max-height:300px;border-radius:8px;box-shadow:0 0 20px rgba(0,0,0,.2);display:none;">
         </div>
         <div id="discussionToggleArea" style="margin-top:2rem;border-top:1px solid var(--border-color);padding-top:1rem;display:none">
           <button id="expandDiscussionsBtn">Expand Discussions</button>
@@ -1187,13 +836,13 @@ async function initPage() {
             </div>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
 
     const statementContent = document.getElementById('statementContent');
     if (statementContent) {
-      const statementHtml = problem.statement ? DOMPurify.sanitize(problem.statement, domPurifyConfig) : '';
-      statementContent.innerHTML = statementHtml;
+      statementContent.innerHTML = problem.statement
+        ? DOMPurify.sanitize(problem.statement, domPurifyConfig)
+        : '';
       if (typeof renderMathInElement !== 'undefined') {
         renderMathInElement(statementContent, {
           delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }]
@@ -1212,7 +861,6 @@ async function initPage() {
       document.getElementById('detailEditBtn').innerHTML =
         `<a href="/admin/problems/${encodeURIComponent(problemId)}" class="back-btn" style="margin-left:0.5rem;" title="Edit problem">edit</a>`;
     }
-
     updateProblemDetailIcon(problemId, currentProblemName);
 
     const starIcon = document.querySelector('#detailFavorite i');
@@ -1241,26 +889,21 @@ async function initPage() {
       });
     }
 
-    document.getElementById('reportBtn').addEventListener('click', function () {
+    // ---- Report modal ----
+    document.getElementById('reportBtn').addEventListener('click', () => {
       document.getElementById('reportReason').value = '';
       document.getElementById('reportModal').style.display = 'flex';
       setTimeout(() => document.getElementById('reportReason').focus(), 50);
     });
-
-    document.getElementById('reportCancelBtn').addEventListener('click', function () {
+    document.getElementById('reportCancelBtn').addEventListener('click', () => {
       document.getElementById('reportModal').style.display = 'none';
     });
-
     document.getElementById('reportModal').addEventListener('click', function (e) {
       if (e.target === this) this.style.display = 'none';
     });
-
     document.getElementById('reportSubmitBtn').addEventListener('click', async function () {
       const reason = document.getElementById('reportReason').value.trim();
-      if (!reason) {
-        alert('Please describe the issue before submitting.');
-        return;
-      }
+      if (!reason) return alert('Please describe the issue before submitting.');
       this.disabled = true;
       this.textContent = 'Submitting...';
       try {
@@ -1279,6 +922,7 @@ async function initPage() {
       }
     });
 
+    // ---- 收藏 ----
     document.getElementById('detailFavorite').addEventListener('click', async function () {
       const icon = this.querySelector('i');
       if (!icon) return;
@@ -1304,13 +948,14 @@ async function initPage() {
   }
 }
 
-// ============ 靜態事件綁定 ============
+// ============ 靜態事件 ============
 function bindStaticEvents() {
   document.getElementById('backToListBtn').addEventListener('click', () => history.back());
   document.getElementById('submissionsBtn').addEventListener('click', () => {
     window.location.href = `/submissions/problem/${problemId}`;
   });
 
+  // ---- 模式切換 ----
   const modeButtons = document.querySelectorAll('.mode-btn');
   const textGroup = document.getElementById('textAnswerGroup');
   const imageGroup = document.getElementById('imageAnswerGroup');
@@ -1318,37 +963,33 @@ function bindStaticEvents() {
   const answerInput = document.getElementById('answerInput');
   const exprInput = document.getElementById('exprInput');
 
-  modeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mode = btn.dataset.mode;
-      currentMode = mode;
-      modeButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  modeButtons.forEach(btn => btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    currentMode = mode;
+    modeButtons.forEach(b => b.classList.toggle('active', b === btn));
+    textGroup.style.display = mode === 'numeric' ? 'block' : 'none';
+    imageGroup.style.display = mode === 'photo' ? 'block' : 'none';
+    exprGroup.style.display = mode === 'expression' ? 'block' : 'none';
 
-      textGroup.style.display = mode === 'numeric' ? 'block' : 'none';
-      imageGroup.style.display = mode === 'photo' ? 'block' : 'none';
-      exprGroup.style.display = mode === 'expression' ? 'block' : 'none';
+    if (mode === 'numeric') {
+      answerInput.setAttribute('inputmode', 'decimal');
+      answerInput.setAttribute('type', 'text');
+      answerInput.placeholder = 'Enter a number';
+      setTimeout(() => answerInput.focus(), 100);
+    } else if (mode === 'expression') {
+      exprInput.setAttribute('inputmode', 'text');
+      setTimeout(() => exprInput.focus(), 100);
+      updateExprPreview();
+    }
+    if (mode !== 'photo') {
+      imageData = '';
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('removeImageBtn').style.display = 'none';
+      document.getElementById('imageFileInput').value = '';
+    }
+  }));
 
-      if (mode === 'numeric') {
-        answerInput.setAttribute('inputmode', 'decimal');
-        answerInput.setAttribute('type', 'text');
-        answerInput.placeholder = 'Enter a number';
-        setTimeout(() => answerInput.focus(), 100);
-      } else if (mode === 'expression') {
-        exprInput.setAttribute('inputmode', 'text');
-        setTimeout(() => exprInput.focus(), 100);
-        updateExprPreview();
-      }
-
-      if (mode !== 'photo') {
-        imageData = '';
-        document.getElementById('imagePreview').style.display = 'none';
-        document.getElementById('removeImageBtn').style.display = 'none';
-        document.getElementById('imageFileInput').value = '';
-      }
-    });
-  });
-
+  // ---- 圖片選擇 ----
   const pickBtn = document.getElementById('pickImageBtn');
   const imageInput = document.getElementById('imageFileInput');
   pickBtn.addEventListener('click', () => {
@@ -1387,6 +1028,7 @@ function bindStaticEvents() {
     imageInput.value = '';
   });
 
+  // ---- Expression 預覽 ----
   const exprPreview = document.getElementById('exprPreview');
   function updateExprPreview() {
     const rawExpr = exprInput.value.trim();
@@ -1395,8 +1037,7 @@ function bindStaticEvents() {
       const node = math.parse(rawExpr);
       const result = node.evaluate();
       const numResult = (typeof result === 'object' && result.isBigNumber) ? result.toNumber() : result;
-      const latex = node.toTex();
-      katex.render(latex, exprPreview, { throwOnError: false });
+      katex.render(node.toTex(), exprPreview, { throwOnError: false });
       exprPreview.innerHTML = `Result: ${numResult.toFixed(9)}&nbsp;` + exprPreview.innerHTML;
     } catch (e) {
       exprPreview.innerHTML = '<span style="color:red;">Invalid expression</span>';
@@ -1405,32 +1046,6 @@ function bindStaticEvents() {
   exprInput.addEventListener('input', updateExprPreview);
 
   document.getElementById('timerToggleBtn').addEventListener('click', toggleTimer);
-
-  const dividerEl = document.getElementById('splitDivider');
-  let splitDragging = false;
-  dividerEl.addEventListener('mousedown', (e) => {
-    e.preventDefault();
-    splitDragging = true;
-    document.getElementById('splitContainer').style.userSelect = 'none';
-    document.addEventListener('mousemove', onSplitDrag);
-    document.addEventListener('mouseup', onSplitDragEnd);
-  });
-
-  function onSplitDrag(e) {
-    if (!splitDragging) return;
-    const rect = document.getElementById('splitContainer').getBoundingClientRect();
-    const percentLeft = ((e.clientX - rect.left) / rect.width) * 100;
-    if (percentLeft >= 20 && percentLeft <= 80) {
-      document.getElementById('statementContent').style.flex = `1 1 ${percentLeft}%`;
-      document.getElementById('drawpadWrapper').style.flex = `1 1 ${100 - percentLeft}%`;
-    }
-  }
-  function onSplitDragEnd() {
-    splitDragging = false;
-    document.getElementById('splitContainer').style.userSelect = '';
-    document.removeEventListener('mousemove', onSplitDrag);
-    document.removeEventListener('mouseup', onSplitDragEnd);
-  }
 }
 
 // ============ 提交 ============
@@ -1449,35 +1064,21 @@ function bindSubmitEvent() {
     if (currentMode === 'photo') {
       type = 'image';
       image = imageData;
-      if (!image) {
-        fb.textContent = 'Please select an image';
-        fb.className = 'feedback wrong';
-        return;
-      }
+      if (!image) { fb.textContent = 'Please select an image'; fb.className = 'feedback wrong'; return; }
     } else if (currentMode === 'expression') {
       const rawExpr = document.getElementById('exprInput').value.trim();
-      if (!rawExpr) {
-        fb.textContent = 'Enter an expression';
-        fb.className = 'feedback wrong';
-        return;
-      }
+      if (!rawExpr) { fb.textContent = 'Enter an expression'; fb.className = 'feedback wrong'; return; }
       try {
         const node = math.parse(rawExpr);
         const result = node.evaluate();
         const numResult = (typeof result === 'object' && result.isBigNumber) ? result.toNumber() : result;
         answer = String(numResult.toFixed(9));
       } catch (err) {
-        fb.textContent = 'Invalid expression';
-        fb.className = 'feedback wrong';
-        return;
+        fb.textContent = 'Invalid expression'; fb.className = 'feedback wrong'; return;
       }
     } else {
       const val = document.getElementById('answerInput').value.trim();
-      if (!val) {
-        fb.textContent = 'Enter answer';
-        fb.className = 'feedback wrong';
-        return;
-      }
+      if (!val) { fb.textContent = 'Enter answer'; fb.className = 'feedback wrong'; return; }
       answer = val;
     }
 
@@ -1526,8 +1127,7 @@ function bindSubmitEvent() {
         fb.innerHTML = statusBoxHtml(result.subid, txt, cls);
         if (result.correct) {
           userStates[problemId] = 'passed';
-          if (localStorage.getItem('nekoModeUnlocked') === 'true' &&
-              localStorage.getItem('showNekos') === 'true') {
+          if (localStorage.getItem('nekoModeUnlocked') === 'true' && localStorage.getItem('showNekos') === 'true') {
             fetchNekoAndShow();
           }
         } else if (userStates[problemId] !== 'passed') {
@@ -1647,15 +1247,15 @@ async function loadDiscussions(problemId) {
   }
 }
 
+// ============ 啟動 ============
 initPage();
+
+// ============ 頁面卸載清理 ============
 window.addEventListener('pagehide', () => {
-  if (document.getElementById('timerRow')) {
-    pauseTimer();
-    saveTimer();
-  }
+  if (document.getElementById('timerRow')) { pauseTimer(); saveTimer(); }
   if (pollTimer) clearInterval(pollTimer);
   if (window.__pdfResizeObserver) {
-    try { window.__pdfResizeObserver.disconnect(); } catch (e) { /* ignore */ }
+    try { window.__pdfResizeObserver.disconnect(); } catch (e) {}
     window.__pdfResizeObserver = null;
   }
   cooldown = false;
