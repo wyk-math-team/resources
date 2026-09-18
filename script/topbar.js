@@ -35,22 +35,7 @@
   if (isMobile && username.length > 7) {
     displayUsername = username.substring(0, 4) + '...';
   }
-    // 绑定移动端汉堡按钮事件
-  if (isMobile) {
-    const mobileToggle = document.getElementById('mobileSidebarToggle');
-    if (mobileToggle) {
-      mobileToggle.addEventListener('click', toggleSidebarMobile);
-    }
-  }
-    // ⭐ WYK OS 按鈕
-  if (!isMobile) {
-    const osBtn = document.getElementById('osLaunchBtn');
-    if (osBtn) {
-      osBtn.addEventListener('click', () => {
-        window.location.href = '/os';
-      });
-    }
-  }
+  
   
 
   // ---------- 头像缓存 ----------
@@ -245,7 +230,6 @@
     topbarHTML += `
       <button class="os-launch-btn" id="osLaunchBtn" title="Enter WYK OS">
         <i class="fas fa-desktop"></i>
-        <span>WYK OS</span>
       </button>
     `;
   }
@@ -275,6 +259,14 @@
   const fullscreenBtn = document.getElementById('fullscreenToggleBtn');
   if (fullscreenBtn) {
     fullscreenBtn.addEventListener('click', toggleDesktopSidebar);
+  }
+    // ⭐ WYK OS 按鈕（桌面 / iPad 才渲染，DOM 已存在，可以安全綁定）
+  const osLaunchBtn = document.getElementById('osLaunchBtn');
+  if (osLaunchBtn) {
+    osLaunchBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      window.location.href = '/os';
+    });
   }
 
   // 用户框：点击整块（左+右）都触发 dropdown
