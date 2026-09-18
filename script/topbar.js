@@ -35,6 +35,23 @@
   if (isMobile && username.length > 7) {
     displayUsername = username.substring(0, 4) + '...';
   }
+    // 绑定移动端汉堡按钮事件
+  if (isMobile) {
+    const mobileToggle = document.getElementById('mobileSidebarToggle');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', toggleSidebarMobile);
+    }
+  }
+    // ⭐ WYK OS 按鈕
+  if (!isMobile) {
+    const osBtn = document.getElementById('osLaunchBtn');
+    if (osBtn) {
+      osBtn.addEventListener('click', () => {
+        window.location.href = '/os';
+      });
+    }
+  }
+  
 
   // ---------- 头像缓存 ----------
   let avatarCache = null;
@@ -216,11 +233,23 @@
   
   // 全屏侧边栏切换按钮（桌面可见）
     // 移動端漢堡按鈕（桌面端由 CSS 隱藏）
+  if (isMobile) {
   topbarHTML += `
       <button class="topbar-sidebar-toggle" id="mobileSidebarToggle" title="Menu">
         ☰
       </button>
   `;
+  }
+    // ⭐ WYK OS 啟動按鈕（僅桌面 / iPad）
+  if (!isMobile) {
+    topbarHTML += `
+      <button class="os-launch-btn" id="osLaunchBtn" title="Enter WYK OS">
+        <i class="fas fa-desktop"></i>
+        <span>WYK OS</span>
+      </button>
+    `;
+  }
+
 
   // 桌面端全屏側邊欄切換按鈕（移動端由 CSS 隱藏）
   topbarHTML += `
@@ -456,7 +485,38 @@
     [data-theme="dark"] .user-dropdown .logout-btn:hover { background: #2a2a2a; }
     [data-theme="dark"] .user-dropdown .logout-btn { color: #f85149; }
     [data-theme="dark"] .user-dropdown .logout-btn:hover { background: #3a1a1a; }
+        /* ⭐ WYK OS 按鈕 */
+    .os-launch-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid rgba(100, 150, 220, 0.4);
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(74, 144, 217, 0.25) 0%, rgba(46, 95, 160, 0.2) 100%);
+      color: #d6e4ff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: inherit;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+    .os-launch-btn:hover {
+      background: linear-gradient(135deg, rgba(74, 144, 217, 0.5) 0%, rgba(46, 95, 160, 0.4) 100%);
+      border-color: var(--accent, #4a90d9);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(74,144,217,.35), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .os-launch-btn:active { transform: translateY(0); }
+    .os-launch-btn i { font-size: 0.9rem; }
 
+    @media (max-width: 768px) {
+      .os-launch-btn { display: none !important; }
+    }
     /* ===== 桌面端侧边栏隐藏状态 ===== */
     @media (min-width: 769px) {
       .sidebar {
