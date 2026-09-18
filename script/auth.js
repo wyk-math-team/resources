@@ -1,4 +1,15 @@
-// public/auth.js
+// publichttps://cdn.jsdelivr.net/gh/wyk-math-team/resources/script/auth.js
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  if (token) {
+    localStorage.setItem('auth_token', token);   // ← 改成和 getToken() 一致
+    const newUrl = location.pathname + location.search.replace(/[?&]token=[^&]*/, '').replace(/^&/, '?');
+    history.replaceState({}, document.title, newUrl);
+    location.reload();
+    return;
+  }
+})();
 let currentUser = null;
 
 // 使用 localStorage 存储 token（跨标签页共享）
@@ -129,10 +140,19 @@ window.addEventListener('storage', (e) => {
 // 初始化：检查 token 是否有效
 (function() {
   const path = window.location.pathname;
-  const isPublic = path === '/' || path === '/index.html' || path === '/404' || path === '/404.html' ||
-                   path === '/credits' || path === '/credits.html' ||
-                   path === '/guide' || path === '/guide.html' ||
-                   path === '/guides' || path === '/guides.html' || path === '/login';
+    // 去掉尾部斜線，方便比較（/os/ → /os）
+  const rawPath = window.location.pathname;
+  const path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
+
+  const isPublic =
+    path === '/' || path === '/index.html' || path === '/404' || path === '/404.html' ||
+    path === '/credits' || path === '/credits.html' ||
+    path === '/guide' || path === '/guide.html' ||
+    path === '/guides' || path === '/guides.html' || path === '/login' ||
+    // ⭐ OS 的所有變體都視為公開（未登入顯示鎖屏）
+    path === '/os' || path === '/os.html' ||
+    // ⭐ 只要路徑以 /os 開頭（涵蓋未來可能的 /os/xxx）也放行
+    path.startsWith('/os');
 
   const token = getToken();
   if (token) {
