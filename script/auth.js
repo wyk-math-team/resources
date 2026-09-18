@@ -1,15 +1,15 @@
 // publichttps://cdn.jsdelivr.net/gh/wyk-math-team/resources/script/auth.js
-// (function() {
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const token = urlParams.get('token');
-//   if (token) {
-//     localStorage.setItem('auth_token', token);   // ← 改成和 getToken() 一致
-//     const newUrl = location.pathname + location.search.replace(/[?&]token=[^&]*/, '').replace(/^&/, '?');
-//     history.replaceState({}, document.title, newUrl);
-//     location.reload();
-//     return;
-//   }
-// })();
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  if (token) {
+    localStorage.setItem('auth_token', token);   // ← 改成和 getToken() 一致
+    const newUrl = location.pathname + location.search.replace(/[?&]token=[^&]*/, '').replace(/^&/, '?');
+    history.replaceState({}, document.title, newUrl);
+    location.reload();
+    return;
+  }
+})();
 let currentUser = null;
 
 // 使用 localStorage 存储 token（跨标签页共享）
