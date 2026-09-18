@@ -792,7 +792,7 @@ async function initPage() {
         <div class="detail-header">
           <button class="back-btn" id="backToListBtn">← Back</button>
           <span class="problem-name-detail">
-            <span id="detailProblemName">${escapeHtml(currentProblemName)}</span>
+            <span id="detailProblemName">${escapeHtml(problemId)} - ${escapeHtml(currentProblemName)}</span>
             <span id="detailStatusIcon"></span>
             <span id="detailSpinner" class="spinner" style="display:none"></span>
             <span id="detailStatusText" style="margin-left:.5rem;font-size:.9rem"></span>
