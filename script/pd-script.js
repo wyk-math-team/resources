@@ -152,12 +152,12 @@ function statusBoxHtml(subid, text, cls) {
 
 // ============ 題目 + 用戶資料載入（並行 race：API 為準，CDN 為 fallback）============
 async function loadPageData() {
-  // 1) API：一次性拿 problem + states + favorites（含權限校驗、ans 剝離）
+  // 1) API：一次拿 problem + 當前題 state + 是否收藏
   const apiPromise = apiCall(`/api/problem?action=page&id=${encodeURIComponent(problemId)}`)
     .then(d => (d && d.success && d.problem) ? d : null)
     .catch(() => null);
 
-  // 2) CDN：靜態 JSON，1.5 秒超時；僅作 fallback（無 states/favorites）
+  // 2) CDN：靜態 JSON，1.5 秒超時；僅作 fallback（無 state/favorited）
   const cdnPromise = (async () => {
     try {
       const ctrl = new AbortController();
@@ -174,19 +174,20 @@ async function loadPageData() {
 
   const [apiData, cdnData] = await Promise.all([apiPromise, cdnPromise]);
 
-  // API 成功：以 API 為準（保證 ans 不洩漏 + states/favorites 一致）
+  // API 成功：以 API 為準
   if (apiData) {
     return {
       problem: apiData.problem,
-      states: apiData.states || {},
-      favorites: apiData.favorites || []
+      state: apiData.state || 'not_started',
+      favorited: !!apiData.favorited
     };
   }
 
-  // API 失敗：退而求其次用 CDN（問題仍可看，但無 states/favorites）
+  // API 失敗：退而求其次用 CDN（問題仍可看，但無 state/favorited）
   if (cdnData) {
     const safe = { ...cdnData };
-    delete safe.ans;   // 保險：即使 CDN JSON 誤含 ans 也不帶入
+    delete safe.ans;
+    delete safe.logic;
     return {
       problem: {
         id: problemId,
@@ -196,8 +197,8 @@ async function loadPageData() {
         tags: safe.tags || [],
         ...safe
       },
-      states: {},
-      favorites: []
+      state: 'not_started',
+      favorited: false
     };
   }
 
@@ -860,9 +861,15 @@ async function initPage() {
       return;
     }
 
-    const problem = pageData.problem;
-    userStates = pageData.states || {};
-    window.favorites = new Set(pageData.favorites || []);
+        const problem = pageData.problem;
+    // 只記錄當前題的狀態
+    userStates = {};
+    if (pageData.state && pageData.state !== 'not_started') {
+      userStates[problemId] = pageData.state;
+    }
+    // 只記錄當前題是否收藏
+    window.favorites = new Set();
+    if (pageData.favorited) window.favorites.add(problemId);
 
     const diff = problem.difficulty ?? 0;
     currentProblemName = problem.name || problemId;
