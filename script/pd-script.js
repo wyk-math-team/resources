@@ -150,33 +150,58 @@ function statusBoxHtml(subid, text, cls) {
   return `<a href="/submissions/${encodeURIComponent(subid)}/detail" class="feedback-box ${cls}">${escapeHtml(text)}</a>`;
 }
 
-// ============ 題目載入（CDN 優先，失敗回退 API）============
-async function loadProblem() {
-  try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 1000);
-    const res = await fetch(`https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`, { signal: ctrl.signal });
-    clearTimeout(t);
-    if (res.ok) {
-      const data = await res.json();
-      return { success: true, problem: {
-        id: problemId, name: data.name || problemId, statement: data.statement || '',
-        difficulty: data.difficulty ?? 0, tags: data.tags || [], ...data
-      }};
-    }
-  } catch (e) { /* fallthrough */ }
+// ============ 題目 + 用戶資料載入（並行 race：API 為準，CDN 為 fallback）============
+async function loadPageData() {
+  // 1) API：一次性拿 problem + states + favorites（含權限校驗、ans 剝離）
+  const apiPromise = apiCall(`/api/problem?action=page&id=${encodeURIComponent(problemId)}`)
+    .then(d => (d && d.success && d.problem) ? d : null)
+    .catch(() => null);
 
-  try {
-    const data = await apiCall(`/api/problem?id=${encodeURIComponent(problemId)}`);
-    if (data.success && data.problem) {
-      return { success: true, problem: {
-        id: problemId, name: data.problem.name || problemId, statement: data.problem.statement || '',
-        difficulty: data.problem.difficulty ?? 0, tags: data.problem.tags || [], ...data.problem
-      }};
-    }
-  } catch (e) { /* ignore */ }
+  // 2) CDN：靜態 JSON，1.5 秒超時；僅作 fallback（無 states/favorites）
+  const cdnPromise = (async () => {
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 1500);
+      const res = await fetch(
+        `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`,
+        { signal: ctrl.signal }
+      );
+      clearTimeout(t);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch { return null; }
+  })();
 
-  return { success: false, problem: null };
+  const [apiData, cdnData] = await Promise.all([apiPromise, cdnPromise]);
+
+  // API 成功：以 API 為準（保證 ans 不洩漏 + states/favorites 一致）
+  if (apiData) {
+    return {
+      problem: apiData.problem,
+      states: apiData.states || {},
+      favorites: apiData.favorites || []
+    };
+  }
+
+  // API 失敗：退而求其次用 CDN（問題仍可看，但無 states/favorites）
+  if (cdnData) {
+    const safe = { ...cdnData };
+    delete safe.ans;   // 保險：即使 CDN JSON 誤含 ans 也不帶入
+    return {
+      problem: {
+        id: problemId,
+        name: safe.name || problemId,
+        statement: safe.statement || '',
+        difficulty: safe.difficulty ?? 0,
+        tags: safe.tags || [],
+        ...safe
+      },
+      states: {},
+      favorites: []
+    };
+  }
+
+  return null;
 }
 
 const domPurifyConfig = {
@@ -428,7 +453,6 @@ function makeDraggable(el, handle) {
     if (!dragging) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    // ⭐ 下限使用 topbar 高度，避免遮擋頂欄
     const minTop = getTopbarHeight();
     const maxLeft = window.innerWidth - el.offsetWidth;
     const maxTop = window.innerHeight - el.offsetHeight;
@@ -475,7 +499,6 @@ function makeResizable(el, handle, minW = 260, minH = 200) {
   handle.addEventListener('pointercancel', endResize);
 }
 
-// ⭐ 依屏幕尺寸設定浮動窗口初始佈局（手機縮小；桌面維持原樣）
 function applyFloatingInitialLayout(el) {
   const topbarH = getTopbarHeight();
   const isMobile = window.innerWidth <= 768;
@@ -504,9 +527,8 @@ function mountPdfQuizSplit() {
   let absolutePdfUrl;
   try { absolutePdfUrl = new URL(pdfUrl, location.href).href; }
   catch (e) { absolutePdfUrl = pdfUrl; }
-    const googlePreviewUrl = toGooglePreviewUrl(absolutePdfUrl);
+  const googlePreviewUrl = toGooglePreviewUrl(absolutePdfUrl);
 
-  // CSS 只注入一次
   if (!document.getElementById('pdf-quiz-split-style')) {
     const s = document.createElement('style');
     s.id = 'pdf-quiz-split-style';
@@ -529,7 +551,6 @@ function mountPdfQuizSplit() {
 @keyframes pdfSpin{to{transform:rotate(360deg)}}
 .pdf-error i{font-size:2rem;color:var(--danger)}
 .pdf-error a{color:var(--accent);font-weight:600}
-/* 浮動答題卡：淺藍水晶 */
 .mcq-floating-window{position:fixed;top:100px;right:40px;width:400px;max-height:75vh;background:rgba(214,232,252,.42);backdrop-filter:blur(14px) saturate(1.8) brightness(1.06);-webkit-backdrop-filter:blur(14px) saturate(1.8) brightness(1.06);border:1px solid rgba(255,255,255,.65);border-radius:12px;box-shadow:0 12px 40px rgba(0,40,100,.22),0 2px 8px rgba(0,40,100,.10),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.35),inset 1px 0 0 rgba(255,255,255,.55),inset -1px 0 0 rgba(255,255,255,.55),inset 0 24px 44px -22px rgba(255,255,255,.55);z-index:9000;display:flex;flex-direction:column;overflow:hidden;font-size:.9rem;color:#0a2a4a;text-shadow:0 1px 0 rgba(255,255,255,.75);transition:box-shadow .25s ease,border-color .25s ease}
 .mcq-floating-window:hover{border-color:rgba(255,255,255,.85);box-shadow:0 16px 50px rgba(0,40,100,.28),0 2px 8px rgba(0,40,100,.12),inset 0 1px 0 rgba(255,255,255,1),inset 0 -1px 0 rgba(255,255,255,.45),inset 1px 0 0 rgba(255,255,255,.7),inset -1px 0 0 rgba(255,255,255,.7),inset 0 28px 52px -22px rgba(255,255,255,.75)}
 .mcq-float-header{cursor:move;padding:8px 12px;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(200,225,255,.28) 55%,rgba(180,210,245,.14) 100%);border-bottom:1px solid rgba(255,255,255,.55);display:flex;justify-content:space-between;align-items:center;user-select:none;font-weight:600;font-size:.8rem;flex-shrink:0;touch-action:none;color:#0a2a4a;text-shadow:0 1px 0 rgba(255,255,255,.9);position:relative}
@@ -566,13 +587,9 @@ function mountPdfQuizSplit() {
     document.head.appendChild(s);
   }
 
-  // CSS 只注入一次
-  
-
   const quizMount = document.getElementById('mc-quiz-mount');
   const hasQuiz = !!quizMount;
 
-  // 把 PDF 全屏包進 stage
   const stage = document.createElement('div');
   stage.className = 'pdf-quiz-stage';
   pdfMount.parentNode.insertBefore(stage, pdfMount);
@@ -620,7 +637,6 @@ function mountPdfQuizSplit() {
     }
   }
 
-  // ⭐ 浮動答題卡
   if (hasQuiz) {
     const floating = document.createElement('div');
     floating.className = 'mcq-floating-window';
@@ -648,13 +664,11 @@ function mountPdfQuizSplit() {
     floating.appendChild(resizeHandle);
     document.body.appendChild(floating);
 
-    // ⭐ 初始佈局（依屏幕尺寸）
     applyFloatingInitialLayout(floating);
 
     makeDraggable(floating, header);
     makeResizable(floating, resizeHandle, 260, 200);
 
-    // ⭐ 窗口尺寸變化時重排（僅在用戶尚未手動拖動時）
     let _lastW = window.innerWidth;
     window.addEventListener('resize', () => {
       if (Math.abs(window.innerWidth - _lastW) < 100) return;
@@ -681,7 +695,6 @@ function mountPdfQuizSplit() {
     }
   }
 
-  // 讓 statementContent 佔滿寬度（PDF 模式下 split 已無意義）
   const stmtContent = document.getElementById('statementContent');
   if (stmtContent) { stmtContent.style.flex = '1 1 100%'; stmtContent.style.maxWidth = '100%'; }
   const splitDivider = document.getElementById('splitDivider');
@@ -706,14 +719,12 @@ function mountMcQuiz() {
 .mc-table tr.mc-sep td{border-bottom:2px solid var(--accent)}
 .mc-table.mc-many-options th,.mc-table.mc-many-options td{padding:.2rem .25rem;font-size:.8rem}
 .mc-table.mc-many-options input[type="radio"]{width:14px;height:14px}
-/* 深色主題 */
 [data-theme="dark"] .mc-table{background:#1a1e25;box-shadow:0 1px 3px rgba(0,0,0,.4)}
 [data-theme="dark"] .mc-table th,
 [data-theme="dark"] .mc-table td{border-color:#3a424e}
 [data-theme="dark"] .mc-table th{background:#2b313a;color:#e0e6ed}
 [data-theme="dark"] .mc-table td{background:#1a1e25}
 [data-theme="dark"] .mc-table td:first-child{background:#232830;color:#a8b4c0}
-/* 提交按鈕（statement 內） */
 .mc-submit-btn{display:block;margin:.8rem auto 1.5rem;padding:.65rem 3rem;background:#28a745;color:#fff;border:none;border-radius:6px;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:1px;transition:background .15s}
 .mc-submit-btn:hover{background:#218838}
 .mc-submit-btn:disabled{background:#6c757d;cursor:not-allowed}
@@ -721,11 +732,9 @@ function mountMcQuiz() {
     document.head.appendChild(s);
   }
 
-  // ---- 題數（預設 45，範圍 1–200）----
   const rawTotal = parseInt(mount.dataset.total, 10);
   const TOTAL = (Number.isFinite(rawTotal) && rawTotal >= 1 && rawTotal <= 200) ? rawTotal : 45;
 
-  // ⭐ 選項數（預設 4，範圍 2–26；向下兼容舊題目）
   const rawOptions = parseInt(mount.dataset.options, 10);
   const OPTIONS = (Number.isFinite(rawOptions) && rawOptions >= 2 && rawOptions <= 26) ? rawOptions : 4;
   const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, OPTIONS);
@@ -733,7 +742,6 @@ function mountMcQuiz() {
 
   const SEP_EVERY = 5;
 
-  // ---- 動態表頭 ----
   const headerCells = ['<th>#</th>'];
   for (const ch of LETTERS) headerCells.push(`<th>${ch}</th>`);
 
@@ -759,19 +767,17 @@ function mountMcQuiz() {
 
   const answerInputEl = document.getElementById('answerInput');
 
-  // ---- 雙向綁定：input → radio ----
   function syncRadiosFromInput() {
     const str = (answerInputEl?.value || '').trim().toUpperCase();
     for (let i = 1; i <= TOTAL; i++) {
       const ch = str[i - 1];
       mount.querySelectorAll(`input[name="mcq-${i}"]`).forEach(r => { r.checked = false; });
-      if (ch && LETTER_SET.has(ch)) {       
+      if (ch && LETTER_SET.has(ch)) {
         const radio = mount.querySelector(`input[name="mcq-${i}"][value="${ch}"]`);
         if (radio) radio.checked = true;
       }
     }
   }
-  // ---- 雙向綁定：radio → input ----
   function syncInputFromRadios() {
     let ans = '';
     for (let i = 1; i <= TOTAL; i++) {
@@ -784,7 +790,6 @@ function mountMcQuiz() {
 
   if (answerInputEl) answerInputEl.addEventListener('input', syncRadiosFromInput);
 
-  // ⭐ 為 radio 補回點擊 / 取消 / 同步邏輯
   mount.querySelectorAll('input[type="radio"]').forEach(r => {
     r.addEventListener('mousedown', function () {
       this.dataset.wasChecked = this.checked ? '1' : '0';
@@ -799,7 +804,6 @@ function mountMcQuiz() {
     r.addEventListener('change', syncInputFromRadios);
   });
 
-  // ⭐ 點整格也能選中；已選中時點整格可取消
   mount.querySelectorAll('.mc-table td').forEach(td => {
     const radio = td.querySelector('input[type="radio"]');
     if (!radio) return;
@@ -816,10 +820,8 @@ function mountMcQuiz() {
     });
   });
 
-  // ⭐ 初始同步
   syncRadiosFromInput();
 
-  // ---- MC 提交按鈕 ----
   const submitMcBtn = mount.querySelector('#mc-submit-btn');
   if (submitMcBtn) {
     submitMcBtn.addEventListener('click', () => {
@@ -851,25 +853,17 @@ async function initPage() {
   try {
     mainContainer.innerHTML = '';
 
-    const preloadPromise = apiCall('/api/users?action=preload')
-      .then(res => {
-        if (res.success) {
-          userStates = res.states || {};
-          window.favorites = new Set(res.favorites || []);
-        } else {
-          userStates = {};
-          window.favorites = new Set();
-        }
-      })
-      .catch(() => { userStates = {}; window.favorites = new Set(); });
-
-    const problemResult = await loadProblem();
-    if (!problemResult.success || !problemResult.problem) {
+    // ⭐ 一次拿 problem + states + favorites（CDN 並行 fallback）
+    const pageData = await loadPageData();
+    if (!pageData || !pageData.problem) {
       mainContainer.innerHTML = '<div class="error-msg">Problem not found. Please try again later.</div>';
       return;
     }
 
-    const problem = problemResult.problem;
+    const problem = pageData.problem;
+    userStates = pageData.states || {};
+    window.favorites = new Set(pageData.favorites || []);
+
     const diff = problem.difficulty ?? 0;
     currentProblemName = problem.name || problemId;
     const isAdmin = (getCurrentUser()?.role === 'admin' || getCurrentUser()?.role === 'root');
@@ -986,8 +980,6 @@ async function initPage() {
       mountPdfQuizSplit();
       mountMcQuiz();
     }
-
-    await preloadPromise;
 
     const isFav = window.favorites.has(problemId);
     const currentState = userStates[problemId] || 'not_started';
