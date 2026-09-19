@@ -151,58 +151,18 @@ function statusBoxHtml(subid, text, cls) {
 }
 
 // ============ 題目 + 用戶資料載入（並行 race：API 為準，CDN 為 fallback）============
+// ============ 題目 + 用戶資料載入（全部走 API）============
 async function loadPageData() {
-  // 1) API：一次拿 problem + 當前題 state + 是否收藏
-  const apiPromise = apiCall(`/api/problem?action=page&id=${encodeURIComponent(problemId)}`)
-    .then(d => (d && d.success && d.problem) ? d : null)
+  const apiData = await apiCall(`/api/problem?action=page&id=${encodeURIComponent(problemId)}`)
     .catch(() => null);
 
-  // 2) CDN：靜態 JSON，1.5 秒超時；僅作 fallback（無 state/favorited）
-  const cdnPromise = (async () => {
-    try {
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 1500);
-      const res = await fetch(
-        `https://cdn.jsdelivr.net/gh/wyk-math-team/resources/static/_problems/${problemId}.json`,
-        { signal: ctrl.signal }
-      );
-      clearTimeout(t);
-      if (!res.ok) return null;
-      return await res.json();
-    } catch { return null; }
-  })();
+  if (!apiData || !apiData.success || !apiData.problem) return null;
 
-  const [apiData, cdnData] = await Promise.all([apiPromise, cdnPromise]);
-
-  // API 成功：以 API 為準
-  if (apiData) {
-    return {
-      problem: apiData.problem,
-      state: apiData.state || 'not_started',
-      favorited: !!apiData.favorited
-    };
-  }
-
-  // API 失敗：退而求其次用 CDN（問題仍可看，但無 state/favorited）
-  if (cdnData) {
-    const safe = { ...cdnData };
-    delete safe.ans;
-    delete safe.logic;
-    return {
-      problem: {
-        id: problemId,
-        name: safe.name || problemId,
-        statement: safe.statement || '',
-        difficulty: safe.difficulty ?? 0,
-        tags: safe.tags || [],
-        ...safe
-      },
-      state: 'not_started',
-      favorited: false
-    };
-  }
-
-  return null;
+  return {
+    problem: apiData.problem,
+    state: apiData.state || 'not_started',
+    favorited: !!apiData.favorited
+  };
 }
 
 const domPurifyConfig = {
