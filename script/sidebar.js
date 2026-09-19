@@ -18,17 +18,17 @@
   // ---- 管理員共用項目（admin + root）----
   const adminMenuCommon = `
     <li><a href="/admin/problems" class="sidebar-link require-login" data-page="admin-problems"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Problems</a></li>
-    <li><a href="/admin/ssubmissions" class="sidebar-link require-login" data-page="admin-ssubmissions"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Submissions</a></li>
+    <li><a href="/admin/submissions" class="sidebar-link require-login" data-page="admin-submissions"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Submissions</a></li>
     <li><a href="/admin/users" class="sidebar-link require-login" data-page="admin-users"><i class="fa-solid fa-users-gear fa-fw"></i> Manage Users</a></li>
     <li><a href="/admin/updates" class="sidebar-link require-login" data-page="admin-updates"><i class="fa-solid fa-bullhorn fa-fw"></i> Manage Updates</a></li>
-    <li><a href="/admin/contest" class="sidebar-link require-login" data-page="admin-contest"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Contests</a></li>
+    <li><a href="/admin/contests" class="sidebar-link require-login" data-page="admin-contests"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Contests</a></li>
     <li><a href="/admin/reports" class="sidebar-link require-login" data-page="admin-reports"><i class="fa-solid fa-pen-to-square fa-fw"></i> Bug Reports</a></li>
     <li><a href="/admin/log" class="sidebar-link require-login" data-page="admin-log"><i class="fa-solid fa-scroll fa-fw"></i> Server Log</a></li>
   `;
 
-  // ---- root 專屬（兩個終端）----
+  // ---- root 專屬 ----
   const adminMenuRootOnly = isRoot ? `
-    <li><a href="/admin/terminal" class="sidebar-link require-login" data-page="admin-terminal"><i class="fa-solid fa-terminal fa-fw"></i> SQL Terminal</a></li>
+    <li><a href="/admin/sql" class="sidebar-link require-login" data-page="admin-sql"><i class="fa-solid fa-terminal fa-fw"></i> SQL Terminal</a></li>
     <li><a href="/admin/cmd" class="sidebar-link require-login" data-page="admin-cmd"><i class="fa-solid fa-code fa-fw"></i> CMD</a></li>
   ` : '';
 
@@ -38,7 +38,7 @@
         <li><a href="/problems" class="sidebar-link require-login" data-page="problems"><i class="fa-solid fa-list-check fa-fw"></i> Problems</a></li>
         <li><a href="${ownSubmissionsUrl}" class="sidebar-link require-login" data-page="submissions"><i class="fa-solid fa-paper-plane fa-fw"></i> Your Submissions</a></li>
         <li><a href="/submissions" class="sidebar-link require-login" data-page="all-submissions"><i class="fa-solid fa-pen-to-square fa-fw"></i> All Submissions</a></li>
-        <li><a href="/ranklist.html" class="sidebar-link require-login" data-page="ranklist"><i class="fa-solid fa-ranking-star fa-fw"></i> Leaderboard</a></li>
+        <li><a href="/leaderboard" class="sidebar-link require-login" data-page="ranklist"><i class="fa-solid fa-ranking-star fa-fw"></i> Leaderboard</a></li>
         <li><a href="/resources" class="sidebar-link require-login" data-page="resources"><i class="fa-solid fa-folder-open fa-fw"></i> Resources</a></li>
         <li><a href="/contest" class="sidebar-link require-login" data-page="contest"><i class="fa-solid fa-trophy fa-fw"></i> Contests</a></li>
         ${isAdmin ? `
@@ -57,7 +57,6 @@
 
   sidebar.innerHTML = sidebarHTML;
 
-  // ---- 判断宽屏 ----
   const isWide = window.innerWidth > 768;
   let isOpen;
 
@@ -68,7 +67,6 @@
     isOpen = saved === null ? false : saved === 'true';
   }
 
-  // ---- 移动端样式：从顶部滑出 ----
   if (!isWide) {
     sidebar.style.position = 'fixed';
     sidebar.style.top = 'var(--topbar-height)';
@@ -82,7 +80,6 @@
     sidebar.style.display = isOpen ? 'block' : 'none';
   }
 
-  // ---- 应用初始状态（无过渡，避免闪烁） ----
   sidebar.style.transition = 'none';
   if (isOpen) {
     sidebar.classList.add('open');
@@ -102,14 +99,10 @@
   void sidebar.offsetHeight;
   sidebar.style.transition = '';
 
-  // ---- 保存状态（仅窄屏） ----
   function saveSidebarState(open) {
-    if (!isWide) {
-      localStorage.setItem('sidebarOpen', open);
-    }
+    if (!isWide) localStorage.setItem('sidebarOpen', open);
   }
 
-  // ---- 切换函数（供按钮调用） ----
   function toggleSidebar() {
     if (isWide) return;
     const nowOpen = sidebar.classList.contains('open');
@@ -119,9 +112,7 @@
       document.body.classList.add('sidebar-closed');
       const onTransitionEnd = () => {
         sidebar.removeEventListener('transitionend', onTransitionEnd);
-        if (!sidebar.classList.contains('open')) {
-          sidebar.style.display = 'none';
-        }
+        if (!sidebar.classList.contains('open')) sidebar.style.display = 'none';
       };
       sidebar.addEventListener('transitionend', onTransitionEnd);
       saveSidebarState(false);
@@ -136,14 +127,12 @@
   }
   window.toggleSidebar = toggleSidebar;
 
-  // ---- 浮动开关按钮（备选） ----
   const toggleBtn = document.getElementById('sidebarToggle');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', toggleSidebar);
     if (isWide) toggleBtn.style.display = 'none';
   }
 
-  // ---- 响应式窗口变化 ----
   let currentIsWide = isWide;
   window.addEventListener('resize', () => {
     const nowWide = window.innerWidth > 768;
@@ -191,25 +180,26 @@
     }
   });
 
-  // ---- Active 状态高亮 ----
+  // ---- Active 高亮（對應 vercel.json 路徑） ----
   const path = window.location.pathname;
   const links = sidebar.querySelectorAll('.sidebar-link');
   links.forEach(link => {
     const page = link.getAttribute('data-page');
+    // 注意：/admin/submissions 必須放在 /submissions 之前判斷，否則會被誤標
     if (page === 'problems' && path.startsWith('/problems')) link.classList.add('active');
     else if (page === 'admin-problems' && path.startsWith('/admin/problems')) link.classList.add('active');
-    else if (page === 'admin-ssubmissions' && path.startsWith('/admin/ssubmissions')) link.classList.add('active');
+    else if (page === 'admin-submissions' && path.startsWith('/admin/submissions')) link.classList.add('active');
     else if (page === 'admin-users' && path.startsWith('/admin/users')) link.classList.add('active');
     else if (page === 'admin-updates' && path.startsWith('/admin/updates')) link.classList.add('active');
-    else if (page === 'admin-contest' && path.startsWith('/admin/contest')) link.classList.add('active');
+    else if (page === 'admin-contests' && path.startsWith('/admin/contests')) link.classList.add('active');
     else if (page === 'admin-reports' && path.startsWith('/admin/reports')) link.classList.add('active');
     else if (page === 'admin-log' && path.startsWith('/admin/log')) link.classList.add('active');
-    else if (page === 'admin-terminal' && path.startsWith('/admin/terminal')) link.classList.add('active');
+    else if (page === 'admin-sql' && path.startsWith('/admin/sql')) link.classList.add('active');
     else if (page === 'admin-cmd' && path.startsWith('/admin/cmd')) link.classList.add('active');
     else if (page === 'resources' && path.startsWith('/resources')) link.classList.add('active');
     else if (page === 'submissions' && (path.startsWith('/submissions/user') || path === '/submissions')) link.classList.add('active');
     else if (page === 'all-submissions' && path === '/submissions') link.classList.add('active');
-    else if (page === 'ranklist' && path.startsWith('/ranklist')) link.classList.add('active');
+    else if (page === 'ranklist' && path.startsWith('/leaderboard')) link.classList.add('active');
     else if (page === 'template' && path.startsWith('/settings')) link.classList.add('active');
     else if (page === 'credits' && path.startsWith('/credits')) link.classList.add('active');
     else if (page === 'contest' && path.startsWith('/contest')) link.classList.add('active');
@@ -217,28 +207,23 @@
     else if (page === 'status' && path.startsWith('/status')) link.classList.add('active');
   });
 
-  // ---- 点击侧边栏链接后关闭（移动端） ----
   links.forEach(link => {
-    link.addEventListener('click', function(e) {
-      if (!isWide) {
-        if (sidebar.classList.contains('open')) {
-          sidebar.classList.remove('open');
-          sidebar.style.transform = 'translateY(-100%)';
-          document.body.classList.add('sidebar-closed');
-          const onEnd = () => {
-            sidebar.removeEventListener('transitionend', onEnd);
-            if (!sidebar.classList.contains('open')) {
-              sidebar.style.display = 'none';
-            }
-          };
-          sidebar.addEventListener('transitionend', onEnd);
-          saveSidebarState(false);
-        }
+    link.addEventListener('click', function() {
+      if (!isWide && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        sidebar.style.transform = 'translateY(-100%)';
+        document.body.classList.add('sidebar-closed');
+        const onEnd = () => {
+          sidebar.removeEventListener('transitionend', onEnd);
+          if (!sidebar.classList.contains('open')) sidebar.style.display = 'none';
+        };
+        sidebar.addEventListener('transitionend', onEnd);
+        saveSidebarState(false);
       }
     });
   });
 
-  // ---- 未登录拦截 ----
+  // ---- 未登入攔截 ----
   document.addEventListener('click', (e) => {
     const link = e.target.closest('.require-login');
     if (link && typeof isLoggedIn === 'function' && !isLoggedIn()) {
@@ -249,17 +234,15 @@
   });
 })();
 
-// sidebar.js 末尾，IIFE 之外
+// 預取
 (function () {
   const prefetched = new Set();
   let hoverTimer = null;
-
   function prefetch(url) {
     if (prefetched.has(url)) return;
     prefetched.add(url);
     fetch(url, { priority: 'low' }).catch(() => {});
   }
-
   document.addEventListener('mouseover', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
@@ -274,9 +257,7 @@
     clearTimeout(hoverTimer);
     hoverTimer = setTimeout(() => prefetch(url.href), 100);
   });
-
   document.addEventListener('mouseout', () => clearTimeout(hoverTimer));
-
   document.addEventListener('touchstart', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
