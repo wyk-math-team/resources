@@ -1,4 +1,6 @@
 // sidebar.js
+// 全局開關：hover 預取。true = 啟用，false = 停用
+window.__ENABLE_HOVER_PREFETCH = false;//
 (function() {
   console.log('sidebar.js executing...');
   const sidebar = document.getElementById('sidebarContainer');
@@ -233,16 +235,19 @@
     }
   });
 })();
-
-// 預取
+// 預取（由 window.__ENABLE_HOVER_PREFETCH 控制）
 (function () {
+  if (!window.__ENABLE_HOVER_PREFETCH) return;
+
   const prefetched = new Set();
   let hoverTimer = null;
+
   function prefetch(url) {
     if (prefetched.has(url)) return;
     prefetched.add(url);
     fetch(url, { priority: 'low' }).catch(() => {});
   }
+
   document.addEventListener('mouseover', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
@@ -257,7 +262,9 @@
     clearTimeout(hoverTimer);
     hoverTimer = setTimeout(() => prefetch(url.href), 100);
   });
+
   document.addEventListener('mouseout', () => clearTimeout(hoverTimer));
+
   document.addEventListener('touchstart', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
