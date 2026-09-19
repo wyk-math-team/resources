@@ -1,6 +1,4 @@
 // sidebar.js
-// 全局開關：hover 預取。true = 啟用，false = 停用
-window.__ENABLE_HOVER_PREFETCH = false;//
 (function() {
   console.log('sidebar.js executing...');
   const sidebar = document.getElementById('sidebarContainer');
@@ -17,22 +15,14 @@ window.__ENABLE_HOVER_PREFETCH = false;//
     ? `/submissions/user/${encodeURIComponent(currentUser.username)}`
     : '/submissions';
 
-  // ---- 管理員共用項目（admin + root）----
-  const adminMenuCommon = `
-    <li><a href="/admin/problems" class="sidebar-link require-login" data-page="admin-problems"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Problems</a></li>
-    <li><a href="/admin/submissions" class="sidebar-link require-login" data-page="admin-submissions"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Submissions</a></li>
-    <li><a href="/admin/users" class="sidebar-link require-login" data-page="admin-users"><i class="fa-solid fa-users-gear fa-fw"></i> Manage Users</a></li>
-    <li><a href="/admin/updates" class="sidebar-link require-login" data-page="admin-updates"><i class="fa-solid fa-bullhorn fa-fw"></i> Manage Updates</a></li>
-    <li><a href="/admin/contests" class="sidebar-link require-login" data-page="admin-contests"><i class="fa-solid fa-pen-to-square fa-fw"></i> Manage Contests</a></li>
-    <li><a href="/admin/reports" class="sidebar-link require-login" data-page="admin-reports"><i class="fa-solid fa-pen-to-square fa-fw"></i> Bug Reports</a></li>
-    <li><a href="/admin/log" class="sidebar-link require-login" data-page="admin-log"><i class="fa-solid fa-scroll fa-fw"></i> Server Log</a></li>
+  // ---- 管理員：單一入口 ----
+  const adminMenu = `
+    <li>
+      <a href="/admin" class="sidebar-link require-login sidebar-link-admin" data-page="admin">
+        <i class="fa-solid fa-shield-halved fa-fw"></i> Admin Dashboard
+      </a>
+    </li>
   `;
-
-  // ---- root 專屬 ----
-  const adminMenuRootOnly = isRoot ? `
-    <li><a href="/admin/sql" class="sidebar-link require-login" data-page="admin-sql"><i class="fa-solid fa-terminal fa-fw"></i> SQL Terminal</a></li>
-    <li><a href="/admin/cmd" class="sidebar-link require-login" data-page="admin-cmd"><i class="fa-solid fa-code fa-fw"></i> CMD</a></li>
-  ` : '';
 
   const sidebarHTML = `
     <nav class="sidebar-nav">
@@ -45,11 +35,9 @@ window.__ENABLE_HOVER_PREFETCH = false;//
         <li><a href="/contest" class="sidebar-link require-login" data-page="contest"><i class="fa-solid fa-trophy fa-fw"></i> Contests</a></li>
         ${isAdmin ? `
           <li><hr style="margin:8px 0; border-color:rgba(255,255,255,0.2);"></li>
-          ${adminMenuCommon}
-          ${adminMenuRootOnly}
+          ${adminMenu}
           <li><hr style="margin:8px 0; border-color:rgba(255,255,255,0.2);"></li>
         ` : ''}
-        <li><a href="/status" class="sidebar-link require-login" data-page="status"><i class="fa-solid fa-heart-pulse fa-fw"></i> Judge Status</a></li>
         <li><a href="/settings" class="sidebar-link require-login" data-page="template"><i class="fa-solid fa-gear fa-fw"></i> Settings</a></li>
         <li><a href="/credits" class="sidebar-link" data-page="credits"><i class="fa-solid fa-heart fa-fw"></i> Credits</a></li>
         <li><a href="/guide" class="sidebar-link" data-page="guide"><i class="fa-solid fa-book-open fa-fw"></i> Guides</a></li>
@@ -182,31 +170,27 @@ window.__ENABLE_HOVER_PREFETCH = false;//
     }
   });
 
-  // ---- Active 高亮（對應 vercel.json 路徑） ----
+  // ---- Active 高亮 ----
   const path = window.location.pathname;
   const links = sidebar.querySelectorAll('.sidebar-link');
   links.forEach(link => {
     const page = link.getAttribute('data-page');
-    // 注意：/admin/submissions 必須放在 /submissions 之前判斷，否則會被誤標
+
+    // Admin Dashboard：只要路徑以 /admin 開頭就高亮
+    if (page === 'admin' && path.startsWith('/admin')) {
+      link.classList.add('active');
+      return;
+    }
+
     if (page === 'problems' && path.startsWith('/problems')) link.classList.add('active');
-    else if (page === 'admin-problems' && path.startsWith('/admin/problems')) link.classList.add('active');
-    else if (page === 'admin-submissions' && path.startsWith('/admin/submissions')) link.classList.add('active');
-    else if (page === 'admin-users' && path.startsWith('/admin/users')) link.classList.add('active');
-    else if (page === 'admin-updates' && path.startsWith('/admin/updates')) link.classList.add('active');
-    else if (page === 'admin-contests' && path.startsWith('/admin/contests')) link.classList.add('active');
-    else if (page === 'admin-reports' && path.startsWith('/admin/reports')) link.classList.add('active');
-    else if (page === 'admin-log' && path.startsWith('/admin/log')) link.classList.add('active');
-    else if (page === 'admin-sql' && path.startsWith('/admin/sql')) link.classList.add('active');
-    else if (page === 'admin-cmd' && path.startsWith('/admin/cmd')) link.classList.add('active');
     else if (page === 'resources' && path.startsWith('/resources')) link.classList.add('active');
-    else if (page === 'submissions' && (path.startsWith('/submissions/user') || path === '/submissions')) link.classList.add('active');
+    else if (page === 'submissions' && path.startsWith('/submissions/user')) link.classList.add('active');
     else if (page === 'all-submissions' && path === '/submissions') link.classList.add('active');
     else if (page === 'ranklist' && path.startsWith('/leaderboard')) link.classList.add('active');
     else if (page === 'template' && path.startsWith('/settings')) link.classList.add('active');
     else if (page === 'credits' && path.startsWith('/credits')) link.classList.add('active');
     else if (page === 'contest' && path.startsWith('/contest')) link.classList.add('active');
     else if (page === 'guide' && path.startsWith('/guide')) link.classList.add('active');
-    else if (page === 'status' && path.startsWith('/status')) link.classList.add('active');
   });
 
   links.forEach(link => {
@@ -235,19 +219,16 @@ window.__ENABLE_HOVER_PREFETCH = false;//
     }
   });
 })();
-// 預取（由 window.__ENABLE_HOVER_PREFETCH 控制）
-(function () {
-  if (!window.__ENABLE_HOVER_PREFETCH) return;
 
+// 預取
+(function () {
   const prefetched = new Set();
   let hoverTimer = null;
-
   function prefetch(url) {
     if (prefetched.has(url)) return;
     prefetched.add(url);
     fetch(url, { priority: 'low' }).catch(() => {});
   }
-
   document.addEventListener('mouseover', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
@@ -262,9 +243,7 @@ window.__ENABLE_HOVER_PREFETCH = false;//
     clearTimeout(hoverTimer);
     hoverTimer = setTimeout(() => prefetch(url.href), 100);
   });
-
   document.addEventListener('mouseout', () => clearTimeout(hoverTimer));
-
   document.addEventListener('touchstart', (e) => {
     const a = e.target.closest('a');
     if (!a) return;
