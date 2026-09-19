@@ -35,7 +35,94 @@ const getTopbarHeight = () => {
   const n = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-height'), 10);
   return Number.isFinite(n) ? n : 60;
 };
-
+// ============ Similar 卡片 CSS（只注入一次）============
+(function injectSimilarCSS() {
+  if (document.getElementById('similar-modal-style')) return;
+  const s = document.createElement('style');
+  s.id = 'similar-modal-style';
+  s.textContent = `
+.si-item {
+  display: block;
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color .15s, transform .12s, box-shadow .15s;
+}
+.si-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.si-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: .95rem;
+}
+.si-id {
+  font-family: 'Consolas', monospace;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.si-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.si-meta {
+  display: flex;
+  gap: 10px;
+  font-size: .8rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  align-items: center;
+}
+.si-tag {
+  background: rgba(74,144,217,.12);
+  color: var(--accent);
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: .72rem;
+  font-weight: 600;
+}
+.si-tag.common {
+  background: rgba(46,204,113,.15);
+  color: #2e7d32;
+}
+[data-theme="dark"] .si-tag {
+  background: rgba(74,144,217,.25);
+}
+[data-theme="dark"] .si-tag.common {
+  background: rgba(46,204,113,.25);
+  color: #8fce9f;
+}
+.si-badge {
+  font-size: .72rem;
+  font-weight: 700;
+  color: #e67e22;
+  flex-shrink: 0;
+}
+.si-empty {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-secondary);
+  font-size: .9rem;
+}
+.si-loading {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-secondary);
+  font-size: .9rem;
+}
+`;
+  document.head.appendChild(s);
+})();
 // ============ 狀態徽章 CSS（只注入一次）============
 (function injectFeedbackBoxCSS() {
   if (document.getElementById('feedback-box-style')) return;
@@ -807,6 +894,9 @@ async function initPage() {
           <span style="font-size:0.8rem" id="detailTags">${(problem.tags || []).join(', ')}</span>
           <span style="display:flex;gap:0.5rem;align-items:center;">
             <span id="navButtons" style="display:flex;gap:0.5rem;"></span>
+            <button id="similarBtn" class="back-btn" style="color:var(--accent);">
+              <i class="fas fa-layer-group"></i> Similar
+            </button>
             <button id="reportBtn" class="back-btn" style="color:var(--danger);">Report</button>
           </span>
         </div>
@@ -868,6 +958,16 @@ async function initPage() {
             <div class="report-modal-actions">
               <button class="btn-secondary" id="reportCancelBtn">Cancel</button>
               <button class="btn-primary" id="reportSubmitBtn">Submit Report</button>
+            </div>
+          </div>
+        </div>
+                <div id="similarModal" class="report-modal-overlay" style="display:none">
+          <div class="report-modal" style="max-width:680px;">
+            <h3><i class="fas fa-layer-group" style="color:var(--accent);"></i> Similar Problems</h3>
+            <p class="report-modal-hint" id="similarHint">Based on shared tags and difficulty</p>
+            <div id="similarList" style="max-height:60vh;overflow-y:auto;padding-right:4px;"></div>
+            <div class="report-modal-actions">
+              <button class="btn-secondary" id="similarCloseBtn">Close</button>
             </div>
           </div>
         </div>
@@ -956,6 +1056,14 @@ async function initPage() {
         this.textContent = 'Submit Report';
       }
     });
+        // ---- Similar modal ----
+    document.getElementById('similarBtn').addEventListener('click', openSimilar);
+    document.getElementById('similarCloseBtn').addEventListener('click', () => {
+      document.getElementById('similarModal').style.display = 'none';
+    });
+    document.getElementById('similarModal').addEventListener('click', function (e) {
+      if (e.target === this) this.style.display = 'none';
+    });
 
     // ---- 收藏 ----
     document.getElementById('detailFavorite').addEventListener('click', async function () {
@@ -982,7 +1090,65 @@ async function initPage() {
     mainContainer.innerHTML = `<div class="error-msg">Failed to load problem: ${err.message}</div>`;
   }
 }
+// ============ 相似題目 ============
+async function openSimilar() {
+  const modal = document.getElementById('similarModal');
+  const list = document.getElementById('similarList');
+  const hint = document.getElementById('similarHint');
+  if (!modal || !list) return;
 
+  modal.style.display = 'flex';
+  list.innerHTML = '<div class="si-loading"><span class="spinner"></span> Searching similar problems...</div>';
+
+  try {
+    const data = await apiCall(`/api/problem?action=similar&id=${encodeURIComponent(problemId)}`);
+    if (!data.success) throw new Error(data.message || 'Failed to load');
+
+    const curTags = data.current?.tags || [];
+    hint.textContent = curTags.length
+      ? `Comparing against tags: ${curTags.join(', ')} · difficulty ${(data.current.difficulty || 0).toFixed(2)}`
+      : `No tags on this problem — showing closest difficulty`;
+
+    if (!data.similar || data.similar.length === 0) {
+      list.innerHTML = '<div class="si-empty"><i class="fas fa-search" style="font-size:28px;opacity:.4;display:block;margin-bottom:10px;"></i>No similar problems found.</div>';
+      return;
+    }
+
+    const curTagSet = new Set(curTags.map(t => String(t).toLowerCase()));
+
+    list.innerHTML = data.similar.map(p => {
+      const tags = Array.isArray(p.tags) ? p.tags : [];
+      const tagsHtml = tags.slice(0, 6).map(t => {
+        const isCommon = curTagSet.has(String(t).toLowerCase());
+        return `<span class="si-tag${isCommon ? ' common' : ''}">${escapeHtml(t)}</span>`;
+      }).join('');
+
+      const diffVal = Number(p.difficulty) || 0;
+      const diffText = diffVal === 0 ? '∞' : diffVal.toFixed(2);
+      const delta = Number(p.diffDelta) || 0;
+      const deltaText = delta < 0.01 ? 'exact' : `Δ${delta.toFixed(2)}`;
+
+      return `
+        <a href="/problems/${encodeURIComponent(p.id)}" class="si-item">
+          <div class="si-title">
+            <span class="si-id">${escapeHtml(p.id)}</span>
+            <span class="si-name">${escapeHtml(p.name || '')}</span>
+          </div>
+          <div class="si-meta">
+            <span>Lv.${diffText}</span>
+            <span class="si-badge">${deltaText}</span>
+            ${p.commonTags ? `<span style="color:#2ecc71;font-weight:600;">+${p.commonTags} tag${p.commonTags > 1 ? 's' : ''}</span>` : ''}
+            <span style="flex:1;"></span>
+            ${tagsHtml}
+          </div>
+        </a>
+      `;
+    }).join('');
+  } catch (err) {
+    console.error(err);
+    list.innerHTML = `<div class="si-empty" style="color:var(--danger);">Error: ${escapeHtml(err.message)}</div>`;
+  }
+}
 // ============ 靜態事件 ============
 function bindStaticEvents() {
   document.getElementById('backToListBtn').addEventListener('click', () => history.back());
