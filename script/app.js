@@ -1,6 +1,33 @@
 // app.js - 全局初始化
 (function() {
   // 初始化应用
+  // ═══════════════════════════════════════════════════
+// PWA：強制從 OS 啟動
+// ═══════════════════════════════════════════════════
+(function forcePWAHome() {
+  // 檢測是否以 PWA standalone 模式打開
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.matchMedia('(display-mode: minimal-ui)').matches;
+
+  if (!isStandalone) return;                       // 瀏覽器模式 → 不重定向
+  if (location.pathname.startsWith('/os')) return; // 已在 OS → 不重定向
+  if (location.pathname.startsWith('/admin')) return; // 管理端 → 不重定向
+
+  // 本次 PWA 會話是否已經進過 OS？
+  // 沒進過 → 第一次從圖標啟動，重定向到 /os
+  // 進過   → 是 OS 內部導航，放行
+  try {
+    if (!sessionStorage.getItem('pwaEnteredOS')) {
+      sessionStorage.setItem('pwaEnteredOS', '1');
+      location.replace('/os' + location.search + location.hash);
+    }
+  } catch (e) {
+    // sessionStorage 不可用時，保守處理：不重定向
+  }
+})();
   initApp();
 
   function initApp() {
