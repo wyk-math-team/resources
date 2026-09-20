@@ -1428,10 +1428,18 @@
       Array.from(state.windows.values()).forEach(w => w.close());
       hideStartMenu();
     });
-    $('#os-logout-btn').addEventListener('click', () => {
-      OS.clearSession();   // ⭐ 登出時清空
+        $('#os-logout-btn').addEventListener('click', () => {
+      if (!confirm('Are you sure to log out? All the windows will be closed.')) return;
+
+      // 1. 清空 session（視窗狀態）
+      OS.clearSession();
+
+      // 2. 登出（清 token）
       if (typeof logout === 'function') logout();
-      else { localStorage.removeItem('auth_token'); location.href = '/'; }
+      else localStorage.removeItem('auth_token');
+
+      // 3. 留在 OS：重新載入 /os → 鎖屏邏輯會回到時鐘頁
+      location.reload();
     });
     $('#os-go-home-btn').addEventListener('click', () => {
       const hasWindows = state.windows.size > 0;
