@@ -6,6 +6,7 @@
 // ═══════════════════════════════════════════════════
 (function forcePWAHome() {
   // 檢測是否以 PWA standalone 模式打開
+  if (window.top !== window.self) return;
   const isStandalone =
     window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true ||
