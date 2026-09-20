@@ -5,7 +5,7 @@ const pathMatch = window.location.pathname.match(/^\/problems\/([^/]+)$/);
 if (!pathMatch) {
   document.getElementById('mainContent').innerHTML = '<div class="error-msg">Invalid problem URL.</div>';
   throw new Error('No problem ID');
-}
+} 
 const problemId = decodeURIComponent(pathMatch[1]);
 document.title = `Problem ${problemId} - WYK Maths Team`;
 
