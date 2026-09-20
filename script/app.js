@@ -4,6 +4,36 @@
   initApp();
 
   function initApp() {
+    if (!document.querySelector('link[rel="manifest"]')) {
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = '/manifest.json';
+    document.head.appendChild(link);
+  }
+
+  // iOS 的 apple-touch-icon
+  if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+    const appleIcon = document.createElement('link');
+    appleIcon.rel = 'apple-touch-icon';
+    appleIcon.href = '/icons/apple-touch-icon.png';
+    document.head.appendChild(appleIcon);
+  }
+
+  // iOS 的 meta 標籤
+  const iosMetaTags = [
+    { name: 'apple-mobile-web-app-capable', content: 'yes' },
+    { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+    { name: 'apple-mobile-web-app-title', content: 'WYK Maths' },
+    { name: 'mobile-web-app-capable', content: 'yes' }
+  ];
+  iosMetaTags.forEach(({ name, content }) => {
+    if (!document.querySelector(`meta[name="${name}"]`)) {
+      const meta = document.createElement('meta');
+      meta.name = name;
+      meta.content = content;
+      document.head.appendChild(meta);
+    }
+  });
     const currentUser = (typeof getCurrentUser === 'function') ? getCurrentUser() : { displayName: 'Guest' };
     const displayName = currentUser ? (currentUser.displayName || currentUser.username || 'Guest') : 'Guest';
 
