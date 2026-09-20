@@ -1232,7 +1232,7 @@
           const now = Date.now();
 
           // ⭐ 500ms 內第二次點擊 → 視作雙擊，直接打開
-          if (now - lastClickTime < 300) {
+          if (now - lastClickTime < 400) {
             lastClickTime = 0;
             OS.launchIcon(id);
             return;
