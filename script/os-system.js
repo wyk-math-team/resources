@@ -607,6 +607,8 @@
     minimize() {
       this.minimized = true;
       this.el.classList.add('minimized');
+      this.el.classList.remove('focused');
+      if (state.focusedId === this.id) state.focusedId = null;
       OS.renderTaskbar();
       OS.scheduleSaveSession();
     }
@@ -614,6 +616,7 @@
       this.minimized = false;
       this.el.classList.remove('minimized');
       this.focus();
+      OS.renderTaskbar();          // ⭐ 強制重繪任務欄
       OS.scheduleSaveSession();
     }
     toggleMaximize() {
