@@ -508,3 +508,19 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI','Inter',
   .os-login-avatar { width: 64px; height: 64px; font-size: 2rem; margin-bottom: 12px; }
   .os-login-title { font-size: 1.25rem; }
 }
+/* ⭐ Settings 內的 toggle 樣式 */
+.os-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  color: #d6e4ff;
+}
+.os-toggle-row input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
