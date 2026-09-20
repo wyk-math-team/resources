@@ -33,13 +33,24 @@ html, body {
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI','Inter',system-ui,sans-serif;user-select:none;background:#050510;color:#c9d5e8}
-#os-root{position:fixed;inset:0;display:flex;flex-direction:column;background:radial-gradient(ellipse at top,#1a1a2e 0%,#0a0a15 70%),linear-gradient(180deg,#141425 0%,#050510 100%)}
+#os-root{
+  position:fixed;inset:0;display:flex;flex-direction:column;
+  background:radial-gradient(ellipse at top,#1a1a2e 0%,#0a0a15 70%),linear-gradient(180deg,#141425 0%,#050510 100%);
+  /* ⭐ iOS 安全區：頂部讓給狀態欄，底部讓給 Home Bar */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+}
 #os-root::before{content:"";position:absolute;inset:0;background-image:radial-gradient(1px 1px at 10% 20%,#fff,transparent),radial-gradient(1px 1px at 25% 40%,#aac4ff,transparent),radial-gradient(1px 1px at 40% 15%,#fff,transparent),radial-gradient(1px 1px at 55% 60%,#aac4ff,transparent),radial-gradient(1px 1px at 70% 25%,#fff,transparent),radial-gradient(1px 1px at 85% 55%,#aac4ff,transparent),radial-gradient(2px 2px at 15% 80%,#fff,transparent),radial-gradient(2px 2px at 45% 75%,#aac4ff,transparent),radial-gradient(2px 2px at 75% 85%,#fff,transparent),radial-gradient(2px 2px at 90% 10%,#aac4ff,transparent);background-size:600px 400px;animation:starDrift 90s linear infinite;pointer-events:none;opacity:.75}
 @keyframes starDrift{from{background-position:0 0}to{background-position:600px 400px}}
 
 /* ── 桌面 ── */
 #os-desktop{position:relative;flex:1;overflow:hidden;z-index:1;min-height:0}
-#os-wallpaper{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;pointer-events:none;z-index:0;transition:opacity .3s}
+#os-wallpaper{
+  position:fixed;inset:0;               /* ⭐ absolute → fixed，延伸到狀態欄下 */
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  pointer-events:none;z-index:0;transition:opacity .3s;
+}
 #os-icons{position:absolute;inset:0;padding:16px;display:grid;grid-template-columns:repeat(auto-fill,96px);grid-auto-rows:96px;gap:8px;align-content:start;justify-content:start;z-index:1}
 #os-windows{position:absolute;inset:0;z-index:2;pointer-events:none}
 
