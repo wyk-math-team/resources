@@ -219,3 +219,18 @@
     console.log(`WYK Maths Team ready. Welcome, ${displayName}!`);
   }
 })();
+(function() {
+  // 打包版 WebView 的 User-Agent 會包含 'WYKApp'
+  // 網頁版（Safari / Chrome / Edge…）不會
+  const IS_PACKAGED_APP = /WYKApp/.test(navigator.userAgent);
+  if (!IS_PACKAGED_APP) return;
+
+  if (!('serviceWorker' in navigator)) return;
+  if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((reg) => console.log('[App] SW registered:', reg.scope))
+      .catch((err) => console.warn('[App] SW registration failed:', err));
+  });
+})();
