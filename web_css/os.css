@@ -524,3 +524,26 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI','Inter',
   height: 18px;
   cursor: pointer;
 }
+/* ══════════ 禁止選中文字（OS 整體）══════════ */
+#os-root,
+#os-root * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;   /* iOS 長按不彈出"拷貝/查詢"菜單 */
+  -webkit-tap-highlight-color: transparent;  /* 點擊不顯示高亮 */
+}
+
+/* ══════════ 例外：允許輸入框選中 ══════════ */
+#os-root input,
+#os-root textarea,
+#os-root [contenteditable="true"],
+#os-root .os-selectable,
+#os-root .os-win-body iframe {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
