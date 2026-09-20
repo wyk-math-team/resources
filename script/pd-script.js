@@ -51,6 +51,24 @@ function saveUserAnswer(pid, ans) {
 function getUserAnswer(pid) {
   return loadAllUserAnswers()[pid] || '';
 }
+// ⭐ 簡單 debounce
+function debounce(fn, wait) {
+  let t = null;
+  return function (...args) {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, args), wait);
+  };
+}
+
+// ⭐ 輸入過程即時保存（debounce 500ms）
+const saveAnswerDebounced = debounce((pid, ans) => {
+  saveUserAnswer(pid, ans);
+}, 500);
+
+// ⭐ 立刻保存（blur / 提交 / 頁面隱藏時用）
+function saveAnswerNow(pid, ans) {
+  saveUserAnswer(pid, ans);
+}
 
 // ============ 工具 ============
 const escapeHtml = s => (s ?? '').toString().replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
@@ -1067,16 +1085,19 @@ async function initPage() {
     if (savedAnswer) {
       const ansInputEl = document.getElementById('answerInput');
       const exprInputEl = document.getElementById('exprInput');
-      
-      if (ansInputEl && !ansInputEl.value){
+
+      if (ansInputEl && !ansInputEl.value) {
         ansInputEl.value = savedAnswer;
+        ansInputEl.title = '上次提交的答案';
         ansInputEl.style.background = 'rgba(74,144,217,.08)';
-      ansInputEl.addEventListener('input', () => {
-        ansInputEl.style.background = '';
-        ansInputEl.title = '';
-      }, { once: true });
-      } 
-      if (exprInputEl && !exprInputEl.value) exprInputEl.value = savedAnswer;
+        ansInputEl.addEventListener('input', () => {
+          ansInputEl.style.background = '';
+          ansInputEl.title = '';
+        }, { once: true });
+      }
+      if (exprInputEl && !exprInputEl.value) {
+        exprInputEl.value = savedAnswer;
+      }
     }
     bindSubmitEvent();
     bindStaticEvents();
