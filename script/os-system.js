@@ -1943,11 +1943,7 @@
     OS.loadDesktop();
 
     // ⭐ 嘗試從會話恢復；若無 → 開預設 App
-    OS.restoreSession().then(restored => {
-      if (!restored) {
-        OS.openApp(APPS[0]);
-      }
-    });
+    OS.restoreSession();
   }
 
   // ⭐ 每次載入都先顯示鎖屏；解鎖後才啟動 OS
