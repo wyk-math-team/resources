@@ -9,25 +9,23 @@
   --topbar-height: 60px;
   --sidebar-width: 250px;
 
-  /* ⭐ Topbar / Sidebar：帶色，但比 #1a1a2e / #16213e 淺 */
-  --topbar-bg: #2e4768;
+  /* 亮色主題 */
+  --topbar-bg: #07244b;
   --topbar-text: #ffffff;
-  --topbar-border: #253a56;
+  --topbar-border: #082751;
 
-  --sidebar-bg: #3a557c;
+  --sidebar-bg: #092650;
   --sidebar-text: #dbe8f7;
-  --sidebar-hover-bg: #48648f;
-  --sidebar-active-bg: #4d78b3;
+  --sidebar-hover-bg: #80b1fb;
+  --sidebar-active-bg: #2f7eea;
   --sidebar-active-text: #ffffff;
   --sidebar-border: #334c70;
 
-  /* 品牌色 */
   --accent: #0969da;
   --accent-hover: #0550ae;
   --danger: #cf222e;
   --danger-hover: #a40e26;
 
-  /* 內容區 */
   --content-bg: #f6f8fa;
   --card-bg: #ffffff;
   --card-hover: #f6f8fa;
@@ -50,17 +48,16 @@
 }
 
 :root[data-theme="dark"] {
-  /* ⭐ Topbar / Sidebar：深藍系 */
-  --topbar-bg: #182640;
+  --topbar-bg: #0d1117;
   --topbar-text: #e6edf3;
-  --topbar-border: #22334f;
+  --topbar-border: #30363d;
 
-  --sidebar-bg: #223450;
-  --sidebar-text: #8fa4bf;
-  --sidebar-hover-bg: #2d4260;
+  --sidebar-bg: #161b22;
+  --sidebar-text: #8b949e;
+  --sidebar-hover-bg: #21262d;
   --sidebar-active-bg: #1f6feb;
   --sidebar-active-text: #ffffff;
-  --sidebar-border: #2a3f5f;
+  --sidebar-border: #30363d;
 
   --accent: #58a6ff;
   --accent-hover: #1f6feb;
@@ -124,7 +121,7 @@ ul { list-style: none; }
   padding: 0 24px;
   border-bottom: 1px solid var(--topbar-border);
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  box-shadow: var(--shadow-sm);
 }
 .topbar-left { display: flex; align-items: center; }
 
@@ -146,7 +143,7 @@ ul { list-style: none; }
   line-height: 1;
   display: flex; align-items: center; justify-content: center;
 }
-.topbar-sidebar-toggle:hover { color: #ffffff; }
+.topbar-sidebar-toggle:hover { color: var(--accent); }
 
 .topbar-right { display: flex; align-items: center; gap: 20px; }
 
@@ -156,12 +153,11 @@ ul { list-style: none; }
 .username-display {
   display: flex; align-items: center; gap: 7px;
   padding: 7px 14px; border-radius: 20px;
-  background: rgba(255, 255, 255, .12);
+  background: var(--hover-bg);
   transition: background var(--transition);
   font-size: .93rem; font-weight: 500;
-  color: var(--topbar-text);
 }
-.username-display:hover { background: rgba(255, 255, 255, .22); }
+.username-display:hover { background: var(--sidebar-hover-bg); }
 .user-icon { font-size: 1.1rem; }
 .dropdown-arrow {
   font-size: .7rem; margin-left: 2px;
@@ -201,7 +197,7 @@ ul { list-style: none; }
   font-size: .95rem;
   color: var(--topbar-text);
   padding: 6px 12px;
-  background: rgba(255, 255, 255, .08);
+  background: var(--hover-bg);
   border-radius: 16px;
 }
 .clock-time { letter-spacing: 1px; font-weight: 600; }
@@ -233,8 +229,8 @@ ul { list-style: none; }
 }
 .sidebar-link:hover {
   background: var(--sidebar-hover-bg);
-  color: #ffffff;
-  border-left-color: rgba(255, 255, 255, .4);
+  color: var(--text-primary);
+  border-left-color: var(--border-strong);
 }
 .sidebar-link.active {
   background: var(--sidebar-active-bg);
@@ -245,18 +241,17 @@ ul { list-style: none; }
 
 .sidebar-search {
   display: flex; padding: 10px 15px; gap: 5px;
-  border-bottom: 1px solid var(--sidebar-border);
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: 5px;
 }
 .sidebar-search input {
   flex: 1; padding: 5px 10px;
-  border: 1px solid var(--sidebar-border);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background: rgba(0, 0, 0, .15);
-  color: #ffffff;
+  background: var(--card-bg);
+  color: var(--text-primary);
   font-size: .85rem;
 }
-.sidebar-search input::placeholder { color: rgba(255, 255, 255, .55); }
 .sidebar-search button {
   background: var(--accent); border: none; border-radius: 4px;
   padding: 5px 10px; cursor: pointer; color: #fff;
@@ -331,7 +326,7 @@ ul { list-style: none; }
 /* ── 頂欄登出按鈕 ── */
 .logout-btn-header {
   background: none;
-  border: 1px solid rgba(255, 255, 255, .35);
+  border: 1px solid var(--topbar-border);
   color: var(--topbar-text);
   cursor: pointer; padding: .4rem .8rem;
   border-radius: 4px; font-size: .9rem; font-weight: 500;
