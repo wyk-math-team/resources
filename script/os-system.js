@@ -43,7 +43,7 @@
     ];
     if (isAdmin) list.push(
       { id:'admin-problems',     title:'Manage Problems',  icon:'fa-pen-to-square',   url:'/admin/problems',     category:'Admin' },
-      { id:'admin-ssubmissions', title:'All Submissions',  icon:'fa-clipboard-check', url:'/admin/ssubmissions', category:'Admin' },
+      { id:'admin-ssubmissions', title:'All Submissions',  icon:'fa-clipboard-check', url:'/admin/submissions',  category:'Admin' },
       { id:'admin-users',        title:'Manage Users',     icon:'fa-users-gear',      url:'/admin/users',        category:'Admin' },
       { id:'admin-updates',      title:'Manage Updates',   icon:'fa-bullhorn',        url:'/admin/updates',      category:'Admin' },
       { id:'admin-contest',      title:'Manage Contests',  icon:'fa-trophy',          url:'/admin/contest',      category:'Admin' },
