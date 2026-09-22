@@ -43,7 +43,7 @@
     ];
     if (isAdmin) list.push(
       { id:'admin-problems',     title:'Manage Problems',  icon:'fa-pen-to-square',   url:'/admin/problems',     category:'Admin' },
-      { id:'admin-ssubmissions', title:'All Submissions',  icon:'fa-clipboard-check', url:'/admin/submissions',  category:'Admin' },
+      { id:'admin-ssubmissions', title:'All Submissions',  icon:'fa-clipboard-check', url:'/admin/ssubmissions', category:'Admin' },
       { id:'admin-users',        title:'Manage Users',     icon:'fa-users-gear',      url:'/admin/users',        category:'Admin' },
       { id:'admin-updates',      title:'Manage Updates',   icon:'fa-bullhorn',        url:'/admin/updates',      category:'Admin' },
       { id:'admin-contest',      title:'Manage Contests',  icon:'fa-trophy',          url:'/admin/contest',      category:'Admin' },
@@ -74,6 +74,11 @@
       id:'notepad', title:'Notepad', icon:'fa-pen',
       category:'Tools', width:720, height:520,
       scriptUrl: CDN_BASE + 'os-app-notepad.js',
+    },
+    music: {
+      id:'music', title:'Music', icon:'fa-music',
+      category:'Tools', width:560, height:700,
+      scriptUrl: CDN_BASE + 'os-app-music.js',
     },
     // ⭐ 之前加過的
     pomodoro: {
@@ -1520,7 +1525,7 @@
       // 2. 登出（清 token）
       if (typeof logout === 'function') logout();
       else localStorage.removeItem('auth_token');
-
+          localStorage.removeItem('pd_user_answers');
       // 3. 留在 OS：重新載入 /os → 鎖屏邏輯會回到時鐘頁
       location.reload();
     });
