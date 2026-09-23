@@ -82,43 +82,22 @@
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), tracks })); } catch {}
   }
 
-  // ═══════════ 從 GitHub API 拉目錄 ═══════════
-  async function fetchTracks(force) {
-    if (!force) {
-      const cached = loadCache();
-      if (cached) return cached;
-    }
-    try {
-      const res = await fetch(GITHUB_API, {
-        headers: { 'Accept': 'application/vnd.github+json' },
-      });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const data = await res.json();
-      if (!Array.isArray(data)) throw new Error('Invalid response');
+  const MANIFEST_URL = CDN_BASE + MUSIC_DIR + 'manifest.json';
 
-      const tracks = data
-        .filter(f => f.type === 'file' && AUDIO_EXT_RE.test(f.name))
-        .map(f => ({
-          name: f.name
-            .replace(/\.[^.]+$/, '')
-            .replace(/[._-]+/g, ' ')
-            .replace(/\s+/g, ' ')
-            .trim() || f.name,
-          fileName: f.name,
-          url: CDN_BASE + MUSIC_DIR + encodeURIComponent(f.name),
-          size: f.size || 0,
-        }))
-        .sort((a, b) => a.fileName.localeCompare(b.fileName, undefined, { numeric: true }));
-
-      saveCache(tracks);
-      return tracks;
-    } catch (e) {
-      // 失敗 → 退回舊快取（忽略 TTL）
-      const stale = loadStaleCache();
-      if (stale) return stale;
-      throw e;
-    }
-  }
+async function fetchTracks(force) {
+  if (!force) { const c = loadCache(); if (c) return c; }
+  const res = await fetch(MANIFEST_URL);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const files = await res.json();
+  const tracks = files.map(fileName => ({
+    name: fileName.replace(/\.[^.]+$/, '').replace(/[._-]+/g, ' ').trim() || fileName,
+    fileName,
+    url: CDN_BASE + MUSIC_DIR + encodeURIComponent(fileName),
+    size: 0,
+  }));
+  saveCache(tracks);
+  return tracks;
+}
 
   // ═══════════ Audio 單例 ═══════════
   function ensureAudio() {
