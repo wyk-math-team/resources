@@ -28,7 +28,48 @@
     volume: 0.7,
     refreshing: false,
   };
+    // ⭐ 音訊快取（Cache API，不是 localStorage）
+  const AUDIO_CACHE_KEY = 'osMusicAudioCache_v1';
+  const _blobURLCache   = new Map();  // url -> blob: URL
+  const _pendingLoads   = new Map();  // url -> Promise（避免同時重複下載同一首）
 
+  async function openAudioCache() {
+    try {
+      if (!('caches' in window)) return null;
+      return await caches.open(AUDIO_CACHE_KEY);
+    } catch { return null; }
+  }
+
+  // 取得可直接餵給 <audio src> 的 URL：
+  // - 命中快取 → 回傳 blob: URL（不再打 CDN）
+  // - 未命中   → fetch 一次、寫入快取、再回傳 blob: URL
+  // - 不支援 / 失敗 → 退回原始 CDN URL（保底能播）
+  async function getPlayableSrc(url) {
+    if (_blobURLCache.has(url)) return _blobURLCache.get(url);
+    if (_pendingLoads.has(url)) return _pendingLoads.get(url);
+
+    const task = (async () => {
+      const cache = await openAudioCache();
+      if (!cache) return url;
+
+      let res = await cache.match(url);
+      if (!res) {
+        res = await fetch(url, { credentials: 'omit' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        // 只快取成功的回應
+        await cache.put(url, res.clone());
+      }
+
+      const blob = await res.blob();
+      const objURL = URL.createObjectURL(blob);
+      _blobURLCache.set(url, objURL);
+      return objURL;
+    })();
+
+    _pendingLoads.set(url, task);
+    try { return await task; }
+    finally { _pendingLoads.delete(url); }
+  }
   // ═══════════ 工具 ═══════════
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, m =>
@@ -108,8 +149,8 @@ async function fetchTracks(force) {
     _audio.addEventListener('ended', onEnded);
     _audio.addEventListener('timeupdate', onTimeUpdate);
     _audio.addEventListener('loadedmetadata', onTimeUpdate);
-    _audio.addEventListener('play',  () => { _state.playing = true;  updatePlayerUI(); });
-    _audio.addEventListener('pause', () => { _state.playing = false; updatePlayerUI(); });
+    _audio.addEventListener('play',  () => { _state.playing = true;  refreshPlayerUI(); });
+    _audio.addEventListener('pause', () => { _state.playing = false; refreshPlayerUI(); });
     _audio.addEventListener('error', () => {
       // 該檔載入失敗 → 跳下一首（避免卡死）
       if (_state.playing) setTimeout(nextTrack, 300);
@@ -122,7 +163,7 @@ async function fetchTracks(force) {
     return _state.tracks.filter(t => _state.selected.has(t.fileName));
   }
 
-  function playByIndex(idx) {
+    async function playByIndex(idx) {
     const list = getSelectedTracks();
     if (!list.length) return;
     if (idx < 0 || idx >= list.length) return;
@@ -131,16 +172,30 @@ async function fetchTracks(force) {
     const track = list[idx];
     const a = ensureAudio();
 
-    // 只有換歌才重新設 src（避免重新載入）
-    if (a.dataset.fileName !== track.fileName) {
-      a.dataset.fileName = track.fileName;
-      a.src = track.url;
+    // 同一首已載入過 → 直接播，不重新抓
+    if (a.dataset.fileName === track.fileName && a.src) {
+      a.play().catch(err => {
+        console.warn('Play failed:', err);
+        _state.playing = false;
+        refreshPlayerUI();
+      });
+      return;
     }
-    a.play().catch(err => {
-      console.warn('Play failed:', err);
+
+    try {
+      const src = await getPlayableSrc(track.url);
+      a.dataset.fileName = track.fileName;
+      a.src = src;
+      a.play().catch(err => {
+        console.warn('Play failed:', err);
+        _state.playing = false;
+        refreshPlayerUI();
+      });
+    } catch (err) {
+      console.warn('Load failed:', err);
       _state.playing = false;
-      updatePlayerUI();
-    });
+      refreshPlayerUI();
+    }
   }
 
   function togglePlay() {
@@ -567,6 +622,10 @@ async function fetchTracks(force) {
       bindEvents();
       setMode(_state.mode);
       refresh(false);
+            // ⭐ 請求持久化儲存，降低瀏覽器在空間壓力下清掉音樂快取的機率
+      if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist().catch(() => {});
+      }
 
       // ⭐ 關窗時暫停音樂
       if (win && typeof win.close === 'function') {
