@@ -1,17 +1,26 @@
 // os-app-music.js
-// 從 GitHub CDN 拉取 /music/genshin/ 目錄下的音樂，讓使用者勾選並循環播放
+// 從 GitHub CDN 拉取多個遊戲的音樂，讓使用者勾選並循環播放
+// - 支援多遊戲（GAMES 陣列可自行擴充）
+// - 使用 Cache API 將音檔快取到本機，減少 CDN 用量
 (function () {
   'use strict';
 
-  const CDN_BASE   = 'https://cdn.jsdelivr.net/gh/wyk-math-team/resources/';
-  const MUSIC_DIR  = 'music/genshin/';
-  const GITHUB_API = 'https://api.github.com/repos/wyk-math-team/resources/contents/' + MUSIC_DIR;
+  const CDN_BASE = 'https://cdn.jsdelivr.net/gh/wyk-math-team/resources/';
 
-  const CACHE_KEY    = 'osMusicTracksCache_v1';
+  // ⭐ 遊戲清單（要加新遊戲，這裡加一行就好）
+  const GAMES = [
+    { id: 'genshin',  label: 'Genshin',  dir: 'music/genshin/'  },
+    { id: 'honkai3',  label: 'Honkai 3', dir: 'music/honkai3/'  },
+  ];
+  const MANIFEST_NAME = 'manifest.json';
+
+  const CACHE_KEY    = 'osMusicTracksCache_v2';
   const CACHE_TTL    = 60 * 60 * 1000;        // 目錄快取 1 小時
-  const SELECTED_KEY = 'osMusicSelected_v1';
+  const SELECTED_KEY = 'osMusicSelected_v2';
   const VOLUME_KEY   = 'osMusicVolume_v1';
   const MODE_KEY     = 'osMusicMode_v1';
+
+  const AUDIO_CACHE_KEY = 'osMusicAudioCache_v1';
 
   const AUDIO_EXT_RE = /\.(mp3|m4a|ogg|oga|wav|flac|aac)$/i;
 
@@ -19,57 +28,21 @@
   let _audio = null;
   let _audioBound = false;
 
+  // ⭐ 音訊快取（Cache API）
+  const _blobURLCache = new Map();   // url -> blob: URL
+  const _pendingLoads = new Map();   // url -> Promise
+
   const _state = {
-    tracks: [],            // [{ name, fileName, url, size }]
-    selected: new Set(),   // 勾選的 fileName
+    tracks: [],            // [{ gameId, gameLabel, fileName, trackKey, name, url, size }]
+    selected: new Set(),   // 勾選的 trackKey
     currentIdx: -1,        // 在「已勾選清單」中的索引
     playing: false,
     mode: 'sequence',      // sequence | shuffle | single
     volume: 0.7,
     refreshing: false,
+    filterGame: 'all',     // 'all' | gameId
   };
-    // ⭐ 音訊快取（Cache API，不是 localStorage）
-  const AUDIO_CACHE_KEY = 'osMusicAudioCache_v1';
-  const _blobURLCache   = new Map();  // url -> blob: URL
-  const _pendingLoads   = new Map();  // url -> Promise（避免同時重複下載同一首）
 
-  async function openAudioCache() {
-    try {
-      if (!('caches' in window)) return null;
-      return await caches.open(AUDIO_CACHE_KEY);
-    } catch { return null; }
-  }
-
-  // 取得可直接餵給 <audio src> 的 URL：
-  // - 命中快取 → 回傳 blob: URL（不再打 CDN）
-  // - 未命中   → fetch 一次、寫入快取、再回傳 blob: URL
-  // - 不支援 / 失敗 → 退回原始 CDN URL（保底能播）
-  async function getPlayableSrc(url) {
-    if (_blobURLCache.has(url)) return _blobURLCache.get(url);
-    if (_pendingLoads.has(url)) return _pendingLoads.get(url);
-
-    const task = (async () => {
-      const cache = await openAudioCache();
-      if (!cache) return url;
-
-      let res = await cache.match(url);
-      if (!res) {
-        res = await fetch(url, { credentials: 'omit' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        // 只快取成功的回應
-        await cache.put(url, res.clone());
-      }
-
-      const blob = await res.blob();
-      const objURL = URL.createObjectURL(blob);
-      _blobURLCache.set(url, objURL);
-      return objURL;
-    })();
-
-    _pendingLoads.set(url, task);
-    try { return await task; }
-    finally { _pendingLoads.delete(url); }
-  }
   // ═══════════ 工具 ═══════════
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, m =>
@@ -123,22 +96,78 @@
     try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), tracks })); } catch {}
   }
 
-  const MANIFEST_URL = CDN_BASE + MUSIC_DIR + 'manifest.json';
+  // ═══════════ 音訊快取（Cache API） ═══════════
+  async function openAudioCache() {
+    try {
+      if (!('caches' in window)) return null;
+      return await caches.open(AUDIO_CACHE_KEY);
+    } catch { return null; }
+  }
 
-async function fetchTracks(force) {
-  if (!force) { const c = loadCache(); if (c) return c; }
-  const res = await fetch(MANIFEST_URL);
-  if (!res.ok) throw new Error('HTTP ' + res.status);
-  const files = await res.json();
-  const tracks = files.map(fileName => ({
-    name: fileName.replace(/\.[^.]+$/, '').replace(/[._-]+/g, ' ').trim() || fileName,
-    fileName,
-    url: CDN_BASE + MUSIC_DIR + encodeURIComponent(fileName),
-    size: 0,
-  }));
-  saveCache(tracks);
-  return tracks;
-}
+  // 取得可直接餵給 <audio src> 的 URL：
+  // - 命中快取 → 回傳 blob: URL（不再打 CDN）
+  // - 未命中   → fetch 一次、寫入快取、再回傳 blob: URL
+  // - 不支援 / 失敗 → 退回原始 CDN URL（保底能播）
+  async function getPlayableSrc(url) {
+    if (_blobURLCache.has(url)) return _blobURLCache.get(url);
+    if (_pendingLoads.has(url)) return _pendingLoads.get(url);
+
+    const task = (async () => {
+      const cache = await openAudioCache();
+      if (!cache) return url;
+
+      let res = await cache.match(url);
+      if (!res) {
+        res = await fetch(url, { credentials: 'omit' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        await cache.put(url, res.clone());
+      }
+
+      const blob = await res.blob();
+      const objURL = URL.createObjectURL(blob);
+      _blobURLCache.set(url, objURL);
+      return objURL;
+    })();
+
+    _pendingLoads.set(url, task);
+    try { return await task; }
+    finally { _pendingLoads.delete(url); }
+  }
+
+  // ═══════════ 抓取目錄 ═══════════
+  async function fetchTracks(force) {
+    if (!force) { const c = loadCache(); if (c) return c; }
+
+    const all = [];
+    for (const g of GAMES) {
+      const url = CDN_BASE + g.dir + MANIFEST_NAME;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          console.warn(`[music] ${g.id} manifest HTTP ${res.status}`);
+          continue;
+        }
+        const files = await res.json();
+        if (!Array.isArray(files)) continue;
+        for (const fileName of files) {
+          if (typeof fileName !== 'string' || !fileName) continue;
+          all.push({
+            gameId:    g.id,
+            gameLabel: g.label,
+            fileName,
+            trackKey:  g.id + '/' + fileName,
+            name:      fileName.replace(/\.[^.]+$/, '').replace(/[._-]+/g, ' ').trim() || fileName,
+            url:       CDN_BASE + g.dir + encodeURIComponent(fileName),
+            size:      0,
+          });
+        }
+      } catch (e) {
+        console.warn(`[music] ${g.id} manifest failed:`, e);
+      }
+    }
+    saveCache(all);
+    return all;
+  }
 
   // ═══════════ Audio 單例 ═══════════
   function ensureAudio() {
@@ -160,10 +189,10 @@ async function fetchTracks(force) {
   }
 
   function getSelectedTracks() {
-    return _state.tracks.filter(t => _state.selected.has(t.fileName));
+    return _state.tracks.filter(t => _state.selected.has(t.trackKey));
   }
 
-    async function playByIndex(idx) {
+  async function playByIndex(idx) {
     const list = getSelectedTracks();
     if (!list.length) return;
     if (idx < 0 || idx >= list.length) return;
@@ -172,8 +201,8 @@ async function fetchTracks(force) {
     const track = list[idx];
     const a = ensureAudio();
 
-    // 同一首已載入過 → 直接播，不重新抓
-    if (a.dataset.fileName === track.fileName && a.src) {
+    // 同一首已載入過 → 直接播
+    if (a.dataset.trackKey === track.trackKey && a.src) {
       a.play().catch(err => {
         console.warn('Play failed:', err);
         _state.playing = false;
@@ -184,7 +213,7 @@ async function fetchTracks(force) {
 
     try {
       const src = await getPlayableSrc(track.url);
-      a.dataset.fileName = track.fileName;
+      a.dataset.trackKey = track.trackKey;
       a.src = src;
       a.play().catch(err => {
         console.warn('Play failed:', err);
@@ -220,21 +249,18 @@ async function fetchTracks(force) {
       return;
     }
     if (_state.mode === 'shuffle') {
-      // 避免只播同一首
       if (list.length === 1) { playByIndex(0); return; }
       let n;
       do { n = Math.floor(Math.random() * list.length); } while (n === _state.currentIdx);
       playByIndex(n);
       return;
     }
-    // sequence
     playByIndex((_state.currentIdx + 1) % list.length);
   }
 
   function prevTrack() {
     const list = getSelectedTracks();
     if (!list.length) return;
-    // 播超過 3 秒 → 回開頭
     if (_audio && _audio.currentTime > 3) {
       _audio.currentTime = 0;
       return;
@@ -288,7 +314,10 @@ async function fetchTracks(force) {
         .osm-refresh:hover { border-color:#5da8ff; color:#d6e4ff; }
         .osm-refresh:disabled { opacity:.4; cursor:not-allowed; }
 
-        .osm-controls { display:flex; gap:4px; padding:9px 12px 4px; flex-wrap:wrap; flex-shrink:0; }
+        .osm-games { display:flex; gap:4px; padding:8px 12px 0; flex-wrap:wrap; flex-shrink:0; }
+        .osm-games .osm-ctrl-btn { font-size:10.5px; padding:3px 8px; }
+
+        .osm-controls { display:flex; gap:4px; padding:8px 12px 4px; flex-wrap:wrap; flex-shrink:0; }
         .osm-ctrl-btn { background:rgba(100,150,220,.1); border:1px solid rgba(100,150,220,.25);
           color:#d6e4ff; border-radius:6px; padding:4px 9px; font-size:11px;
           cursor:pointer; font-family:inherit; display:inline-flex;
@@ -361,11 +390,13 @@ async function fetchTracks(force) {
 
       <div class="osm-wrap">
         <div class="osm-header">
-          <div class="osm-title"><i class="fas fa-music"></i>Genshin Music</div>
+          <div class="osm-title"><i class="fas fa-music"></i>Game Music</div>
           <button class="osm-refresh" id="osm-refresh-btn">
             <i class="fas fa-sync-alt"></i> Refresh
           </button>
         </div>
+
+        <div class="osm-games" id="osm-games"></div>
 
         <div class="osm-controls">
           <button class="osm-ctrl-btn" id="osm-all-btn"><i class="fas fa-check-double"></i> All</button>
@@ -403,25 +434,54 @@ async function fetchTracks(force) {
     `;
   }
 
+  function renderGameFilter() {
+    const el = document.getElementById('osm-games');
+    if (!el) return;
+
+    const counts = {};
+    for (const t of _state.tracks) counts[t.gameId] = (counts[t.gameId] || 0) + 1;
+
+    let html = `<button class="osm-ctrl-btn ${_state.filterGame === 'all' ? 'active' : ''}" data-game="all">
+        <i class="fas fa-layer-group"></i> All (${_state.tracks.length})
+      </button>`;
+    for (const g of GAMES) {
+      const n = counts[g.id] || 0;
+      if (!n) continue;
+      html += `<button class="osm-ctrl-btn ${_state.filterGame === g.id ? 'active' : ''}" data-game="${g.id}">
+          <i class="fas fa-gamepad"></i> ${esc(g.label)} (${n})
+        </button>`;
+    }
+    el.innerHTML = html;
+
+    el.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        _state.filterGame = btn.dataset.game;
+        renderGameFilter();
+        renderList();
+      });
+    });
+  }
+
   function renderList() {
     const listEl = document.getElementById('osm-list');
     if (!listEl) return;
 
-    if (!_state.tracks.length) {
+    const visible = _state.filterGame === 'all'
+      ? _state.tracks
+      : _state.tracks.filter(t => t.gameId === _state.filterGame);
+
+    if (!visible.length) {
       listEl.innerHTML = `<div class="osm-empty">
         <i class="fas fa-music"></i>
-        No audio files found in <b>music/genshin/</b><br>
-        <span style="font-size:11px;opacity:.7;margin-top:6px;display:inline-block;">
-          Supported: mp3, m4a, ogg, wav, flac, aac
-        </span>
+        No tracks in this game
       </div>`;
       return;
     }
 
-    listEl.innerHTML = _state.tracks.map(t => {
-      const checked = _state.selected.has(t.fileName);
+    listEl.innerHTML = visible.map(t => {
+      const checked = _state.selected.has(t.trackKey);
       return `
-        <div class="osm-track" data-file="${esc(t.fileName)}" title="${esc(t.name)}">
+        <div class="osm-track" data-key="${esc(t.trackKey)}" title="${esc(t.name)}">
           <input type="checkbox" class="osm-track-check" ${checked ? 'checked' : ''}>
           <i class="fas fa-music osm-track-icon"></i>
           <span class="osm-track-name">${esc(t.name)}</span>
@@ -430,30 +490,28 @@ async function fetchTracks(force) {
     }).join('');
 
     listEl.querySelectorAll('.osm-track').forEach(el => {
-      const fileName = el.dataset.file;
+      const key = el.dataset.key;
       const cb = el.querySelector('.osm-track-check');
 
-      // 點 row 就 toggle checkbox（除非點 checkbox 自己）
       el.addEventListener('click', (e) => {
         if (e.target === cb) return;
         cb.checked = !cb.checked;
-        onToggle(fileName, cb.checked);
+        onToggle(key, cb.checked);
       });
       cb.addEventListener('change', (e) => {
         e.stopPropagation();
-        onToggle(fileName, e.target.checked);
+        onToggle(key, e.target.checked);
       });
     });
 
     refreshPlayerUI();
   }
 
-  function onToggle(fileName, checked) {
-    if (checked) _state.selected.add(fileName);
-    else _state.selected.delete(fileName);
+  function onToggle(trackKey, checked) {
+    if (checked) _state.selected.add(trackKey);
+    else _state.selected.delete(trackKey);
     saveSelected();
 
-    // 若已選清單變動導致 currentIdx 越界 → 重設
     const list = getSelectedTracks();
     if (_state.currentIdx >= list.length) _state.currentIdx = list.length - 1;
     if (!list.length) {
@@ -483,15 +541,13 @@ async function fetchTracks(force) {
     if (prevBtn) prevBtn.disabled = list.length === 0;
     if (nextBtn) nextBtn.disabled = list.length === 0;
 
-    // 高亮當前曲目
     document.querySelectorAll('.osm-track').forEach(el => {
-      const fileName = el.dataset.file;
-      const isCur = cur && fileName === cur.fileName;
+      const key = el.dataset.key;
+      const isCur = cur && key === cur.trackKey;
       el.classList.toggle('playing', isCur && _state.playing);
-      el.classList.toggle('paused', isCur && !_state.playing);
+      el.classList.toggle('paused',  isCur && !_state.playing);
     });
 
-    // 進度重置（若沒在播）
     if (!_audio || !_audio.src) {
       const bar = document.getElementById('osm-progress-fill');
       if (bar) bar.style.width = '0%';
@@ -514,18 +570,27 @@ async function fetchTracks(force) {
   function bindEvents() {
     document.getElementById('osm-refresh-btn')?.addEventListener('click', () => refresh(true));
 
+    // All / Clear 只作用於「當前篩選的遊戲」
     document.getElementById('osm-all-btn')?.addEventListener('click', () => {
-      _state.tracks.forEach(t => _state.selected.add(t.fileName));
+      const scope = _state.filterGame === 'all'
+        ? _state.tracks
+        : _state.tracks.filter(t => t.gameId === _state.filterGame);
+      scope.forEach(t => _state.selected.add(t.trackKey));
       saveSelected();
       document.querySelectorAll('.osm-track-check').forEach(cb => cb.checked = true);
       refreshPlayerUI();
     });
     document.getElementById('osm-none-btn')?.addEventListener('click', () => {
-      _state.selected.clear();
+      const scope = _state.filterGame === 'all'
+        ? _state.tracks
+        : _state.tracks.filter(t => t.gameId === _state.filterGame);
+      scope.forEach(t => _state.selected.delete(t.trackKey));
       saveSelected();
       document.querySelectorAll('.osm-track-check').forEach(cb => cb.checked = false);
-      if (_audio) { _audio.pause(); _audio.removeAttribute('src'); _audio.load(); }
-      _state.currentIdx = -1;
+      if (_audio && !getSelectedTracks().length) {
+        _audio.pause(); _audio.removeAttribute('src'); _audio.load();
+        _state.currentIdx = -1;
+      }
       refreshPlayerUI();
     });
 
@@ -547,7 +612,6 @@ async function fetchTracks(force) {
       });
     }
 
-    // 點進度條跳轉
     const prog = document.getElementById('osm-progress');
     if (prog) {
       prog.addEventListener('click', (e) => {
@@ -572,17 +636,18 @@ async function fetchTracks(force) {
       const tracks = await fetchTracks(force);
       _state.tracks = tracks;
 
-      // 首次開啟 → 若沒任何選取紀錄，自動全選
       if (loadSelected() === null) {
-        tracks.forEach(t => _state.selected.add(t.fileName));
+        // 首次開啟 → 自動全選
+        tracks.forEach(t => _state.selected.add(t.trackKey));
         saveSelected();
       } else {
-        // 移除已不存在的檔案的選取
-        const valid = new Set(tracks.map(t => t.fileName));
-        Array.from(_state.selected).forEach(f => { if (!valid.has(f)) _state.selected.delete(f); });
+        // 移除已不存在檔案的選取
+        const valid = new Set(tracks.map(t => t.trackKey));
+        Array.from(_state.selected).forEach(k => { if (!valid.has(k)) _state.selected.delete(k); });
         saveSelected();
       }
 
+      renderGameFilter();
       renderList();
     } catch (e) {
       if (listEl) listEl.innerHTML = `<div class="osm-error">
@@ -622,7 +687,8 @@ async function fetchTracks(force) {
       bindEvents();
       setMode(_state.mode);
       refresh(false);
-            // ⭐ 請求持久化儲存，降低瀏覽器在空間壓力下清掉音樂快取的機率
+
+      // ⭐ 請求持久化儲存，降低瀏覽器在空間壓力下清掉音樂快取的機率
       if (navigator.storage && navigator.storage.persist) {
         navigator.storage.persist().catch(() => {});
       }
@@ -642,10 +708,9 @@ async function fetchTracks(force) {
       // ⭐ 若同個 OS 實例已經有 audio 在播放，UI 要同步
       if (_audio && _audio.src) {
         _state.playing = !_audio.paused;
-        // 找回 currentIdx
         const list = getSelectedTracks();
-        const curFile = _audio.dataset.fileName;
-        _state.currentIdx = list.findIndex(t => t.fileName === curFile);
+        const curKey = _audio.dataset.trackKey;
+        _state.currentIdx = list.findIndex(t => t.trackKey === curKey);
         refreshPlayerUI();
       }
     },
