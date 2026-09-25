@@ -136,39 +136,49 @@
 
   // ═══════════ 抓取目錄 ═══════════
   async function fetchTracks(force) {
-    if (!force) { const c = loadCache(); if (c) return c; }
+  if (!force) { const c = loadCache(); if (c) return c; }
 
-    const all = [];
-    for (const g of GAMES) {
-      const url = CDN_BASE + g.dir + MANIFEST_NAME;
-      try {
-        const res = await fetch(url);
-        if (!res.ok) {
-          console.warn(`[music] ${g.id} manifest HTTP ${res.status}`);
-          continue;
-        }
-        const files = await res.json();
-        if (!Array.isArray(files)) continue;
-        for (const fileName of files) {
-          if (typeof fileName !== 'string' || !fileName) continue;
-          all.push({
-            gameId:    g.id,
-            gameLabel: g.label,
-            fileName,
-            trackKey:  g.id + '/' + fileName,
-            name:      fileName.replace(/\.[^.]+$/, '').replace(/[._-]+/g, ' ').trim() || fileName,
-            url:       CDN_BASE + g.dir + encodeURIComponent(fileName),
-            size:      0,
-          });
-        }
-      } catch (e) {
-        console.warn(`[music] ${g.id} manifest failed:`, e);
+  const all = [];
+  for (const g of GAMES) {
+    // ⭐ manifest 是「目錄」，永遠要拿最新版：
+    //   1) 加時間戳 → 繞開 jsDelivr 邊緣快取
+    //   2) cache:'no-store' → 繞開瀏覽器 HTTP 快取
+    const baseUrl = CDN_BASE + g.dir + MANIFEST_NAME;
+    const url = baseUrl + (baseUrl.includes('?') ? '&' : '?')
+              + '_=' + Date.now() + Math.random().toString(36).slice(2, 6);
+
+    try {
+      const res = await fetch(url, {
+        cache: 'no-store',
+        credentials: 'omit',
+      });
+      if (!res.ok) {
+        console.warn(`[music] ${g.id} manifest HTTP ${res.status}`);
+        continue;
       }
-    }
-    saveCache(all);
-    return all;
-  }
+      const files = await res.json();
+      if (!Array.isArray(files)) continue;
 
+      for (const fileName of files) {
+        if (typeof fileName !== 'string' || !fileName) continue;
+        all.push({
+          gameId:    g.id,
+          gameLabel: g.label,
+          fileName,
+          trackKey:  g.id + '/' + fileName,
+          name:      fileName.replace(/\.[^.]+$/, '').replace(/[._-]+/g, ' ').trim() || fileName,
+          // ⭐ 音檔 URL 保持乾淨（Cache API 用它當 key，不能帶時間戳）
+          url:       CDN_BASE + g.dir + encodeURIComponent(fileName),
+          size:      0,
+        });
+      }
+    } catch (e) {
+      console.warn(`[music] ${g.id} manifest failed:`, e);
+    }
+  }
+  saveCache(all);
+  return all;
+}
   // ═══════════ Audio 單例 ═══════════
   function ensureAudio() {
     if (_audio) return _audio;
