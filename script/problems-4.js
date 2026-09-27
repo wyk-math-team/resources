@@ -722,46 +722,66 @@
 
       const randomBtn = document.getElementById('randomUnsolvedBtn');
       if (randomBtn && !randomBtn.dataset.listener) {
-          randomBtn.dataset.listener = 'true';
-          randomBtn.onclick = async () => {
-              try {
-                  const problemCacheRaw = localStorage.getItem('problemListCache_full');
-                  if (!problemCacheRaw) {
-                      alert('Problem list not cached. Please refresh the page.');
-                      return;
-                  }
-                  const problemCache = JSON.parse(problemCacheRaw);
-                  if (!problemCache.problems || !Array.isArray(problemCache.problems)) {
-                      alert('Invalid problem cache.');
-                      return;
-                  }
-                  const allIds = problemCache.problems.map(p => p.id);
+        randomBtn.dataset.listener = 'true';
+        randomBtn.onclick = async () => {
+          try {
+            const problemCacheRaw = localStorage.getItem('problemListCache_full');
+            if (!problemCacheRaw) {
+              alert('Problem list not cached. Please refresh the page.');
+              return;
+            }
+            const problemCache = JSON.parse(problemCacheRaw);
+            if (!problemCache.problems || !Array.isArray(problemCache.problems)) {
+              alert('Invalid problem cache.');
+              return;
+            }
+            const allIds = problemCache.problems.map(p => p.id);
 
-                  const stateCacheRaw = localStorage.getItem('userStatesCache');
-                  let userStates = {};
-                  if (stateCacheRaw) {
-                      const stateCache = JSON.parse(stateCacheRaw);
-                      userStates = stateCache.states || {};
-                  }
+            const stateCacheRaw = localStorage.getItem('userStatesCache');
+            let userStates = {};
+            if (stateCacheRaw) {
+              const stateCache = JSON.parse(stateCacheRaw);
+              userStates = stateCache.states || {};
+            }
 
-                  const unsolved = allIds.filter(id => {
-                      const state = userStates[id];
-                      return state !== 'passed';
-                  });
+            // ⭐ 先过滤未解决
+            const unsolved = allIds.filter(id => userStates[id] !== 'passed');
+            if (unsolved.length === 0) {
+              alert('🎉 All problems solved!');
+              return;
+            }
 
-                  if (unsolved.length === 0) {
-                      alert('🎉 All problems solved!');
-                      return;
-                  }
+            // ⭐ 按前缀分组（IP / HA / MO）
+            const PREFIXES = ['IP', 'HA', 'MO'];
+            const buckets = {};
+            PREFIXES.forEach(p => buckets[p] = []);
+            for (const id of unsolved) {
+              const m = String(id).match(/^([A-Za-z]+)/);
+              if (!m) continue;
+              const prefix = m[1].toUpperCase();
+              if (buckets[prefix]) buckets[prefix].push(id);
+            }
 
-                  const randomId = unsolved[Math.floor(Math.random() * unsolved.length)];
-                  location.href = `/problems/${encodeURIComponent(randomId)}`;
+            // ⭐ 只保留有未解决题目的前缀
+            const available = PREFIXES.filter(p => buckets[p].length > 0);
+            if (available.length === 0) {
+              alert('🎉 All problems solved!');
+              return;
+            }
 
-              } catch (e) {
-                  console.error('Random unsolved error:', e);
-                  alert('Error selecting random problem. Please try again.');
-              }
-          };
+            // ⭐ 均匀随机选一个前缀
+            const chosenPrefix = available[Math.floor(Math.random() * available.length)];
+            const pool = buckets[chosenPrefix];
+
+            // ⭐ 从该前缀池中随机抽一道
+            const randomId = pool[Math.floor(Math.random() * pool.length)];
+            location.href = `/problems/${encodeURIComponent(randomId)}`;
+
+          } catch (e) {
+            console.error('Random unsolved error:', e);
+            alert('Error selecting random problem. Please try again.');
+          }
+        };
       }
 
       const idInput = document.getElementById('idFilterInput');
