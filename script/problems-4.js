@@ -533,7 +533,7 @@
                 ${renderTagsDropdown()}
               </ul>
             </div>
-            <span class="tag-dd-hint">多标签为 <code>AND</code> 关系</span>
+            <span class="tag-dd-hint"><code>AND</code></span>
           </div>
           ${filterHtml}
           <div class="visibility-filter-container">${visibilityHtml}</div>
