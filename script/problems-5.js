@@ -11,7 +11,109 @@
       localStorage.removeItem('favoritesCache');
       localStorage.setItem('cacheClean_v3', '1');
     }
+        // ========== 随机题目抽奖动画 ==========
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
+    // 单个滚轮的滚动动画
+    function spinReel(el, pool, target, duration) {
+      return new Promise(resolve => {
+        if (!el) return resolve();
+        const start = Date.now();
+        const safePool = pool && pool.length > 0 ? pool : [target];
+
+        function tick() {
+          const elapsed = Date.now() - start;
+          if (elapsed >= duration) {
+            el.textContent = target;
+            el.classList.add('landed');
+            resolve();
+            return;
+          }
+          // 逐渐减速：前期快，后期慢
+          const progress = elapsed / duration;
+          const wait = 40 + Math.pow(progress, 2.5) * 260;
+          el.textContent = safePool[Math.floor(Math.random() * safePool.length)];
+          setTimeout(tick, wait);
+        }
+        tick();
+      });
+    }
+
+    // 播放整个抽奖流程，返回 Promise（动画结束后 resolve）
+    async function playRandomAnimation(targetId) {
+      // 解析目标
+      const m = String(targetId).match(/^([A-Za-z]+)(.*)$/);
+      if (!m) return;
+      const targetPrefix = m[1].toUpperCase();
+      const targetSuffix = m[2];
+
+      // 从缓存里收集池子
+      const problemCacheRaw = localStorage.getItem('problemListCache_full');
+      let allIds = [];
+      try {
+        allIds = (JSON.parse(problemCacheRaw)?.problems || []).map(p => p.id);
+      } catch (e) {}
+
+      const prefixSet = new Set();
+      const suffixMap = {};
+      for (const id of allIds) {
+        const mm = String(id).match(/^([A-Za-z]+)(.*)$/);
+        if (!mm) continue;
+        const p = mm[1].toUpperCase();
+        prefixSet.add(p);
+        if (!suffixMap[p]) suffixMap[p] = [];
+        suffixMap[p].push(mm[2]);
+      }
+
+      let prefixPool = Array.from(prefixSet);
+      let suffixPool = suffixMap[targetPrefix] || [targetSuffix];
+
+      // 池子至少要有 2 个才有滚动感（否则补一个相同的凑数）
+      if (prefixPool.length < 2) prefixPool = [targetPrefix, targetPrefix];
+      if (suffixPool.length < 2) suffixPool = [targetSuffix, targetSuffix];
+
+      // 创建遮罩
+      const overlay = document.createElement('div');
+      overlay.className = 'slot-overlay';
+      overlay.innerHTML = `
+        <div class="slot-machine">
+          <div class="slot-title">🎲 Random Problem 🎲</div>
+          <div class="slot-reels">
+            <div class="slot-reel" id="slotPrefix">—</div>
+            <div class="slot-reel" id="slotSuffix">—</div>
+          </div>
+          <div class="slot-status" id="slotStatus">Rolling…</div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      // 触发 fade-in
+      requestAnimationFrame(() => overlay.classList.add('show'));
+
+      const prefixEl = document.getElementById('slotPrefix');
+      const suffixEl = document.getElementById('slotSuffix');
+      const statusEl = document.getElementById('slotStatus');
+
+      // 1) 先滚前缀
+      await sleep(200);
+      await spinReel(prefixEl, prefixPool, targetPrefix, 900);
+
+      // 2) 再滚后缀
+      statusEl.textContent = 'Locking…';
+      await sleep(100);
+      await spinReel(suffixEl, suffixPool, targetSuffix, 800);
+
+      // 3) 展示结果
+      statusEl.textContent = `🎉 ${targetPrefix}${targetSuffix}`;
+      statusEl.classList.add('done');
+      await sleep(500);
+
+      // 4) 淡出
+      overlay.classList.add('fade-out');
+      await sleep(300);
+      overlay.remove();
+    }
     const mainContainer = document.getElementById('mainContent');
 
     // ========== 标签分类配置 ==========
@@ -744,14 +846,14 @@
               userStates = stateCache.states || {};
             }
 
-            // ⭐ 先过滤未解决
+            // 过滤未解决
             const unsolved = allIds.filter(id => userStates[id] !== 'passed');
             if (unsolved.length === 0) {
               alert('🎉 All problems solved!');
               return;
             }
 
-            // ⭐ 按前缀分组（IP / HA / MO）
+            // 按前缀分组
             const PREFIXES = ['IP', 'HA', 'MO'];
             const buckets = {};
             PREFIXES.forEach(p => buckets[p] = []);
@@ -762,20 +864,33 @@
               if (buckets[prefix]) buckets[prefix].push(id);
             }
 
-            // ⭐ 只保留有未解决题目的前缀
             const available = PREFIXES.filter(p => buckets[p].length > 0);
             if (available.length === 0) {
               alert('🎉 All problems solved!');
               return;
             }
 
-            // ⭐ 均匀随机选一个前缀
+            // 均匀选前缀 → 从该前缀池随机抽一道
             const chosenPrefix = available[Math.floor(Math.random() * available.length)];
             const pool = buckets[chosenPrefix];
-
-            // ⭐ 从该前缀池中随机抽一道
             const randomId = pool[Math.floor(Math.random() * pool.length)];
-            location.href = `/problems/${encodeURIComponent(randomId)}`;
+
+            // ⭐ 看 settings 开关决定是否播放动画
+            const animEnabled = localStorage.getItem('randomAnimation') !== 'false';
+
+            if (animEnabled) {
+              // 禁用按钮防连点
+              randomBtn.disabled = true;
+              try {
+                await playRandomAnimation(randomId);
+              } catch (e) {
+                console.warn('Animation failed:', e);
+              }
+              location.href = `/problems/${encodeURIComponent(randomId)}`;
+              // 注意：跳转后本页卸载，不需要恢复按钮
+            } else {
+              location.href = `/problems/${encodeURIComponent(randomId)}`;
+            }
 
           } catch (e) {
             console.error('Random unsolved error:', e);
