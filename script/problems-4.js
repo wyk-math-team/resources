@@ -635,15 +635,25 @@
           renderFullPage();
         });
       });
-
-      // ⭐ 分类卡片点击事件（替代原 .filter-tag-btn）
       document.querySelectorAll('.cat-item:not(.disabled)').forEach(item => {
         if (item.dataset.listener) return;
         item.dataset.listener = 'true';
         item.addEventListener('click', () => {
           const tag = item.dataset.tag;
+
+          // 找出这个 tag 属于哪个分类
+          const cat = TAG_CATEGORIES.find(c => c.tags.some(t => t.name === tag));
+          if (cat) {
+            // 先清掉同分类下的其他 tag
+            for (const t of cat.tags) {
+              if (t.name !== tag) activeTags.delete(t.name);
+            }
+          }
+
+          // 再 toggle 当前 tag
           if (activeTags.has(tag)) activeTags.delete(tag);
           else activeTags.add(tag);
+
           localStorage.setItem('problemFilterTags', JSON.stringify(Array.from(activeTags)));
           currentPage = 1;
           applyFiltersAndSort();
