@@ -888,6 +888,7 @@
               }
               location.href = `/problems/${encodeURIComponent(randomId)}`;
               // 注意：跳转后本页卸载，不需要恢复按钮
+                randomBtn.disabled=false;
             } else {
               location.href = `/problems/${encodeURIComponent(randomId)}`;
             }
