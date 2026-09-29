@@ -71,10 +71,35 @@
     border:1px solid var(--border);border-radius:20px;padding:5px 15px;white-space:nowrap;
   }
 
+  /* ---------- NEW: hide-UI toggle (thumb friendly) ---------- */
+  #ui-toggle{
+    position:fixed;right:14px;bottom:14px;z-index:60;
+    width:46px;height:46px;padding:0;margin:0;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;font-size:17px;line-height:1;
+    background:rgba(22,27,34,.93);color:var(--fg);
+    border:1px solid var(--border);cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.45);
+    backdrop-filter:blur(4px);
+    transition:background .12s,color .12s,border-color .12s,transform .12s;
+  }
+  #ui-toggle:hover{background:#2b323b}
+  #ui-toggle:active{transform:scale(.94)}
+  #ui-toggle[aria-pressed="true"]{
+    background:#1f3b5c;border-color:var(--accent);color:#cfe4ff;
+  }
+  #ui-toggle::after{content:none !important}   /* kill the global ✓ */
+
+  body.ui-hidden #panel,
+  body.ui-hidden #note,
+  body.ui-hidden #hint{display:none}
+
   @media (max-width:820px){
     #note{display:none}
     #panel{width:236px;padding:12px}
-    #hint{font-size:10.5px;padding:4px 12px}
+    #hint{font-size:10.5px;padding:4px 12px;max-width:calc(100vw - 150px);
+          overflow:hidden;text-overflow:ellipsis}
+    #ui-toggle{width:50px;height:50px;font-size:18px}
   }
 </style>
 </head>
@@ -118,6 +143,7 @@
     <h2>Legend</h2>
     <div><span class="swatch" style="background:#ff9f45"></span>Bond dipole (δ⁺ → δ⁻)</div>
     <div><span class="swatch" style="background:#e05cff"></span>Net molecular dipole</div>
+    <div><span class="swatch" style="background:transparent;border-color:#e05cff"></span>⊘ Non‑polar (net μ = 0)</div>
     <div><span class="swatch" style="background:#ffd54f"></span>Lone pair (2 e⁻)</div>
     <div><span class="swatch" style="background:#4fc3f7"></span>σ bonding / π cloud</div>
   </div>
@@ -126,6 +152,9 @@
 <div id="note"></div>
 
 <div id="hint">Drag to rotate · scroll to zoom · right‑drag to pan</div>
+
+<button id="ui-toggle" type="button" aria-pressed="false"
+        aria-label="Hide panels" title="Hide panels">✕</button>
 
 <script type="importmap">
 {
@@ -313,6 +342,69 @@ function makeLabel(text, color = '#e6edf3', scale = 0.55) {
   return sprite;
 }
 
+/* NEW — a framed badge sprite: ⊘ + text on a rounded, bordered plate.
+   Always faces the camera and is never hidden by geometry, so a
+   "net μ = 0" statement stays readable from any angle. */
+function makeBadge(text, accent = '#e05cff', textColor = '#f0b6ff') {
+  const H = 78, PAD = 20, SYM_R = 15, GAP = 15;
+  const font = 'bold 42px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  ctx.font = font;
+  const textW = Math.ceil(ctx.measureText(text).width);
+  const W = PAD + SYM_R * 2 + GAP + textW + PAD;
+
+  canvas.width  = W;
+  canvas.height = H;
+
+  // rounded plate
+  const r = 20;
+  ctx.beginPath();
+  ctx.moveTo(1 + r, 1);
+  ctx.arcTo(W - 1, 1,     W - 1, H - 1, r);
+  ctx.arcTo(W - 1, H - 1, 1,     H - 1, r);
+  ctx.arcTo(1,     H - 1, 1,     1,     r);
+  ctx.arcTo(1,     1,     W - 1, 1,     r);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(13,17,23,0.85)';
+  ctx.fill();
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // ⊘ symbol
+  const cx = PAD + SYM_R, cy = H / 2;
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = 4.5;
+  ctx.beginPath();
+  ctx.arc(cx, cy, SYM_R, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx - SYM_R * 0.7, cy + SYM_R * 0.7);
+  ctx.lineTo(cx + SYM_R * 0.7, cy - SYM_R * 0.7);
+  ctx.stroke();
+
+  // text
+  ctx.font = font;
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, PAD + SYM_R * 2 + GAP, H / 2 + 2);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.anisotropy = 4;
+
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: tex, transparent: true, depthTest: false, depthWrite: false
+  }));
+  const hWorld = 0.36;
+  sprite.scale.set(hWorld * (W / H), hWorld, 1);
+  sprite.renderOrder = 40;
+  return sprite;
+}
+
 function addSigmaLobe(parent, a, b, radius = 0.33) {
   const dir = new THREE.Vector3().subVectors(b, a);
   const len = dir.length();
@@ -492,7 +584,7 @@ function buildCCl3F() {
     bond.add(lbl);
   });
 
-  // Net dipole
+  // Net dipole (non-zero)
   const NET_SCALE = 1.85;
   const netLen = netMu.length() * NET_SCALE;
   net.add(makeArrow(posC, netMu, netLen, NET_COLOR, {
@@ -594,10 +686,10 @@ function buildXeF4() {
     bond.add(lbl);
   });
 
-  // Net dipole = 0 → show a small "net μ = 0" label
-  const zeroLbl = makeLabel('net μ = 0', '#f0b6ff', 0.85);
-  zeroLbl.position.set(0, -2.6, 0);
-  net.add(zeroLbl);
+  // Net dipole = 0 → explicit, always-readable badge
+  const zeroBadge = makeBadge('net μ = 0', '#e05cff', '#f0b6ff');
+  zeroBadge.position.set(0, -2.75, 0);
+  net.add(zeroBadge);
 
   // Dashed reference axes in the equatorial plane (visual aid)
   const axesMat = new THREE.LineBasicMaterial({
@@ -650,46 +742,57 @@ function buildBenzene() {
   for (let i = 0; i < 6; i++) addSigmaLobe(cloud, carbons[i], carbons[(i + 1) % 6], 0.20);
   carbons.forEach((c, i) => addSigmaLobe(cloud, c, hydrogens[i], 0.14));
 
-  // π system — two translucent discs above/below the ring
+  /* ---------- π system (rebuilt) --------------------------------
+     Six p orbitals overlap side-on into a delocalised π cloud above
+     and below the ring.  Rendered as two "puffy" ellipsoid lobes
+     instead of flat discs, so the cloud reads clearly from EVERY
+     viewing angle (the old flat circles almost vanished edge-on in
+     the Front view and were hard to see against the dark bg).      */
+  const PI_R = R_CC * 1.26;   // radial extent of the cloud
+  const PI_Y = 0.40;          // height of each lobe's centre
+  const PI_T = 0.28;          // half-thickness of each lobe
+
   const piMat = new THREE.MeshStandardMaterial({
     color: CLOUD_COLOR,
     emissive: CLOUD_COLOR,
-    emissiveIntensity: 0.32,
+    emissiveIntensity: 0.45,
     transparent: true,
-    opacity: 0.20,
+    opacity: 0.26,
     depthWrite: false,
     side: THREE.DoubleSide,
     roughness: 0.55
   });
-  for (const sign of [1, -1]) {
-    const disc = new THREE.Mesh(new THREE.CircleGeometry(R_CC * 1.22, 64), piMat);
-    disc.rotation.x = -Math.PI / 2;
-    disc.position.y = sign * 0.34;
-    disc.renderOrder = 2;
-    cloud.add(disc);
-  }
 
-  // π cloud rim — draw two faint circles to hint at the delocalised ring
-  const ringMat = new THREE.LineBasicMaterial({
-    color: CLOUD_COLOR, transparent: true, opacity: 0.55, depthWrite: false
-  });
   for (const sign of [1, -1]) {
+    // puffy lobe
+    const lobe = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 32), piMat);
+    lobe.scale.set(PI_R, PI_T, PI_R);
+    lobe.position.y = sign * PI_Y;
+    lobe.renderOrder = 2;
+    cloud.add(lobe);
+
+    // rim circle — hints at the closed delocalised loop
     const pts = [];
-    for (let i = 0; i <= 64; i++) {
-      const t = i * 2 * Math.PI / 64;
-      pts.push(new THREE.Vector3(R_CC * 1.22 * Math.cos(t), sign * 0.34, R_CC * 1.22 * Math.sin(t)));
+    for (let i = 0; i <= 72; i++) {
+      const t = i * 2 * Math.PI / 72;
+      pts.push(new THREE.Vector3(
+        PI_R * Math.cos(t), sign * PI_Y, PI_R * Math.sin(t)
+      ));
     }
     const ring = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints(pts), ringMat
+      new THREE.BufferGeometry().setFromPoints(pts),
+      new THREE.LineBasicMaterial({
+        color: CLOUD_COLOR, transparent: true, opacity: 0.5, depthWrite: false
+      })
     );
     ring.renderOrder = 3;
     cloud.add(ring);
   }
 
-  // Net dipole = 0
-  const zeroLbl = makeLabel('net μ = 0', '#f0b6ff', 0.85);
-  zeroLbl.position.set(0, -2.4, 0);
-  net.add(zeroLbl);
+  // Net dipole = 0 → explicit, always-readable badge
+  const zeroBadge = makeBadge('net μ = 0', '#e05cff', '#f0b6ff');
+  zeroBadge.position.set(0, -2.45, 0);
+  net.add(zeroBadge);
 
   return { root, cloud, lone, bond, net };
 }
@@ -702,6 +805,7 @@ const MOLECULES = {
     title: 'Trichlorofluoromethane',
     sub:   'CCl₃F · CFC‑11 · sp³ tetrahedral',
     cameraPos: [3.2, 2.6, 4.8],
+    netButton: 'Net molecular dipole (μ ≠ 0)',
     note: `
       <b>Bond lengths</b><br>
       C–F <span class="k">1.39 Å</span> · C–Cl <span class="k">1.76 Å</span><br>
@@ -722,6 +826,7 @@ const MOLECULES = {
     title: 'Xenon tetrafluoride',
     sub:   'XeF₄ · AX₄E₂ · square planar',
     cameraPos: [3.6, 3.4, 4.6],
+    netButton: 'Net molecular dipole (μ = 0)',
     note: `
       <b>Bond length</b><br>
       Xe–F <span class="k">1.95 Å</span><br>
@@ -746,6 +851,7 @@ const MOLECULES = {
     title: 'Benzene',
     sub:   'C₆H₆ · aromatic · D₆h',
     cameraPos: [3.6, 3.0, 4.6],
+    netButton: 'Net molecular dipole (μ = 0)',
     note: `
       <b>Bond lengths</b><br>
       C–C <span class="k">1.40 Å</span> · C–H <span class="k">1.09 Å</span><br>
@@ -755,7 +861,7 @@ const MOLECULES = {
       at 120°, one unhybridised p orbital perpendicular to the ring.<br>
       The six p orbitals overlap side‑on to give a
       <span class="k">delocalised π system</span> above and below the
-      plane (shown as the two pale discs).<br><br>
+      plane (the two glowing lobes).<br><br>
       <b>Polarity</b><br>
       C–H dipoles point outward and cancel by symmetry.
       The π cloud is symmetric about the plane. Hence
@@ -770,16 +876,21 @@ const MOLECULES = {
    ========================================================= */
 let currentName = null;
 let currentData = null;
-const overlayState = { cloud: true, lone: false, bond: false, net: false };
+
+/* Net-dipole overlay starts ON so the "μ = 0" verdict for the
+   non-polar molecules is visible immediately. */
+const overlayState = { cloud: true, lone: false, bond: false, net: true };
 
 function disposeGroup(group) {
   group.traverse(obj => {
     if (obj.geometry) obj.geometry.dispose();
     if (obj.material) {
       const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
-      mats.forEach(m => m.dispose());
+      mats.forEach(m => {
+        if (m.map) m.map.dispose();
+        m.dispose();
+      });
     }
-    if (obj.material && obj.material.map) obj.material.map.dispose();
   });
 }
 
@@ -823,6 +934,8 @@ function loadMolecule(name) {
   document.getElementById('mol-title').textContent = spec.title;
   document.getElementById('mol-sub').textContent   = spec.sub;
   document.getElementById('note').innerHTML        = spec.note;
+  document.getElementById('btn-net').textContent   =
+    spec.netButton || 'Net molecular dipole';
 
   for (const key of ['ccl3f', 'xef4', 'benzene']) {
     document.getElementById('mol-' + key)
@@ -876,6 +989,34 @@ document.getElementById('view-reset').addEventListener('click', () => {
   controls.target.set(0, 0, 0);
   controls.update();
 });
+
+/* ---------- NEW: hide / show all panels (mobile friendly) ---------- */
+const uiToggle = document.getElementById('ui-toggle');
+let uiHidden = false;
+
+function applyUiVisibility() {
+  document.body.classList.toggle('ui-hidden', uiHidden);
+  uiToggle.textContent = uiHidden ? '☰' : '✕';
+  uiToggle.setAttribute('aria-pressed', String(uiHidden));
+  uiToggle.setAttribute('aria-label', uiHidden ? 'Show panels' : 'Hide panels');
+  uiToggle.title = uiHidden ? 'Show panels' : 'Hide panels';
+}
+
+uiToggle.addEventListener('click', () => {
+  uiHidden = !uiHidden;
+  applyUiVisibility();
+});
+
+/* Keyboard shortcut: H */
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'h' || e.key === 'H') {
+    if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+    uiHidden = !uiHidden;
+    applyUiVisibility();
+  }
+});
+
+applyUiVisibility();
 
 /* =========================================================
    8.  RESIZE + RENDER LOOP
