@@ -2,13 +2,29 @@
 (function() {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
-  if (token) {
-    localStorage.setItem('auth_token', token);   // ← 改成和 getToken() 一致
-    const newUrl = location.pathname + location.search.replace(/[?&]token=[^&]*/, '').replace(/^&/, '?');
-    history.replaceState({}, document.title, newUrl);
-    location.reload();
-    return;
+  if (!token) return;
+
+  // ⭐ 解析 payload，判断是不是真正的登录 token
+  let payload;
+  try {
+    payload = JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return;   // 不是合法 JWT，不管
   }
+
+  // setup / reset token 有 action 字段，不是登录 token → 忽略
+  if (payload.action === 'setup' || payload.action === 'reset') {
+    return;   // ⭐ 让页面自己处理 URL 里的 token
+  }
+
+  // 真登录 token 必须有 username 和 role
+  if (!payload.username || !payload.role) return;
+
+  // 正常登录流程
+  localStorage.setItem('auth_token', token);
+  const newUrl = location.pathname + location.search.replace(/[?&]token=[^&]*/, '').replace(/^&/, '?');
+  history.replaceState({}, document.title, newUrl);
+  location.reload();
 })();
 let currentUser = null;
 
