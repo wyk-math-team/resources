@@ -232,3 +232,51 @@ window.getCurrentUser = getCurrentUser;
 window.login = login;
 window.logout = logout;
 window.apiCall = apiCall;
+// ═══════════════════════════════════════════════════════
+// ⭐ 跨页过渡：从登录页跳过来时，播放"揭幕"动画
+// ═══════════════════════════════════════════════════════
+(function () {
+  let shouldPlay = false;
+  try {
+    shouldPlay = sessionStorage.getItem('__loginTransition') === '1';
+    if (shouldPlay) sessionStorage.removeItem('__loginTransition');
+  } catch { /* 隐私模式忽略 */ }
+  if (!shouldPlay) return;
+
+  const play = () => {
+    const veil = document.createElement('div');
+    veil.style.cssText = [
+      'position:fixed', 'inset:0', 'z-index:99999',
+      'background:var(--accent,#337ab7)',
+      'pointer-events:none',
+      'clip-path:circle(160% at 50% 50%)',
+    ].join(';');
+
+    // 光晕层
+    const glow = document.createElement('div');
+    glow.style.cssText = [
+      'position:absolute', 'inset:0',
+      'background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.28) 0%,transparent 55%)',
+      'opacity:.9',
+      'transition:opacity .6s ease',
+    ].join(';');
+    veil.appendChild(glow);
+
+    document.body.appendChild(veil);
+
+    // 下一帧开始收缩
+    requestAnimationFrame(() => {
+      veil.style.transition = 'clip-path .65s cubic-bezier(.4,0,.2,1)';
+      glow.style.opacity = '0';
+      veil.style.clipPath = 'circle(0% at 50% 50%)';
+
+      setTimeout(() => veil.remove(), 720);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', play);
+  } else {
+    play();
+  }
+})();
