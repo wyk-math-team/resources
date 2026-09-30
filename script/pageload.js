@@ -1,21 +1,26 @@
 // resources/script/pageload.js
 // 全站页面过渡：防闪白 + 揭幕 + 淡出
+// localStorage.pageTransition = 'off' 时全部禁用
 (function () {
   'use strict';
 
-  var KEY = '__pt';
+  var KEY        = '__pt';
+  var TOGGLE_KEY = 'pageTransition';
 
-  // ⚠️ 颜色与 styles.css 的 --content-bg 保持一致
-  var BG_LIGHT = '#f0f2f5';   // :root --content-bg
-  var BG_DARK  = '#0d1117';   // [data-theme="dark"] --content-bg
+  // ⚠️ 颜色与 styles.css 的 --content-bg 一致
+  var BG_LIGHT = '#f0f2f5';
+  var BG_DARK  = '#0d1117';
 
-  var COVER_MS  = 380;        // 离开时：遮罩铺满的时长
-  var REVEAL_MS = 500;        // 进入时：遮罩收缩的时长
+  var COVER_MS  = 380;
+  var REVEAL_MS = 500;
+
+  function isEnabled() {
+    try { return localStorage.getItem(TOGGLE_KEY) !== 'off'; } catch (e) { return true; }
+  }
 
   function themeBg() {
-    try {
-      return (localStorage.getItem('theme') === 'dark') ? BG_DARK : BG_LIGHT;
-    } catch (e) { return BG_LIGHT; }
+    try { return localStorage.getItem('theme') === 'dark' ? BG_DARK : BG_LIGHT; }
+    catch (e) { return BG_LIGHT; }
   }
 
   function makeVeil(startOpen) {
@@ -28,36 +33,28 @@
       'clip-path:circle(' + (startOpen ? '160%' : '0%') + ' at 50% 50%)',
       'will-change:clip-path'
     ].join(';');
-    // 挂到 documentElement —— body 未必存在
     document.documentElement.appendChild(v);
     return v;
   }
 
-  // ── 新页面：揭幕（veil 从满屏收缩到 0）──
   function playReveal() {
     var v = makeVeil(true);
-    // 强制 reflow，让浏览器确认起始状态
     void v.offsetWidth;
-
     requestAnimationFrame(function () {
       v.style.transition = 'clip-path ' + REVEAL_MS + 'ms cubic-bezier(.4,0,.2,1)';
       v.style.clipPath = 'circle(0% at 50% 50%)';
       setTimeout(function () {
         v.remove();
-        // 清掉 inline 兜底背景，恢复主题切换能力
+        // 只清 inline；CSS 兜底还在
         document.documentElement.style.background = '';
       }, REVEAL_MS + 60);
     });
   }
 
-  // ── 离开页面：遮罩从点击点扩散铺满 ──
   function playCover(url, x, y) {
     var v = makeVeil(false);
-    if (x != null) {
-      v.style.clipPath = 'circle(0% at ' + x + 'px ' + y + 'px)';
-    }
+    if (x != null) v.style.clipPath = 'circle(0% at ' + x + 'px ' + y + 'px)';
     void v.offsetWidth;
-
     requestAnimationFrame(function () {
       v.style.transition = 'clip-path ' + COVER_MS + 'ms cubic-bezier(.4,0,.2,1)';
       v.style.clipPath = 'circle(160% at ' +
@@ -69,9 +66,9 @@
     });
   }
 
-  // ── 拦截 <a> 点击 ──
   function installLinkInterceptor() {
     document.addEventListener('click', function (e) {
+      if (!isEnabled()) return;
       if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
       var a = e.target.closest && e.target.closest('a');
@@ -97,8 +94,15 @@
     }, true);
   }
 
-  // ── 页面就绪：如果是从过渡进来的，播揭幕 ──
   function onReady() {
+    // ⭐ 关闭状态：清理一切残留，不播任何动画
+    if (!isEnabled()) {
+      try { sessionStorage.removeItem(KEY); } catch (e) {}
+      document.documentElement.style.background = '';
+      installLinkInterceptor();
+      return;
+    }
+
     var came = false;
     try {
       came = sessionStorage.getItem(KEY) === 'in';
@@ -115,6 +119,20 @@
     onReady();
   }
 
-  // 主动跳转（替代 window.location.href）
-  window.navigate = function (url) { playCover(url); };
+  // ── 对外 API ──
+  window.navigate = function (url) {
+    if (!isEnabled()) { window.location.href = url; return; }
+    playCover(url);
+  };
+
+  // ⭐ 运行时开关
+  window.setPageTransition = function (enable) {
+    try { localStorage.setItem(TOGGLE_KEY, enable ? 'on' : 'off'); } catch (e) {}
+    if (!enable) {
+      try { sessionStorage.removeItem(KEY); } catch (e) {}
+      document.documentElement.style.background = '';
+    }
+  };
+
+  window.isPageTransitionEnabled = isEnabled;
 })();
