@@ -92,6 +92,16 @@ async function login(username, password) {
 }
 
 function logout() {
+  const token = getToken();
+  if (token) {
+    try {
+      fetch('/api/heartbeat?action=offline', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token },
+        keepalive: true,   // ⭐ 让浏览器在页面跳转后继续发完这个请求
+      }).catch(() => {});
+    } catch (e) {}
+  }
   setToken(null);
   currentUser = null;
   window.location.href = '/';
