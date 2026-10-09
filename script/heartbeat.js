@@ -3,13 +3,12 @@
 (function () {
   'use strict';
 
-  // ⭐ 可调整参数（也可从 window.__HB_CONFIG__ 覆盖）
-  const CFG = Object.assign({
-    intervalMs:   5 * 60 * 1000,   // 每 5 分钟上报一次
-    activityMs:   60 * 1000,       // 60 秒内有活动才算"活跃"
-    minMovePx:    5,               // 鼠标移动超过 5px 才算
-    initialDelay: 5000,            // 页面加载 5 秒后首次上报
-  }, window.__HB_CONFIG__ || {});
+const CFG = Object.assign({
+  intervalMs:   180_000,   // 每 3 分钟 tick 一次
+  activityMs:   180_000,   // 3 分钟内有活动才算「活跃」
+  minMovePx:    5,
+  initialDelay: 5_000,
+}, window.__HB_CONFIG__ || {});
 
   let lastActivityAt = Date.now();
   let lastMouseX = null, lastMouseY = null;
