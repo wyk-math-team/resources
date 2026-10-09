@@ -128,7 +128,7 @@ async function apiCall(endpoint, method = 'GET', body = null) {
 
   const res = await fetch(url, options);
   if (res.status === 429) {
-    alert('Too many requests!');
+    // alert('Too many requests!');
     const data = await res.json().catch(() => ({ message: 'Too many requests' }));
     throw new Error(data.message || 'Too many requests');
   }
